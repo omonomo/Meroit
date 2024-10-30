@@ -135,9 +135,6 @@ move_y_sub="0" # 下付きY座標移動量
 scale_super_sub="45" # 基本から作成するグリフの拡大率
 scale_super_sub2="120" # 上付き、下付きからの拡大率
 
-# 括弧移動量
-move_y_bracket="0"
-
 # 縦書き全角ラテン小文字移動量
 move_y_vert_1="-10"
 move_y_vert_2="10"
@@ -152,8 +149,11 @@ tan_oblique="16" # 傾きの係数 (tanθ * 100)
 move_x_oblique="-48" # 移動量 (後の処理で * 100 にする)
 
 # 演算子移動量
-move_y_math="-25" # 通常
-move_y_s_math="-10" # 上付き、下付き
+move_y_math="20" # 通常
+move_y_s_math="0" # 上付き、下付き
+
+# 括弧移動量
+move_y_bracket="0"
 
 # calt用
 move_y_calt_separate3="-510" # 3桁区切り表示のY座標
@@ -333,16 +333,6 @@ scale_height_block=$(bc <<< "scale=1; ${scale_height_block} * ${scale_height_pl_
 
 # オブリーク体用
 move_x_oblique=$((move_x_oblique * 100)) # Transform()用 (移動量 * 100)
-
-# calt用
-move_y_calt_colon=$((move_y_math + 45)) # : のY座標移動量
-move_y_calt_colon=$(bc <<< "scale=0; ${move_y_calt_colon} * ${scale_height_latin} / 100") # : のY座標移動量
-move_y_calt_bar=$((move_y_math - 12)) # | のY座標移動量
-move_y_calt_bar=$(bc <<< "scale=0; ${move_y_calt_bar} * ${scale_height_latin} / 100") # | のY座標移動量
-move_y_calt_tilde=$((move_y_math)) # ~ のY座標移動量
-move_y_calt_tilde=$(bc <<< "scale=0; ${move_y_calt_tilde} * ${scale_height_latin} / 100") # ~ のY座標移動量
-move_y_calt_math=$((- move_y_math + move_y_bracket + 58)) # +-= のY座標移動量
-move_y_calt_math=$(bc <<< "scale=0; ${move_y_calt_math} * ${scale_height_latin} / 100") # *+-= のY座標移動量
 
 # Print information message
 cat << _EOT_
@@ -652,6 +642,20 @@ else
     trap "echo 'Abnormally terminated'; exit 3" HUP INT QUIT
 fi
 echo
+
+# calt用
+move_y_calt_colon=$((move_y_math + 40)) # : のY座標移動量
+move_y_calt_colon=$(bc <<< "scale=0; ${move_y_calt_colon} * ${scale_height_latin} / 100") # : のY座標移動量
+move_y_calt_colon=$(bc <<< "scale=0; ${move_y_calt_colon} * ${scale_height_hankaku} / 100") # : のY座標移動量
+move_y_calt_bar=$((move_y_math - 10)) # | のY座標移動量
+move_y_calt_bar=$(bc <<< "scale=0; ${move_y_calt_bar} * ${scale_height_latin} / 100") # | のY座標移動量
+move_y_calt_bar=$(bc <<< "scale=0; ${move_y_calt_bar} * ${scale_height_hankaku} / 100") # | のY座標移動量
+move_y_calt_tilde=$((move_y_math)) # ~ のY座標移動量
+move_y_calt_tilde=$(bc <<< "scale=0; ${move_y_calt_tilde} * ${scale_height_latin} / 100") # ~ のY座標移動量
+move_y_calt_tilde=$(bc <<< "scale=0; ${move_y_calt_tilde} * ${scale_height_hankaku} / 100") # ~ のY座標移動量
+move_y_calt_math=$((- move_y_math + move_y_bracket + 51)) # +-= のY座標移動量
+move_y_calt_math=$(bc <<< "scale=0; ${move_y_calt_math} * ${scale_height_latin} / 100") # *+-= のY座標移動量
+move_y_calt_math=$(bc <<< "scale=0; ${move_y_calt_math} * ${scale_height_hankaku} / 100") # *+-= のY座標移動量
 
 # フォントバージョンにビルドNo追加
 buildNo=$(date "+%s")
@@ -1057,7 +1061,7 @@ while (i < SizeOf(input_list))
     SelectMore(0u2600, 0u262f) # ☀-☯
     SelectMore(0u2638) # ☸
     Move(204, 0)
-    Scale(${scale_hanaku2zenkaku}, ${scale_hanaku2zenkaku}, 512, ${center_height_hankaku})
+    Scale(${scale_hanaku2zenkaku}, ${scale_hanaku2zenkaku}, ${width_zenkaku} / 2, ${center_height_hankaku})
     SetWidth(${width_zenkaku})
 
 # ←-⇿ (全角にする)
@@ -1065,7 +1069,7 @@ while (i < SizeOf(input_list))
     foreach
         if (WorthOutputting())
             Move(204, 0)
-            Scale(${scale_hanaku2zenkaku}, ${scale_hanaku2zenkaku}, 512, ${center_height_hankaku})
+            Scale(${scale_hanaku2zenkaku}, ${scale_hanaku2zenkaku}, ${width_zenkaku} / 2, ${center_height_hankaku})
             SetWidth(${width_zenkaku})
         endif
     endloop
@@ -1075,7 +1079,7 @@ while (i < SizeOf(input_list))
     foreach
         if (WorthOutputting())
             Move(204, 0)
-            Scale(${scale_hanaku2zenkaku}, ${scale_hanaku2zenkaku}, 512, ${center_height_hankaku})
+            Scale(${scale_hanaku2zenkaku}, ${scale_hanaku2zenkaku}, ${width_zenkaku} / 2, ${center_height_hankaku})
             SetWidth(${width_zenkaku})
         endif
     endloop
@@ -1085,7 +1089,7 @@ while (i < SizeOf(input_list))
     foreach
         if (WorthOutputting())
             Move(204, 0)
-            Scale(${scale_hanaku2zenkaku}, ${scale_hanaku2zenkaku}, 512, ${center_height_hankaku})
+            Scale(${scale_hanaku2zenkaku}, ${scale_hanaku2zenkaku}, ${width_zenkaku} / 2, ${center_height_hankaku})
             SetWidth(${width_zenkaku})
         endif
     endloop
@@ -1570,11 +1574,11 @@ while (i < SizeOf(input_list))
     endloop
 
 # 括弧を上下に移動
-    brct = [0u0028, 0u0029, 0u005b, 0u005d,\
+    brkt = [0u0028, 0u0029, 0u005b, 0u005d,\
             0u007b, 0u007b] # ()[] {}
     j = 0
-    while (j < SizeOf(brct))
-        Select(brct[j]);
+    while (j < SizeOf(brkt))
+        Select(brkt[j]);
         Move(0, ${move_y_bracket})
         SetWidth(${width_hankaku})
         j += 1
@@ -1724,7 +1728,7 @@ while (i < SizeOf(input_list))
         endloop
 
         Select(0uf6c5) #  (私用領域)
-        Scale(${scale_width_latin}, ${scale_height_latin}, 256, 0)
+        Scale(${scale_width_latin}, ${scale_height_latin}, 308, 0)
         Move(${move_x_hankaku_latin}, 0)
         SetWidth(${width_hankaku})
 
@@ -1760,7 +1764,7 @@ while (i < SizeOf(input_list))
         foreach
             if (WorthOutputting())
                 if (GlyphInfo("Width") <= 700)
-                    Scale(${scale_width_hankaku}, ${scale_height_hankaku}, 250, 0)
+                    Scale(${scale_width_hankaku}, ${scale_height_hankaku}, ${width_hankaku} / 2, 0)
                     SetWidth(${width_hankaku})
                 endif
             endif
@@ -1769,7 +1773,7 @@ while (i < SizeOf(input_list))
         Select(${address_store_mod}, ${address_store_mod} + ${num_mod_glyphs} * 6 - 1) # 避難したDQVZ
         SelectMore(${address_store_zero}, ${address_store_zero} + 5) # 避難したスラッシュ無し0
         SelectMore(${address_store_visi_latin}, ${address_store_visi_latin} + 1) # 避難した ⁄|
-        Scale(${scale_width_hankaku}, ${scale_height_hankaku}, 250, 0)
+        Scale(${scale_width_hankaku}, ${scale_height_hankaku}, ${width_hankaku} / 2, 0)
         SetWidth(${width_hankaku})
     endif
 
@@ -2829,12 +2833,12 @@ while (i < \$argc)
 # 保管している、改変されたグリフの縦書きを追加
     Select(${address_store_visi_latin} + 1); Copy() # |
     Select(${address_store_zenhan} + 10); Paste() # 縦書き
-    Move(256, 0)
+    Move(256 - ${move_x_hankaku}, 0)
     Rotate(-90, 487, 318)
     SetWidth(${width_zenkaku})
 
  #    Select(${address_store_zenhan} + 200); Paste() # 全角縦棒を破線にする場合有効にする
- #    Move(256, 0) # ただし ss06 に対応する処理の追加が必要
+ #    Move(256 - ${move_x_hankaku}, 0) # ただし ss06 に対応する処理の追加が必要
  #    SetWidth(${width_zenkaku})
 
 # --------------------------------------------------
@@ -3165,7 +3169,7 @@ while (i < \$argc)
         Select(0u0030 + j); Copy() # 0
         glyphName = GlyphInfo("Name")
         Select(k); Paste()
-        Scale(${scale_calt_decimal}, ${scale_calt_decimal}, 256, 0)
+        Scale(${scale_calt_decimal}, ${scale_calt_decimal}, ${width_hankaku} / 2, 0)
         SetWidth(${width_hankaku})
  #        AddPosSub(lookupSub0, glyphName) # ノーマル←小数
         glyphName = GlyphInfo("Name")
@@ -3944,7 +3948,7 @@ while (i < \$argc)
     # 小数
     Select(${address_store_zero}); Copy() # スラッシュ無し0
     Select(k); Paste()
-    Scale(${scale_calt_decimal}, ${scale_calt_decimal}, 256, 0)
+    Scale(${scale_calt_decimal}, ${scale_calt_decimal}, ${width_hankaku} / 2, 0)
     SetWidth(${width_hankaku})
     glyphName = GlyphInfo("Name")
     Select(${address_ss_figure} + 30) # ssで変換したグリフからの変換
