@@ -4,7 +4,7 @@ Copyright (c) 2024 omonomo ([https://omonomo.github.io/Meroit/](https://omonomo.
 
 ## 簡単な説明
 
-自作フォント [Cyroit](https://omonomo.github.io/Cyroit/) に Meslo LG を合成しました。Cyroit の姉妹フォントになります。
+自作合成フォント [Cyroit](https://omonomo.github.io/Cyroit/) に Meslo LG を合成しました。Cyroit の姉妹フォントになります。
 
 ## 収録フォントの主な違い
 
