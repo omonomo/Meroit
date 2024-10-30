@@ -58,9 +58,9 @@ address_calt_AR=$((address_calt_AL + 239)) # calt置換アドレス(右に移動
 address_calt_figure=$((address_calt_AR + 239)) # calt置換アドレス(桁区切り付きの数字)
 address_calt_barD=$((address_calt_figure + 40)) # calt置換アドレス(下に移動した |)
 address_calt_hyphenL=$((address_calt_barD + 7)) # calt置換アドレス(左に移動した *)
-address_calt_hyphenR=$((address_calt_hyphenL + 27)) # calt置換アドレス(右に移動した *)
-address_calt_end=$((address_calt_hyphenR + 27 - 1)) # calt置換の最終アドレス (右上に移動した :)
-address_calt_barDLR="24" # calt置換アドレス(左右に移動した* から、左右下に移動した | までの増分)
+address_calt_hyphenR=$((address_calt_hyphenL + 28)) # calt置換アドレス(右に移動した *)
+address_calt_end=$((address_calt_hyphenR + 28 - 1)) # calt置換の最終アドレス (右上に移動した :)
+address_calt_barDLR="24" # calt置換アドレス(左右に移動した * から、左右下に移動した | までの増分)
 
 address_ss_start=$((address_calt_end + 1)) # ss置換の先頭アドレス
 address_ss_space=${address_ss_start} # ss置換アドレス(全角スペース)
@@ -246,8 +246,6 @@ origin_nerd="SymbolsNerdFontMono-Regular.ttf"
 modified_latin_generator="modified_latin_generator.pe"
 modified_latin_regular="modified-latin-Regular.sfd"
 modified_latin_bold="modified-latin-Bold.sfd"
-
-modified_latin_kana_generator="modified_latin_kana_generator.pe"
 
 custom_font_generator="custom_font_generator.pe"
 
@@ -3268,12 +3266,14 @@ while (i < \$argc)
             0u007b, 0u007d,\
             0u0021, 0u0022, 0u0027, 0u002c,\
             0u002e, 0u003a, 0u003b, 0u003f,\
-            0u0060, 0u007c, 0u0000, 0u0001] # *+-=_solidus reverse solidus<>()[]{}!quote apostrophe,.:;?grave|、移動した|:
+            0u0060, 0u007c, 0u0000, 0u0001, 0u0002] # *+-=_solidus reverse solidus<>()[]{}!quote apostrophe,.:;?grave|、移動した|~:
     j = 0
     while (j < SizeOf(symb))
         if (symb[j] == 0u0000) # 移動した |
             Select(${address_calt_barD})
-        elseif (symb[j] == 0u0001) # 移動した :
+        elseif (symb[j] == 0u0001) # 移動した ~
+            Select(${address_calt_barD} + 1)
+        elseif (symb[j] == 0u0002) # 移動した :
             Select(${address_calt_barD} + 2)
         else
             Select(symb[j])
@@ -3285,9 +3285,11 @@ while (i < \$argc)
         SetWidth(${width_hankaku})
         AddPosSub(lookupSub0, glyphName) # 左→中
         glyphName = GlyphInfo("Name")
-        if (symb[j] == 0u0000)
+        if (symb[j] == 0u0000) # 移動した |
             Select(${address_calt_barD})
-        elseif (symb[j] == 0u0001)
+        elseif (symb[j] == 0u0001) # 移動した ~
+            Select(${address_calt_barD} + 1)
+        elseif (symb[j] == 0u0002) # 移動した :
             Select(${address_calt_barD} + 2)
         else
             Select(symb[j])
@@ -3304,9 +3306,11 @@ while (i < \$argc)
 
     j = 0
     while (j < SizeOf(symb))
-        if (symb[j] == 0u0000)
+        if (symb[j] == 0u0000) # 移動した |
             Select(${address_calt_barD})
-        elseif (symb[j] == 0u0001)
+        elseif (symb[j] == 0u0001) # 移動した ~
+            Select(${address_calt_barD} + 1)
+        elseif (symb[j] == 0u0002) # 移動した :
             Select(${address_calt_barD} + 2)
         else
             Select(symb[j])
@@ -3318,9 +3322,11 @@ while (i < \$argc)
         SetWidth(${width_hankaku})
         AddPosSub(lookupSub0, glyphName) # 左→中
         glyphName = GlyphInfo("Name")
-        if (symb[j] == 0u0000)
+        if (symb[j] == 0u0000) # 移動した |
             Select(${address_calt_barD})
-        elseif (symb[j] == 0u0001)
+        elseif (symb[j] == 0u0001) # 移動した ~
+            Select(${address_calt_barD} + 1)
+        elseif (symb[j] == 0u0002) # 移動した :
             Select(${address_calt_barD} + 2)
         else
             Select(symb[j])
