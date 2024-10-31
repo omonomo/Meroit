@@ -127,12 +127,13 @@ scale_pomicons="91" # Pomicons の拡大率
 scale_nerd="89" # Pomicons Powerline 以外の拡大率
 
 # 半角から全角に変換する場合の拡大率
-scale_hanaku2zenkaku="125"
+scale_hankaku2zenkaku="125"
 
 # 上付き、下付き用
-move_y_super="334" # 上付きY座標移動量
+move_y_super="334" # 基本から作成した上付き文字のY座標移動量
+move_y_super2="-90" # 上付きからのY座標移動量
 move_y_sub="0" # 下付きY座標移動量
-scale_super_sub="45" # 基本から作成するグリフの拡大率
+scale_super_sub="45" # 基本から作成したグリフの拡大率
 scale_super_sub2="120" # 上付き、下付きからの拡大率
 
 # 縦書き全角ラテン小文字移動量
@@ -150,7 +151,7 @@ move_x_oblique="-48" # 移動量 (後の処理で * 100 にする)
 
 # 演算子移動量
 move_y_math="20" # 通常
-move_y_s_math="0" # 上付き、下付き
+move_y_s_math="10" # 上付き、下付き
 
 # 括弧移動量
 move_y_bracket="0"
@@ -1024,76 +1025,6 @@ while (i < SizeOf(input_list))
 # 記号のグリフを加工
     Print("Edit symbols")
 
-# 全角にする
-    Select(0u00bc, 0u00be) # ¼½¾
-    Select(0u2014, 0u2015) # —―
-    SelectMore(0u2026) # …
- #    SelectMore(0u2030, 0u2031) # ‰‱
-    SelectMore(0u203c) # ‼
-    SelectMore(0u2047, 0u2049) # ⁇⁈⁉
-    SelectMore(0u2153, 0u215f) # ⅓-⅟
-    SelectMore(0u221d, 0u221e) # ∝∞
-    SelectMore(0u221f, 0u2220) # ∟∠
-    SelectMore(0u222d) # ∭
-    SelectMore(0u22ef) # ⋯
-    SelectMore(0u2300) # ⌀
-    SelectMore(0u2302, 0u2303) # ⌂⌃
-    SelectMore(0u2312, 0u2313) # ⌒⌓
-    SelectMore(0u2316) # ⌖
-    SelectMore(0u2318) # ⌘
-    SelectMore(0u2325, 0u2328) # ⌥⌦⌧⌨
-    SelectMore(0u232b) # ⌫
-    SelectMore(0u2335) # ⌵
-    SelectMore(0u2388, 0u238b) # ⎈⎉⎊⎋
-    SelectMore(0u23ce, 0u23cf) # ⏎⏏
-    SelectMore(0u25a0, 0u25a1) # ■□
-    SelectMore(0u25ac, 0u25af) # ▬▭▮▯
-    SelectMore(0u25b0, 0u25b3) # ▰▱▲△
-    SelectMore(0u25b6, 0u25b7) # ▶▷
-    SelectMore(0u25ba, 0u25bd) # ►▻▼▽
-    SelectMore(0u25c0, 0u25c1) # ◀◁
-    SelectMore(0u25c4, 0u25c7) # ◄◅◆◇
-    SelectMore(0u25cb, 0u25cc) # ○◌
-    SelectMore(0u25ce, 0u25cf) # ◎●
-    SelectMore(0u25d9) # ◙
-    SelectMore(0u25e0, 0u25e5) # ◠◡◢◣◤◥
-    SelectMore(0u25ef) # ◯
-    SelectMore(0u2600, 0u262f) # ☀-☯
-    SelectMore(0u2638) # ☸
-    Move(204, 0)
-    Scale(${scale_hanaku2zenkaku}, ${scale_hanaku2zenkaku}, ${width_zenkaku} / 2, ${center_height_hankaku})
-    SetWidth(${width_zenkaku})
-
-# ←-⇿ (全角にする)
-    Select(0u2190, 0u21ff) # ←-⇿
-    foreach
-        if (WorthOutputting())
-            Move(204, 0)
-            Scale(${scale_hanaku2zenkaku}, ${scale_hanaku2zenkaku}, ${width_zenkaku} / 2, ${center_height_hankaku})
-            SetWidth(${width_zenkaku})
-        endif
-    endloop
-
-# ☼-⚱ (全角にする)
-    Select(0u263c, 0u26b1) # ☀-⚱
-    foreach
-        if (WorthOutputting())
-            Move(204, 0)
-            Scale(${scale_hanaku2zenkaku}, ${scale_hanaku2zenkaku}, ${width_zenkaku} / 2, ${center_height_hankaku})
-            SetWidth(${width_zenkaku})
-        endif
-    endloop
-
-# ✁-➾ (全角にする)
-    Select(0u2701, 0u27be) # ✁-➾
-    foreach
-        if (WorthOutputting())
-            Move(204, 0)
-            Scale(${scale_hanaku2zenkaku}, ${scale_hanaku2zenkaku}, ${width_zenkaku} / 2, ${center_height_hankaku})
-            SetWidth(${width_zenkaku})
-        endif
-    endloop
-
 # * (下げる)
     Select(0u002a) # *
     Move(0, -138)
@@ -1124,7 +1055,7 @@ while (i < SizeOf(input_list))
     Select(0u0060) # \`
     SelectMore(0u00b4) # ´
     SelectMore(0u2032, 0u2037) # ′″‴‵‶‷
-    Scale(135, 135, 308, 800)
+    Scale(130, 130, 308, 800)
     SetWidth(${width_hankaku})
 
 # ⁄ (追加、/と区別するため分割)
@@ -1162,7 +1093,7 @@ while (i < SizeOf(input_list))
  #    SetWidth(${width_hankaku})
 
 # ⎛-⎭ (縦線を延ばす)
-    brkt = [0u239b, 0u239c, 0u239e, 0u23af,\
+    brkt = [0u239b, 0u239c, 0u239e, 0u239f,\
             0u23a1, 0u23a2, 0u23a4, 0u23a5,\
             0u23a7, 0u23a8,\
             0u23aa,\
@@ -1171,11 +1102,11 @@ while (i < SizeOf(input_list))
     while (j < SizeOf(brkt))
         Select(0u25a0); Copy() # ■
         Select(65552);  Paste() # Temporary glyph
-        Move(-130, -784)
+        Move(-130, -729)
         Select(brkt[j]); Copy()
         Select(65552);  PasteInto() # Temporary glyph
         OverlapIntersect()
-        Scale(100, 250, 0, -164)
+        Scale(100, 250, 0, -158)
         Copy()
         Select(brkt[j]); PasteInto()
         RemoveOverlap()
@@ -1192,7 +1123,7 @@ while (i < SizeOf(input_list))
     while (j < SizeOf(brkt))
         Select(0u25a0); Copy() # ■
         Select(65552);  Paste() # Temporary glyph
-        Move(-130, 1006)
+        Move(-130, 903)
         Select(brkt[j]); Copy()
         Select(65552);  PasteInto() # Temporary glyph
         OverlapIntersect()
@@ -1205,6 +1136,47 @@ while (i < SizeOf(input_list))
     endloop
 
     Select(65552); Clear() # Temporary glyph
+
+# ⌠ (縦線を延ばす)
+    Select(0u25a0); Copy() # ■
+    Select(65552);  Paste() # Temporary glyph
+    Move(-130, -727)
+    Select(0u2320); Copy() # ⌠
+    Select(65552);  PasteInto() # Temporary glyph
+    OverlapIntersect()
+    Scale(100, 251, 0, -156)
+    Copy()
+    Select(0u2320); PasteInto() # ⌠
+    RemoveOverlap()
+    SetWidth(${width_hankaku})
+
+    Select(65552); Clear() # Temporary glyph
+
+# ⌡ (縦線を延ばす)
+    Select(0u25a0); Copy() # ■
+    Select(65552);  Paste() # Temporary glyph
+    Move(-130, 727)
+    Select(0u2321); Copy() # ⌡
+    Select(65552);  PasteInto() # Temporary glyph
+    OverlapIntersect()
+    Scale(100, 408, 0, 688)
+    Copy()
+    Select(0u2321); PasteInto() # ⌡
+    RemoveOverlap()
+    SetWidth(${width_hankaku})
+
+    Select(65552); Clear() # Temporary glyph
+
+# ⎮ (長くする)
+    Select(0u23ae) # ⎮
+    Scale(100, 144)
+    Move(0, 78)
+    SetWidth(${width_hankaku})
+
+# ─-╿ (縦に延ばす)
+    Select(0u2500, 0u257f) # ─-╿
+    Scale(100, 110, 308, 278)
+    SetWidth(${width_hankaku})
 
 # スラッシュ無し0を作成
     Print("Edit slashed zero")
@@ -1239,7 +1211,7 @@ while (i < SizeOf(input_list))
     Copy()
     Select(${address_store_zero} + 1); PasteInto()
     OverlapIntersect()
-    Scale(${scale_super_sub2}, ${scale_super_sub2}, 308, ${move_y_super})
+    Scale(${scale_super_sub2}, 308, ${move_y_super})
     SetWidth(${width_hankaku})
 
     Select(0u2080); Copy() # ₀
@@ -1247,7 +1219,7 @@ while (i < SizeOf(input_list))
     Select(65552);  Copy() # Temporary glyph
     Select(${address_store_zero} + 2); PasteWithOffset(0, -334)
     OverlapIntersect()
-    Scale(${scale_super_sub2}, ${scale_super_sub2}, 308, ${move_y_sub})
+    Scale(${scale_super_sub2}, 308, ${move_y_sub})
     SetWidth(${width_hankaku})
 
     Select(65552); Clear() # Temporary glyph
@@ -1304,9 +1276,8 @@ while (i < SizeOf(input_list))
         Select(orig[j]); Copy()
         Select(0u2095 + j); Paste()
         Scale(${scale_super_sub}, 308, 0)
-        CorrectDirection()
         Move(0, ${move_y_sub})
-        Scale(${scale_super_sub2}, ${scale_super_sub2}, 308, ${move_y_sub})
+        Scale(${scale_super_sub2}, 308, ${move_y_sub})
         SetWidth(${width_hankaku})
         j += 1
     endloop
@@ -1319,9 +1290,8 @@ while (i < SizeOf(input_list))
         Select(orig[j]); Copy()
         Select(subs[j]); Paste()
         Scale(${scale_super_sub}, 308, 0)
-        CorrectDirection()
         Move(0, ${move_y_sub})
-        Scale(${scale_super_sub2}, ${scale_super_sub2}, 308, ${move_y_sub})
+        Scale(${scale_super_sub2}, 308, ${move_y_sub})
         SetWidth(${width_hankaku})
         j += 1
     endloop
@@ -1337,7 +1307,7 @@ while (i < SizeOf(input_list))
     j = 0
     while (j < SizeOf(orig))
         Select(subs[j])
-        Scale(${scale_super_sub2}, ${scale_super_sub2}, 308, ${move_y_sub})
+        Scale(${scale_super_sub2}, 308, ${move_y_sub})
         glyphName = GlyphInfo("Name")
         Select(orig[j])
         AddPosSub(lookupSub, glyphName)
@@ -1357,7 +1327,7 @@ while (i < SizeOf(input_list))
     j = 0
     while (j < SizeOf(orig))
         Select(subs[j])
-        Scale(${scale_super_sub2}, ${scale_super_sub2}, 308, ${move_y_sub})
+        Scale(${scale_super_sub2}, 308, ${move_y_sub})
         glyphName = GlyphInfo("Name")
         Select(orig[j])
         AddPosSub(lookupSub, glyphName)
@@ -1370,7 +1340,7 @@ while (i < SizeOf(input_list))
     j = 0
     while (j < SizeOf(orig))
         Select(subs[j])
-        Scale(${scale_super_sub2}, ${scale_super_sub2}, 308, ${move_y_sub})
+        Scale(${scale_super_sub2}, 308, ${move_y_sub})
         glyphName = GlyphInfo("Name")
         Select(orig[j])
         AddPosSub(lookupSub, glyphName)
@@ -1386,15 +1356,13 @@ while (i < SizeOf(input_list))
 
     orig = [0u03b2, 0u03b3, 0u03b4, 0u03c6, 0u03c7] # βγδφχ
     sups = [0u1d5d, 0u1d5e, 0u1d5f, 0u1d60, 0u1d61] # ᵝᵞᵟᵠᵡ # グリフ作成
-
     j = 0
     while (j < SizeOf(orig))
         Select(orig[j]); Copy()
         Select(sups[j]); Paste()
         Scale(${scale_super_sub}, 308, 0)
-        CorrectDirection()
         Move(0, ${move_y_super})
-        Scale(${scale_super_sub2}, ${scale_super_sub2}, 308, ${move_y_super})
+        Scale(${scale_super_sub2}, 308, ${move_y_super})
         SetWidth(${width_hankaku})
         j += 1
     endloop
@@ -1410,7 +1378,8 @@ while (i < SizeOf(input_list))
     j = 0
     while (j < SizeOf(orig))
         Select(sups[j])
-        Scale(${scale_super_sub2}, ${scale_super_sub2}, 308, ${move_y_super})
+        Scale(${scale_super_sub2}, 308, ${move_y_super})
+        Move(0, ${move_y_super2})
         glyphName = GlyphInfo("Name")
         Select(orig[j])
         AddPosSub(lookupSub, glyphName)
@@ -1430,7 +1399,8 @@ while (i < SizeOf(input_list))
     j = 0
     while (j < SizeOf(orig))
         Select(sups[j])
-        Scale(${scale_super_sub2}, ${scale_super_sub2}, 308, ${move_y_super})
+        Scale(${scale_super_sub2}, 308, ${move_y_super})
+        Move(0, ${move_y_super2})
         glyphName = GlyphInfo("Name")
         Select(orig[j])
         AddPosSub(lookupSub, glyphName)
@@ -1444,7 +1414,8 @@ while (i < SizeOf(input_list))
     j = 0
     while (j < SizeOf(orig))
         Select(sups[j])
-        Scale(${scale_super_sub2}, ${scale_super_sub2}, 308, ${move_y_super})
+        Scale(${scale_super_sub2}, 308, ${move_y_super})
+        Move(0, ${move_y_super2})
         glyphName = GlyphInfo("Name")
         Select(orig[j])
         AddPosSub(lookupSub, glyphName)
@@ -1464,7 +1435,8 @@ while (i < SizeOf(input_list))
     j = 0
     while (j < SizeOf(orig))
         Select(sups[j])
-        Scale(${scale_super_sub2}, ${scale_super_sub2}, 308, ${move_y_super})
+        Scale(${scale_super_sub2}, 308, ${move_y_super})
+        Move(0, ${move_y_super2})
         glyphName = GlyphInfo("Name")
         Select(orig[j])
         AddPosSub(lookupSub, glyphName)
@@ -1476,7 +1448,8 @@ while (i < SizeOf(input_list))
     j = 0
     while (j < SizeOf(orig))
         Select(sups[j])
-        Scale(${scale_super_sub2}, ${scale_super_sub2}, 308, ${move_y_super})
+        Scale(${scale_super_sub2}, 308, ${move_y_super})
+        Move(0, ${move_y_super2})
         glyphName = GlyphInfo("Name")
         Select(orig[j])
         AddPosSub(lookupSub, glyphName)
@@ -1490,7 +1463,8 @@ while (i < SizeOf(input_list))
     j = 0
     while (j < SizeOf(orig))
         Select(sups[j])
-        Scale(${scale_super_sub2}, ${scale_super_sub2}, 308, ${move_y_super})
+        Scale(${scale_super_sub2}, 308, ${move_y_super})
+        Move(0, ${move_y_super2})
         glyphName = GlyphInfo("Name")
         Select(orig[j])
         AddPosSub(lookupSub, glyphName)
@@ -1522,7 +1496,8 @@ while (i < SizeOf(input_list))
     j = 0
     while (j < SizeOf(orig))
         Select(sups[j])
-        Scale(${scale_super_sub2}, ${scale_super_sub2}, 308, ${move_y_super})
+        Scale(${scale_super_sub2}, 308, ${move_y_super})
+        Move(0, ${move_y_super2})
         glyphName = GlyphInfo("Name")
         Select(orig[j])
         AddPosSub(lookupSub, glyphName)
@@ -1536,18 +1511,20 @@ while (i < SizeOf(input_list))
     j = 0
     while (j < SizeOf(orig))
         Select(sups[j])
-        Scale(${scale_super_sub2}, ${scale_super_sub2}, 308, ${move_y_super})
+        Scale(${scale_super_sub2}, 308, ${move_y_super})
+        Move(0, ${move_y_super2})
         glyphName = GlyphInfo("Name")
         Select(orig[j])
         AddPosSub(lookupSub, glyphName)
         j += 1
     endloop
 
-    sups = [0u1d3b, 0u1d4c, 0u1d4e] # ᴻᵌᵎ # 拡大のみ
+    sups = [0u1d3b, 0u1d4c, 0u1d4e] # ᴻᵌᵎ # 基本のグリフ無し、上付きのみ
     j = 0
     while (j < SizeOf(sups))
         Select(sups[j])
-        Scale(${scale_super_sub2}, ${scale_super_sub2}, 308, ${move_y_super})
+        Scale(${scale_super_sub2}, 308, ${move_y_super})
+        Move(0, ${move_y_super2})
         j += 1
     endloop
 
@@ -1582,6 +1559,52 @@ while (i < SizeOf(input_list))
         Move(0, ${move_y_bracket})
         SetWidth(${width_hankaku})
         j += 1
+    endloop
+
+# ←-⇿ (全角にする)
+    Select(0u2190, 0u21ff) # ←-⇿
+    foreach
+        if (WorthOutputting())
+            Move(204, 0)
+            Scale(${scale_hankaku2zenkaku}, ${width_zenkaku} / 2, ${center_height_hankaku})
+            SetWidth(${width_zenkaku})
+        endif
+    endloop
+
+# ⎉⎊ (全角にする)
+    Select(0u2389, 0u238a) # ⎉⎊
+    Move(204, 0)
+    Scale(${scale_hankaku2zenkaku}, ${width_zenkaku} / 2, ${center_height_hankaku})
+    SetWidth(${width_zenkaku})
+
+# ☀-☸ (全角にする)
+    Select(0u2600, 0u2638) # ☀-☸
+    foreach
+        if (WorthOutputting())
+            Move(204, 0)
+            Scale(${scale_hankaku2zenkaku}, ${width_zenkaku} / 2, ${center_height_hankaku})
+            SetWidth(${width_zenkaku})
+        endif
+    endloop
+
+# ☼-⚱ (全角にする)
+    Select(0u263c, 0u26b1) # ☼-⚱
+    foreach
+        if (WorthOutputting())
+            Move(204, 0)
+            Scale(${scale_hankaku2zenkaku}, ${width_zenkaku} / 2, ${center_height_hankaku})
+            SetWidth(${width_zenkaku})
+        endif
+    endloop
+
+# ✁-➾ (全角にする)
+    Select(0u2701, 0u27be) # ✁-➾
+    foreach
+        if (WorthOutputting())
+            Move(204, 0)
+            Scale(${scale_hankaku2zenkaku}, ${width_zenkaku} / 2, ${center_height_hankaku})
+            SetWidth(${width_zenkaku})
+        endif
     endloop
 
 # --------------------------------------------------
@@ -1784,8 +1807,8 @@ while (i < SizeOf(input_list))
     Select(0u0020); Clear() # 半角スペース
     Select(0u00a0); Clear() # ノーブレイクスペース
     Select(0u00bc, 0u00be); Clear() # ¼½¾
-    Select(0u2010, 0u2015); Clear() # ダッシュ
-    Select(0u2025, 0u2026); Clear() # リーダー
+    Select(0u2013, 0u2015); Clear() # –—―
+    Select(0u2025, 0u2026); Clear() # ‥…
  #    Select(0u2030, 0u2031); Clear() # ‰‱
     Select(0u2153, 0u215f); Clear() # ⅓-⅟
     Select(0u2190, 0u2199); Clear() # ←-↙
@@ -1794,7 +1817,7 @@ while (i < SizeOf(input_list))
     Select(0u21b0, 0u21b5); Clear() # ↰-↵
     Select(0u21b9); Clear() # ↹
     Select(0u21c4, 0u21ca); Clear() # ⇄-⇊
-    Select(0u21d0, 0u21d9); Clear() # ⇐-⇙
+ #    Select(0u21d0, 0u21d9); Clear() # ⇐-⇙
     Select(0u21de, 0u21ed); Clear() # ⇞-⇭
     Select(0u21f5); Clear() # ⇵
     Select(0u221d, 0u221e); Clear() # ∝∞
@@ -1836,7 +1859,8 @@ while (i < SizeOf(input_list))
     Select(0u2425); Clear() # ␥
     Select(0u25a0, 0u25a1); Clear() # ■□
     Select(0u25ac, 0u25af); Clear() # ▬▭▮▯
-    Select(0u25b0, 0u25b3); Clear() # ▰▱▲△
+    Select(0u25b0, 0u25b1); Clear() # ▰▱
+    Select(0u25b2, 0u25b3); Clear() # ▲△
     Select(0u25b6, 0u25b7); Clear() # ▶▷
     Select(0u25ba, 0u25bd); Clear() # ►▻▼▽
     Select(0u25c0, 0u25c1); Clear() # ◀◁
@@ -1844,7 +1868,8 @@ while (i < SizeOf(input_list))
     Select(0u25cb, 0u25cc); Clear() # ○◌
     Select(0u25ce, 0u25cf); Clear() # ◎●
     Select(0u25d9); Clear() # ◙
-    Select(0u25e0, 0u25e5); Clear() # ◠◡◢◣◤◥
+ #    Select(0u25e0, 0u25e1); Clear() # ◠◡
+    Select(0u25e2, 0u25e5); Clear() # ◢◣◤◥
     Select(0u25ef); Clear() # ◯
     Select(0u2600, 0u2603); Clear() # ☀☁☂☃
     Select(0u2605, 0u2606); Clear() # ★☆
