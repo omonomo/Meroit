@@ -5,7 +5,7 @@
 # コメントの前に # を入れていますが、形式的に入れているだけで # から後がコメントというわけではありません。
 
 # フォントのバージョン
-FONT_VERSION=1.0.0b
+FONT_VERSION=0.1.0b
 
 # フォント名
 FONT_FAMILYNAME=Meroit
@@ -65,7 +65,7 @@ SCALE_DECIMAL=93
 # 通常の縦移動量 (em/1024)
 MOVE_Y_MATH=20
 # 上付き、下付きの縦移動量 (em/1024)
-MOVE_Y_S_MATH=0
+MOVE_Y_S_MATH=10
 
 # 括弧の設定
 # 縦移動量 (em/1024)
