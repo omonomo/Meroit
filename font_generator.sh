@@ -58,9 +58,9 @@ address_calt_AR=$((address_calt_AL + 239)) # calt置換アドレス(右に移動
 address_calt_figure=$((address_calt_AR + 239)) # calt置換アドレス(桁区切り付きの数字)
 address_calt_barD=$((address_calt_figure + 40)) # calt置換アドレス(下に移動した |)
 address_calt_hyphenL=$((address_calt_barD + 7)) # calt置換アドレス(左に移動した *)
-address_calt_hyphenR=$((address_calt_hyphenL + 27)) # calt置換アドレス(右に移動した *)
-address_calt_end=$((address_calt_hyphenR + 27 - 1)) # calt置換の最終アドレス (右上に移動した :)
-address_calt_barDLR="24" # calt置換アドレス(左右に移動した* から、左右下に移動した | までの増分)
+address_calt_hyphenR=$((address_calt_hyphenL + 28)) # calt置換アドレス(右に移動した *)
+address_calt_end=$((address_calt_hyphenR + 28 - 1)) # calt置換の最終アドレス (右上に移動した :)
+address_calt_barDLR="24" # calt置換アドレス(左右に移動した * から、左右下に移動した | までの増分)
 
 address_ss_start=$((address_calt_end + 1)) # ss置換の先頭アドレス
 address_ss_space=${address_ss_start} # ss置換アドレス(全角スペース)
@@ -247,8 +247,6 @@ origin_nerd="SymbolsNerdFontMono-Regular.ttf"
 modified_latin_generator="modified_latin_generator.pe"
 modified_latin_regular="modified-latin-Regular.sfd"
 modified_latin_bold="modified-latin-Bold.sfd"
-
-modified_latin_kana_generator="modified_latin_kana_generator.pe"
 
 custom_font_generator="custom_font_generator.pe"
 
@@ -1180,6 +1178,8 @@ while (i < SizeOf(input_list))
 
 # スラッシュ無し0を作成
     Print("Edit slashed zero")
+
+    # 通常
     Select(0u004f); Copy() # O
     Select(${address_store_zero}); Paste()
     if (input_list[i] == "${input_latin_regular}")
@@ -1203,6 +1203,7 @@ while (i < SizeOf(input_list))
     Select(${address_store_zero} + 4); Paste() # 下線付き全角横書き
     Select(${address_store_zero} + 5); Paste() # 下線付き全角縦書き
 
+    # 上付き
     Select(0u2070); Copy() # ⁰
     Select(${address_store_zero} + 1); Paste()
     Select(0u1d3c); Copy() # ᴼ
@@ -1212,8 +1213,10 @@ while (i < SizeOf(input_list))
     Select(${address_store_zero} + 1); PasteInto()
     OverlapIntersect()
     Scale(${scale_super_sub2}, 308, ${move_y_super})
+    Move(0, ${move_y_super2})
     SetWidth(${width_hankaku})
 
+    # 下付き
     Select(0u2080); Copy() # ₀
     Select(${address_store_zero} + 2); Paste()
     Select(65552);  Copy() # Temporary glyph
@@ -1380,6 +1383,7 @@ while (i < SizeOf(input_list))
         Select(sups[j])
         Scale(${scale_super_sub2}, 308, ${move_y_super})
         Move(0, ${move_y_super2})
+        SetWidth(${width_hankaku})
         glyphName = GlyphInfo("Name")
         Select(orig[j])
         AddPosSub(lookupSub, glyphName)
@@ -1401,6 +1405,7 @@ while (i < SizeOf(input_list))
         Select(sups[j])
         Scale(${scale_super_sub2}, 308, ${move_y_super})
         Move(0, ${move_y_super2})
+        SetWidth(${width_hankaku})
         glyphName = GlyphInfo("Name")
         Select(orig[j])
         AddPosSub(lookupSub, glyphName)
@@ -1416,6 +1421,7 @@ while (i < SizeOf(input_list))
         Select(sups[j])
         Scale(${scale_super_sub2}, 308, ${move_y_super})
         Move(0, ${move_y_super2})
+        SetWidth(${width_hankaku})
         glyphName = GlyphInfo("Name")
         Select(orig[j])
         AddPosSub(lookupSub, glyphName)
@@ -1437,6 +1443,7 @@ while (i < SizeOf(input_list))
         Select(sups[j])
         Scale(${scale_super_sub2}, 308, ${move_y_super})
         Move(0, ${move_y_super2})
+        SetWidth(${width_hankaku})
         glyphName = GlyphInfo("Name")
         Select(orig[j])
         AddPosSub(lookupSub, glyphName)
@@ -1450,6 +1457,7 @@ while (i < SizeOf(input_list))
         Select(sups[j])
         Scale(${scale_super_sub2}, 308, ${move_y_super})
         Move(0, ${move_y_super2})
+        SetWidth(${width_hankaku})
         glyphName = GlyphInfo("Name")
         Select(orig[j])
         AddPosSub(lookupSub, glyphName)
@@ -1465,6 +1473,7 @@ while (i < SizeOf(input_list))
         Select(sups[j])
         Scale(${scale_super_sub2}, 308, ${move_y_super})
         Move(0, ${move_y_super2})
+        SetWidth(${width_hankaku})
         glyphName = GlyphInfo("Name")
         Select(orig[j])
         AddPosSub(lookupSub, glyphName)
@@ -1498,6 +1507,7 @@ while (i < SizeOf(input_list))
         Select(sups[j])
         Scale(${scale_super_sub2}, 308, ${move_y_super})
         Move(0, ${move_y_super2})
+        SetWidth(${width_hankaku})
         glyphName = GlyphInfo("Name")
         Select(orig[j])
         AddPosSub(lookupSub, glyphName)
@@ -1513,6 +1523,7 @@ while (i < SizeOf(input_list))
         Select(sups[j])
         Scale(${scale_super_sub2}, 308, ${move_y_super})
         Move(0, ${move_y_super2})
+        SetWidth(${width_hankaku})
         glyphName = GlyphInfo("Name")
         Select(orig[j])
         AddPosSub(lookupSub, glyphName)
@@ -1525,6 +1536,7 @@ while (i < SizeOf(input_list))
         Select(sups[j])
         Scale(${scale_super_sub2}, 308, ${move_y_super})
         Move(0, ${move_y_super2})
+        SetWidth(${width_hankaku})
         j += 1
     endloop
 
@@ -1609,10 +1621,21 @@ while (i < SizeOf(input_list))
 
 # --------------------------------------------------
 
-# Scale down all glyphs
+# Scale down hankaku glyphs
     if ("${draft_flag}" == "false")
         Print("Scale down hankaku glyphs")
         Select(0u0020, 0u1fff) # 〜ギリシア文字拡張 # 一部全角
+        SelectMore(0u2010, 0u206f) # 一般句読点 # 全角半角混合
+        SelectMore(0u2070, 0u20cf) # 上付き・下付き・通貨記号
+        SelectMore(0u2100, 0u214f) # 文字様記号
+        SelectMore(0u2200, 0u22ff) # 数学記号 # 全角半角混合
+        SelectMore(0u27c0, 0u27ef) # その他の数学記号 A
+        SelectMore(0u2980, 0u2aff) # その他の数学記号 B・補助数学記号
+        SelectMore(0u2c60, 0u2c7f) # ラテン文字拡張 C
+        SelectMore(0u2e18) # ⸘
+        SelectMore(0u2e2e) # ⸮
+        SelectMore(0ua700, 0ua7ff) # 声調装飾文字・ラテン文字拡張 D
+        SelectMore(0ufb01, 0ufb02) # ﬁﬂ
         foreach
             if (WorthOutputting())
                 if (GlyphInfo("Width") <= 700)
@@ -1623,47 +1646,15 @@ while (i < SizeOf(input_list))
             endif
         endloop
 
-        Select(0u2010, 0u206f) # 一般句読点 # 全角半角混合
-        foreach
-            if (WorthOutputting())
-                if (GlyphInfo("Width") <= 700)
-                    Scale(${scale_width_latin}, ${scale_height_latin}, 308, 0)
-                    Move(${move_x_hankaku_latin}, 0)
-                    SetWidth(${width_hankaku})
-                endif
-            endif
-        endloop
-
-        Select(0u2070, 0u20cf) # 上付き・下付き・通貨記号
-        foreach
-            if (WorthOutputting())
-                Scale(${scale_width_latin}, ${scale_height_latin}, 308, 0)
-                Move(${move_x_hankaku_latin}, 0)
-                SetWidth(${width_hankaku})
-            endif
-        endloop
-
-        Select(0u2100, 0u214f) # 文字様記号
-        foreach
-            if (WorthOutputting())
-                Scale(${scale_width_latin}, ${scale_height_latin}, 308, 0)
-                Move(${move_x_hankaku_latin}, 0)
-	              SetWidth(${width_hankaku})
-            endif
-        endloop
-
-        Select(0u2200, 0u22ff) # 数学記号 # 全角半角混合
-        foreach
-            if (WorthOutputting())
-                if (GlyphInfo("Width") <= 700)
-                    Scale(${scale_width_latin}, ${scale_height_latin}, 308, 0)
-                    Move(${move_x_hankaku_latin}, 0)
-    	              SetWidth(${width_hankaku})
-                endif
-            endif
-        endloop
-
-        Select(0u2300, 0u23ff) # その他の技術用記号 # 全角半角混合、縦横比固定
+        Select(0u2300, 0u231f) # その他の技術用記号 1 # 全角半角混合、縦横比固定
+        SelectMore(0u2322, 0u239a) # その他の技術用記号 2
+        SelectMore(0u23af) # その他の技術用記号 3
+        SelectMore(0u23b4, 0u23bd) # その他の技術用記号 4
+        SelectMore(0u23cd, 0u23ff) # その他の技術用記号 5
+        SelectMore(0u2423) # ␣ # 縦横比固定
+        SelectMore(0u25a0, 0u27bf) # 幾何学模様・その他の記号・装飾記号 # 全角半角混合、縦横比固定
+        SelectMore(0u2b00, 0u2bff) # その他の記号および矢印 # 縦横比固定
+        SelectMore(0ufffd) # � # 縦横比固定
         foreach
             if (WorthOutputting())
                 if (GlyphInfo("Width") <= 700)
@@ -1674,95 +1665,25 @@ while (i < SizeOf(input_list))
             endif
         endloop
 
-        Select(0u2423) # ␣
-        Scale(${scale_width_latin}, ${scale_height_latin}, 308, 0)
-        Move(${move_x_hankaku_latin}, 0)
-        SetWidth(${width_hankaku})
-
+        Select(0u2320, 0u2321) # インテグラル # 高さそのまま
+        SelectMore(0u239b, 0u23ae) # 括弧・インテグラル # 高さそのまま
+        SelectMore(0u23b0, 0u23b3) # 括弧括弧素片・総和記号部分 # 高さそのまま
+        SelectMore(0u23be, 0u23cc) # 歯科表記記号 # 全角、高さそのまま
         Select(0u2500, 0u259f) # 罫線素片・ブロック要素 # 高さそのまま
         foreach
             if (WorthOutputting())
-                Scale(${scale_width_latin}, 100, 308, ${center_height_hankaku})
-                Move(${move_x_hankaku_latin}, 0)
-                SetWidth(${width_hankaku})
-            endif
-        endloop
-
-        Select(0u25a0, 0u27bf) # 幾何学模様・その他の記号・装飾記号 # 全角半角混合、縦横比固定
-        foreach
-            if (WorthOutputting())
                 if (GlyphInfo("Width") <= 700)
-                    Scale(${scale_width_latin}, ${scale_width_latin}, 308, ${center_height_hankaku})
+                    Scale(${scale_width_latin}, 100, 308, ${center_height_hankaku})
                     Move(${move_x_hankaku_latin}, 0)
                     SetWidth(${width_hankaku})
                 endif
             endif
         endloop
 
-        Select(0u27c0, 0u27ef) # その他の数学記号 A
-        foreach
-            if (WorthOutputting())
-                Scale(${scale_width_latin}, ${scale_height_latin}, 308, 0)
-                Move(${move_x_hankaku_latin}, 0)
-                SetWidth(${width_hankaku})
-            endif
-        endloop
-
-        Select(0u2980, 0u2aff) # その他の数学記号 B・補助数学記号
-        foreach
-            if (WorthOutputting())
-                Scale(${scale_width_latin}, ${scale_height_latin}, 308, 0)
-                Move(${move_x_hankaku_latin}, 0)
-                SetWidth(${width_hankaku})
-            endif
-        endloop
-
-        Select(0u2b00, 0u2bff) # その他の記号および矢印 # 縦横比固定
-        foreach
-            if (WorthOutputting())
-                Scale(${scale_width_latin}, ${scale_width_latin}, 308, ${center_height_hankaku})
-                Move(${move_x_hankaku_latin}, 0)
-                SetWidth(${width_hankaku})
-            endif
-        endloop
-
-        Select(0u2c60, 0u2c7f) # ラテン文字拡張 C
-        foreach
-            if (WorthOutputting())
-                Scale(${scale_width_latin}, ${scale_height_latin}, 308, 0)
-                Move(${move_x_hankaku_latin}, 0)
-                SetWidth(${width_hankaku})
-            endif
-        endloop
-
-        Select(0u2e18) # ⸘
-        SelectMore(0u2e2e) # ⸮
-        Scale(${scale_width_latin}, ${scale_height_latin}, 308, 0)
-        Move(${move_x_hankaku_latin}, 0)
-        SetWidth(${width_hankaku})
-
-        Select(0ua700, 0ua7ff) # 声調装飾文字・ラテン文字拡張 D
-        foreach
-            if (WorthOutputting())
-                Scale(${scale_width_latin}, ${scale_height_latin}, 308, 0)
-                Move(${move_x_hankaku_latin}, 0)
-                SetWidth(${width_hankaku})
-            endif
-        endloop
-
-        Select(0uf6c5) #  (私用領域)
-        Scale(${scale_width_latin}, ${scale_height_latin}, 308, 0)
-        Move(${move_x_hankaku_latin}, 0)
-        SetWidth(${width_hankaku})
-
-        Select(0ufb01, 0ufb02) # ﬁﬂ
-        Scale(${scale_width_latin}, ${scale_height_latin}, 308, 0)
-        Move(${move_x_hankaku_latin}, 0)
-        SetWidth(${width_hankaku})
-
-        SelectMore(${address_store_mod}, ${address_store_mod} + ${num_mod_glyphs} * 6 - 1) # 避難したDQVZ
+        Select(${address_store_mod}, ${address_store_mod} + ${num_mod_glyphs} * 6 - 1) # 避難したDQVZ
         SelectMore(${address_store_zero}, ${address_store_zero} + 5) # 避難したスラッシュ無し0
         SelectMore(${address_store_visi_latin}, ${address_store_visi_latin} + 1) # 避難した ⁄|
+        SelectMore(0uf6c5) #  (私用領域)
         Scale(${scale_width_latin}, ${scale_height_latin}, 308, 0)
         Move(${move_x_hankaku_latin}, 0)
         SetWidth(${width_hankaku})
@@ -1773,17 +1694,29 @@ while (i < SizeOf(input_list))
 # 一部を除いた半角文字を拡大
     if (${scale_width_hankaku} != 100 || ${scale_height_hankaku} != 100)
         Print("Edit hankaku aspect ratio")
-        SelectMore(0u0020, 0u1fff) # 基本ラテン - ギリシャ文字拡張
-        SelectMore(0u2010, 0u24ff) # 一般句読点 - 囲み英数字
-        SelectMore(0u25a0, 0u25ff) # 幾何学模様・その他の記号・装飾記号
-        SelectMore(0u2600, 0u27ff) # その他の記号 - 補助矢印 A
-        SelectMore(0u2900, 0u2aff) # 補助矢印 B - 補助数学記号
-        SelectMore(0u2b00, 0u2bff) # その他の記号および矢印
+
+ #        Select(0u0020, 0u1ffe) # 基本ラテン - ギリシャ文字拡張
+ #        SelectMore(0u2010, 0u2423) # 一般句読点 - 囲み英数字
+ #        SelectMore(0u25a0, 0u25ff) # 幾何学模様・その他の記号・装飾記号
+ #        SelectMore(0u2600, 0u27e9) # その他の記号 - 補助矢印 A
+ #        SelectMore(0u29eb, 0u2a2f) # 補助矢印 B - 補助数学記号
+ #        SelectMore(0u2b12, 0u2b1a) # その他の記号および矢印
+ #        SelectMore(0u2c64, 0u2c7d) # ラテン文字拡張 C
+ #        SelectMore(0u2e18, 0u2e2e) # 補助句読点
+ #        SelectMore(0ua708, 0ua78c) # 声調装飾文字 - ラテン文字拡張 D
+ #        SelectMore(0ufb01, 0ufb02) # アルファベット表示形
+ #        SelectMore(0ufffd) # 特殊用途文字
+ #        SelectMore(0uf6c5) #  (私用領域)
+
+        Select(0u0020, 0u1fff) # 基本ラテン - ギリシャ文字拡張
+        SelectMore(0u2010, 0u218f) # 一般句読点 - 数字の形
+        SelectMore(0u2200, 0u22ff) # 数学記号
+        SelectMore(0u27c0, 0u27ef) # その他の数学記号 A
+        SelectMore(0u2980, 0u2aff) # その他の数学記号 B - 補助数学記号
         SelectMore(0u2c60, 0u2c7f) # ラテン文字拡張 C
         SelectMore(0u2e00, 0u2e7f) # 補助句読点
         SelectMore(0ua700, 0ua7ff) # 声調装飾文字 - ラテン文字拡張 D
         SelectMore(0ufb00, 0ufb4f) # アルファベット表示形
-        SelectMore(0uf6c5) #  (私用領域)
         foreach
             if (WorthOutputting())
                 if (GlyphInfo("Width") <= 700)
@@ -1793,9 +1726,45 @@ while (i < SizeOf(input_list))
             endif
         endloop
 
+        Select(0u2190, 0u21ff) # 矢印
+        SelectMore(0u2300, 0u231f) # その他の技術用記号 1
+        SelectMore(0u2322, 0u239a) # その他の技術用記号 2
+        SelectMore(0u23af) # その他の技術用記号 3
+        SelectMore(0u23b4, 0u23bd) # その他の技術用記号 4
+        SelectMore(0u23cd, 0u23ff) # その他の技術用記号 5
+        SelectMore(0u2400, 0u24ff) # 制御機能用記号 - 囲み英数字
+        SelectMore(0u25a0, 0u25ff) # 幾何学模様
+        SelectMore(0u2600, 0u27bf) # その他の記号 - 装飾記号
+        SelectMore(0u27ff, 0u27ff) # 補助矢印 A
+        SelectMore(0u2900, 0u297f) # 補助矢印 B
+        SelectMore(0u2b00, 0u2bff) # その他の記号および矢印
+        SelectMore(0ufffd) # 特殊用途文字
+        foreach
+            if (WorthOutputting())
+                if (GlyphInfo("Width") <= 700)
+                    Scale(${scale_width_hankaku}, ${scale_height_hankaku}, ${width_hankaku} / 2, ${center_height_hankaku})
+                    SetWidth(${width_hankaku})
+                endif
+            endif
+        endloop
+
+        Select(0u2320, 0u2321) # インテグラル
+        SelectMore(0u239b, 0u23ae) # 括弧・インテグラル
+        SelectMore(0u23b0, 0u23b3) # 括弧括弧素片・総和記号部分
+        SelectMore(0u23be, 0u23cc) # 歯科表記記号
+        foreach
+            if (WorthOutputting())
+                if (GlyphInfo("Width") <= 700)
+                    Scale(${scale_width_hankaku}, 100, ${width_hankaku} / 2, ${center_height_hankaku})
+                    SetWidth(${width_hankaku})
+                endif
+            endif
+        endloop
+
         Select(${address_store_mod}, ${address_store_mod} + ${num_mod_glyphs} * 6 - 1) # 避難したDQVZ
         SelectMore(${address_store_zero}, ${address_store_zero} + 5) # 避難したスラッシュ無し0
         SelectMore(${address_store_visi_latin}, ${address_store_visi_latin} + 1) # 避難した ⁄|
+        SelectMore(0uf6c5) #  (私用領域)
         Scale(${scale_width_hankaku}, ${scale_height_hankaku}, ${width_hankaku} / 2, 0)
         SetWidth(${width_hankaku})
     endif
@@ -2508,6 +2477,17 @@ while (i < \$argc)
 # Open file and set configuration
     Print("Open " + input_ttf)
     Open(input_ttf)
+
+# --------------------------------------------------
+
+# 記号のグリフを加工
+    Print("Edit symbols")
+# 🄯 (追加、合成前に実行するとエラーが出る)
+    Select(0u00a9); Copy() # ©
+    Select(0u1f12f); Paste() # 🄯
+    HFlip()
+    CorrectDirection()
+    SetWidth(${width_hankaku})
 
 # --------------------------------------------------
 
@@ -3297,12 +3277,14 @@ while (i < \$argc)
             0u007b, 0u007d,\
             0u0021, 0u0022, 0u0027, 0u002c,\
             0u002e, 0u003a, 0u003b, 0u003f,\
-            0u0060, 0u007c, 0u0000, 0u0001] # *+-=_solidus reverse solidus<>()[]{}!quote apostrophe,.:;?grave|、移動した|:
+            0u0060, 0u007c, 0u0000, 0u0001, 0u0002] # *+-=_solidus reverse solidus<>()[]{}!quote apostrophe,.:;?grave|、移動した|~:
     j = 0
     while (j < SizeOf(symb))
         if (symb[j] == 0u0000) # 移動した |
             Select(${address_calt_barD})
-        elseif (symb[j] == 0u0001) # 移動した :
+        elseif (symb[j] == 0u0001) # 移動した ~
+            Select(${address_calt_barD} + 1)
+        elseif (symb[j] == 0u0002) # 移動した :
             Select(${address_calt_barD} + 2)
         else
             Select(symb[j])
@@ -3314,9 +3296,11 @@ while (i < \$argc)
         SetWidth(${width_hankaku})
         AddPosSub(lookupSub0, glyphName) # 左→中
         glyphName = GlyphInfo("Name")
-        if (symb[j] == 0u0000)
+        if (symb[j] == 0u0000) # 移動した |
             Select(${address_calt_barD})
-        elseif (symb[j] == 0u0001)
+        elseif (symb[j] == 0u0001) # 移動した ~
+            Select(${address_calt_barD} + 1)
+        elseif (symb[j] == 0u0002) # 移動した :
             Select(${address_calt_barD} + 2)
         else
             Select(symb[j])
@@ -3333,9 +3317,11 @@ while (i < \$argc)
 
     j = 0
     while (j < SizeOf(symb))
-        if (symb[j] == 0u0000)
+        if (symb[j] == 0u0000) # 移動した |
             Select(${address_calt_barD})
-        elseif (symb[j] == 0u0001)
+        elseif (symb[j] == 0u0001) # 移動した ~
+            Select(${address_calt_barD} + 1)
+        elseif (symb[j] == 0u0002) # 移動した :
             Select(${address_calt_barD} + 2)
         else
             Select(symb[j])
@@ -3347,9 +3333,11 @@ while (i < \$argc)
         SetWidth(${width_hankaku})
         AddPosSub(lookupSub0, glyphName) # 左→中
         glyphName = GlyphInfo("Name")
-        if (symb[j] == 0u0000)
+        if (symb[j] == 0u0000) # 移動した |
             Select(${address_calt_barD})
-        elseif (symb[j] == 0u0001)
+        elseif (symb[j] == 0u0001) # 移動した ~
+            Select(${address_calt_barD} + 1)
+        elseif (symb[j] == 0u0002) # 移動した :
             Select(${address_calt_barD} + 2)
         else
             Select(symb[j])
