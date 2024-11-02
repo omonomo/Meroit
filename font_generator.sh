@@ -1646,11 +1646,9 @@ while (i < SizeOf(input_list))
             endif
         endloop
 
-        Select(0u2300, 0u231f) # その他の技術用記号 1 # 全角半角混合、縦横比固定
-        SelectMore(0u2322, 0u239a) # その他の技術用記号 2
-        SelectMore(0u23af) # その他の技術用記号 3
-        SelectMore(0u23b4, 0u23bd) # その他の技術用記号 4
-        SelectMore(0u23cd, 0u23ff) # その他の技術用記号 5
+        Select(0u2300, 0u231f) # その他の技術用記号 # 全角半角混合、縦横比固定
+        SelectMore(0u2322, 0u239a) # その他の技術用記号
+        SelectMore(0u23cd, 0u23ff) # その他の技術用記号
         SelectMore(0u2423) # ␣ # 縦横比固定
         SelectMore(0u25a0, 0u27bf) # 幾何学模様・その他の記号・装飾記号 # 全角半角混合、縦横比固定
         SelectMore(0u2b00, 0u2bff) # その他の記号および矢印 # 縦横比固定
@@ -1667,8 +1665,6 @@ while (i < SizeOf(input_list))
 
         Select(0u2320, 0u2321) # インテグラル # 高さそのまま
         SelectMore(0u239b, 0u23ae) # 括弧・インテグラル # 高さそのまま
-        SelectMore(0u23b0, 0u23b3) # 括弧括弧素片・総和記号部分 # 高さそのまま
-        SelectMore(0u23be, 0u23cc) # 歯科表記記号 # 全角、高さそのまま
         Select(0u2500, 0u259f) # 罫線素片・ブロック要素 # 高さそのまま
         foreach
             if (WorthOutputting())
