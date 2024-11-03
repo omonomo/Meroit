@@ -1848,6 +1848,9 @@ while (i < SizeOf(input_list))
     Select(0u2756); Clear() # ❖
     Select(0u27a1); Clear() # ➡
     Select(0u27bf); Clear() # ➿ (ボールドのみ間違ったグリフが存在)
+    if (input_list[i] == "${input_latin_bold}") # ボールドには罫線素片のグリフが無いため後で合成
+        Select(0u2500, 0u257f); Clear() # ─-╿
+    endif
 
 # --------------------------------------------------
 
@@ -1958,6 +1961,9 @@ while (i < SizeOf(fontstyle_list))
     Print("Merge " + latin_sfd_list[i]:t \\
           + " with " + base_ttf_list[i]:t)
     MergeFonts(latin_sfd_list[i])
+    if (latin_sfd_list[i] == "${tmpdir}/${modified_latin_bold}") # ボールドには罫線素片のグリフがないためレギュラーをマージ
+        MergeFonts("${tmpdir}/${modified_latin_regular}")
+    endif
     MergeFonts(base_ttf_list[i])
 
 # --------------------------------------------------
