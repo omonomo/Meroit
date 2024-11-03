@@ -646,7 +646,7 @@ echo
 move_y_calt_colon=$((move_y_math + 40)) # : のY座標移動量
 move_y_calt_colon=$(bc <<< "scale=0; ${move_y_calt_colon} * ${scale_height_latin} / 100") # : のY座標移動量
 move_y_calt_colon=$(bc <<< "scale=0; ${move_y_calt_colon} * ${scale_height_hankaku} / 100") # : のY座標移動量
-move_y_calt_bar=$((move_y_math - 10)) # | のY座標移動量
+move_y_calt_bar=$((move_y_math + 1)) # | のY座標移動量
 move_y_calt_bar=$(bc <<< "scale=0; ${move_y_calt_bar} * ${scale_height_latin} / 100") # | のY座標移動量
 move_y_calt_bar=$(bc <<< "scale=0; ${move_y_calt_bar} * ${scale_height_hankaku} / 100") # | のY座標移動量
 move_y_calt_tilde=$((move_y_math)) # ~ のY座標移動量
@@ -1232,11 +1232,11 @@ while (i < SizeOf(input_list))
 
     # 破線無しを避難させて加工
     Select(0u007c)
-    Move(-20, 60)
+    Move(-20, 50)
     Copy() # |
     Select(${address_store_visi_latin} + 1); Paste() # 避難所
-    Move(0, 50)
-    PasteWithOffset(0, -50)
+    Move(0, 60)
+    PasteWithOffset(0, -60)
     OverlapIntersect()
     SetWidth(${width_hankaku})
 
