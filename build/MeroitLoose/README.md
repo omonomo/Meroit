@@ -48,37 +48,36 @@ Copyright (c) 2024 omonomo ([https://omonomo.github.io/Meroit/](https://omonomo.
 [Meslo LG (1.210)]  
 Copyright 2009, 2010, 2013 André Berg  
 ([https://github.com/andreberg/Meslo-Font](https://github.com/andreberg/Meslo-Font))  
-主にラテン文字、ギリシア文字、キリル文字で使用しています。Meslo LG のライセンスは [Apache Lincense v2.0](https://www.apache.org/licenses/LICENSE-2.0) です。
+主にラテン文字、ギリシア文字、キリル文字で使用しています。Meslo LG のライセンスは [Apache Lincense v2.0](https://github.com/andreberg/Meslo-Font#license) です。
 
 [Inconsolata (Version 3.001)]  
 Copyright 2006 The Inconsolata Project Authors  
 ([https://levien.com/type/myfonts/inconsolata.html](https://levien.com/type/myfonts/inconsolata.html))  
-主に Meslo LG に含まれないラテン文字で使用しています。Inconsolata のライセンスは [SIL Open Font License v1.1](http://scripts.sil.org/ofl) です。
+主に Meslo LG に含まれないラテン文字で使用しています。Inconsolata のライセンスは [SIL Open Font License v1.1](https://github.com/google/fonts/blob/main/ofl/inconsolata/OFL.txt) です。
 
 [Circle M+ (Version 1.063a)]  
 Copyright(c) 2020 M+ FONTS PROJECT, itouhiro  
 ([https://itouhiro.github.io/mixfont-mplus-ipa/](https://itouhiro.github.io/mixfont-mplus-ipa/))  
-主に仮名文字で使用しています。Circle M+ のライセンスは [M+ Font License](https://itouhiro.github.io/mixfont-mplus-ipa/mplus/LICENSE_E.txt) です。
+主に仮名文字、ギリシア文字、キリル文字で使用しています。Circle M+ のライセンスは [M+ Font License](https://itouhiro.github.io/mixfont-mplus-ipa/mplus/LICENSE_E.txt) です。
 
 [BIZ UDゴシック (Version 1.051)]  
 Copyright 2022 The BIZ UDGothic Project Authors  
 ([https://github.com/googlefonts/morisawa-biz-ud-gothic](https://github.com/googlefonts/morisawa-biz-ud-gothic))  
-主に漢字で使用しています。BIZ UDゴシック のライセンスは [SIL Open Font License v1.1](http://scripts.sil.org/ofl) です。
+主に漢字で使用しています。BIZ UDゴシック のライセンスは [SIL Open Font License v1.1](https://github.com/googlefonts/morisawa-biz-ud-gothic/blob/main/OFL.txt) です。
 
 [NINJAL 変体仮名フォント (Ver.1.01)]
 Copyright(c) National Institute for Japanese Language and Linguistics (NINJAL), 2018.  
 ([https://cid.ninjal.ac.jp/kana/font/](https://cid.ninjal.ac.jp/kana/font/))  
-変体仮名で使用しています。NINJAL 変体仮名フォントのライセンスは [Apache Lincense v2.0](https://www.apache.org/licenses/LICENSE-2.0) です。
+変体仮名で使用しています。NINJAL 変体仮名フォントのライセンスは [Apache Lincense v2.0](https://cid.ninjal.ac.jp/kana/font/) です。
 
 [Symbols Nerd Font (Version 001.000;Nerd Fonts 3.2.1)]  
 Copyright (c) 2016, Ryan McIntyre  
 ([https://www.nerdfonts.com](https://www.nerdfonts.com))  
-サイズを調整して使用しています。Symbols Nerd Font のライセンスは [SIL Open Font License v1.1](http://scripts.sil.org/ofl) です。
+サイズを調整して使用しています。Symbols Nerd Font のライセンスは [MIT](https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/NerdFontsSymbolsOnly/LICENSE) です。
 
 ## Meroit のライセンス
 
-SIL Open Font License Version 1.1  
-([http://scripts.sil.org/ofl](http://scripts.sil.org/ofl))
+[SIL Open Font License Version 1.1](https://github.com/omonomo/Meroit/blob/main/build/MeroitLoose/OFL.txt)
 
 ## 謝辞
 
