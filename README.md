@@ -1,10 +1,12 @@
 # 全角英数や半角カナが判別しやすい、文字間隔調整機能付き等幅フォント「Meroit」
 
 Meroit (めろいと) はコーディングにもお使いいただける日本語等幅フォントです。  
-自作合成フォント [Cyroit](https://omonomo.github.io/Cyroit/) に [Meslo LG](https://github.com/andreberg/Meslo-Font) を合成した姉妹フォントになります。
+自作合成フォント [Cyroit](https://omonomo.github.io/Cyroit/) に [Meslo LG](https://github.com/andreberg/Meslo-Font) (一部に [Hack](https://sourcefoundry.org/hack/)) を合成した姉妹フォントになります。
 
 全角英数記号や半角カナ等にアンダーラインが引いてあるため、全角・半角の組み合わせになっている括弧や、誤って使われている全角チルダなどをすぐに見つけることができます。  
 全角スペースや半角・ノーブレークスペースを可視化したバージョンも用意してあり、使い分けて使用できます。
+
+- Meslo に加えて Hack も合成し、一部のアルファベットを置き換えました (v1.1.0以降)。
 
 フォント生成用のスクリプトを利用すれば、必要な機能のみ実装したフォントを各自で作っていただくこともできます。
 
@@ -34,13 +36,13 @@ Meroit (めろいと) はコーディングにもお使いいただける日本�
 
 ## ダウンロード
 
-最新版 v1.0.0 (2024-11-03)
+最新版 v1.1.0 (2024-11-8)
 
 | リンク                                                                                                      | 説明                                   |
 | ----------------------------------------------------------------------------------------------------------- | -------------------------------------- |
-| [フォント (Meroit)](https://github.com/omonomo/Meroit/releases/download/v1.0.0/Meroit_v1.0.0.zip)           | 通常版。半角幅が全角の1/2。            |
-| [フォント (MeroitLoose)](https://github.com/omonomo/Meroit/releases/download/v1.0.0/MeroitLoose_v1.0.0.zip) | 文字間隔ゆるい版。半角幅が全角の9/16。 |
-| [ソースコード](https://github.com/omonomo/Meroit/archive/refs/tags/v1.0.0.zip)                              | 使用方法は下の方にあります。           |
+| [フォント (Meroit)](https://github.com/omonomo/Meroit/releases/download/v1.1.0/Meroit_v1.1.0.zip)           | 通常版。半角幅が全角の1/2。            |
+| [フォント (MeroitLoose)](https://github.com/omonomo/Meroit/releases/download/v1.1.0/MeroitLoose_v1.1.0.zip) | 文字間隔ゆるい版。半角幅が全角の9/16。 |
+| [ソースコード](https://github.com/omonomo/Meroit/archive/refs/tags/v1.1.0.zip)                              | 使用方法は下の方にあります。           |
 
 フォントやスクリプトの使用は自己責任にてお願いいたします。  
 各ファイルを使用することで生じた不具合・損害等について omonomo は責任を負いません。
@@ -48,19 +50,21 @@ Meroit (めろいと) はコーディングにもお使いいただける日本�
 ## その他の特徴
 
 - 主にラテン文字、ギリシア文字、キリル文字のグリフは [Meslo LG](https://github.com/andreberg/Meslo-Font) を使用しています。
+- 一部のアルファベットのグリフは [Hack](https://sourcefoundry.org/hack/) を使用しています。
 - 主に仮名文字のグリフは [Circle M+ 1m](https://itouhiro.github.io/mixfont-mplus-ipa/) を使用しています。
 - 主に漢字のグリフは [BIZ UDゴシック](https://github.com/googlefonts/morisawa-biz-ud-gothic) を使用しています。
 - 主に変体仮名のグリフは [NINJAL 変体仮名フォント](https://cid.ninjal.ac.jp/kana/font/) を使用しています。
 - [Nerd Fonts](https://www.nerdfonts.com) を追加しています。
-- [Cyroit](https://omonomo.github.io/Cyroit/) に Meslo LG を合成したため、[Inconsolata](https://levien.com/type/myfonts/inconsolata.html) 由来のグリフも含まれます。
+- [Cyroit](https://omonomo.github.io/Cyroit/) に Meslo を合成したため、[Inconsolata](https://levien.com/type/myfonts/inconsolata.html) 由来のグリフも含まれます。
 - [ricty_generator](https://rictyfonts.github.io) を Fork したスクリプトで自動生成させています。
 - フォント生成時にグリフの改変や調整、追加を行っています。追加分も含め、全てのグリフは素材フォントの組み合わせだけで作られています。
 
 ### ラテン文字について
 
-- バッククォート、上付き、下付き文字等を少し大きくしています。
-- 一部の文字や記号について表示座標を変更しています。
-- Meslo のこだわりポイントであるラインギャップについては、Cyroit に合わせてあります。LG M が一番近いです。
+- Cyroit のグリフに合わせるため、全体的に縮小されています。
+- Meslo のこだわりポイントであるラインギャップについても、Cyroit に合わせてあります。LG M が一番近いです。
+- 上付き、下付き文字は、通常の文字と比較して少し大きくしています。
+- 一部の文字や記号について、グリフの形状や表示座標を微調整しています。
 
 ### 仮名文字について
 
