@@ -5,7 +5,7 @@
 # コメントの前に # を入れていますが、形式的に入れているだけで # から後がコメントというわけではありません。
 
 # フォントのバージョン
-FONT_VERSION=1.0.0
+FONT_VERSION=1.1.0
 
 # フォント名
 FONT_FAMILYNAME=Meroit
@@ -17,6 +17,7 @@ VENDOR_ID=PfEd
 # 著作権
 COPYRIGHT=Copyright (c) 2024 omonomo
 COPYRIGHT=[Meslo LG]\nCopyright 2009, 2010, 2013 André Berg.
+COPYRIGHT=[Hack]\nCopyright (c) 2018 Source Foundry Authors / Copyright (c) 2003 by Bitstream, Inc. All Rights Reserved.
 COPYRIGHT=[Inconsolata]\nCopyright 2006 The Inconsolata Project Authors (https://github.com/cyrealtype/Inconsolata)
 COPYRIGHT=[Circle M+]\nCopyright(c) 2020 M+ FONTS PROJECT, itouhiro
 COPYRIGHT=[BIZ UDGothic]\nCopyright 2022 The BIZ UDGothic Project Authors (https://github.com/googlefonts/morisawa-biz-ud-gothic)
