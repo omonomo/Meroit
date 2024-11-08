@@ -1393,7 +1393,7 @@ while (i < SizeOf(input_list))
     # ラテン文字
     Select(0u0066) # f
     SelectMore(0u0192) # ƒ
-     SelectMore(0u1e1f) # ḟ
+    SelectMore(0u1e1f) # ḟ
  #    SelectMore(0u1d6e) # ᵮ
  #    SelectMore(0u1d82) # ᶂ
  #    SelectMore(0ua799) # ꞙ
@@ -1426,6 +1426,8 @@ while (i < SizeOf(input_list))
     SelectMore(0u0457) # ї
     if (input_list[i] == "${input_latin_regular}")
         Move(-30, 0)
+        Select(0u0457) # ї
+        Move(30, 0)
     else
         Move(-10, 0)
     endif
@@ -2343,7 +2345,7 @@ while (i < SizeOf(input_list))
     Select(0u2013, 0u2015); Clear() # –—―
     Select(0u2025, 0u2026); Clear() # ‥…
  #    Select(0u2030, 0u2031); Clear() # ‰‱
-    Select(0u2153, 0u215f); Clear() # ⅓-⅟
+    Select(0u2150, 0u215f); Clear() # ⅐-⅟
     Select(0u2190, 0u2199); Clear() # ←-↙
     Select(0u21a4, 0u21a8); Clear() # ↤-↨
     Select(0u21a9, 0u21aa); Clear() # ↩↪
