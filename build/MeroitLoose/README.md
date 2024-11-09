@@ -46,12 +46,18 @@ Copyright (c) 2024 omonomo ([https://omonomo.github.io/Meroit/](https://omonomo.
 ## 素材にさせていただいたフォント
 
 [Meslo LG (1.210)]  
-Copyright 2009, 2010, 2013 André Berg  
+Copyright 2009, 2010, 2013 André Berg.  
+Copyright (c) 2009 Apple Inc.  
+Copyright (c) 2006 by Tavmjong Bah.  
+Copyright (c) 2003 by Bitstream, Inc.  
+All Rights Reserved.  
 ([https://github.com/andreberg/Meslo-Font](https://github.com/andreberg/Meslo-Font))  
 主にラテン文字、ギリシア文字、キリル文字で使用しています。Meslo LG のライセンスは [Apache Lincense v2.0](https://github.com/andreberg/Meslo-Font#license) です。
 
 [Hack (Version 3.003)]  
-Copyright (c) 2018 Source Foundry Authors / Copyright (c) 2003 by Bitstream, Inc. All Rights Reserved.  
+Copyright (c) 2018 Source Foundry Authors  
+Copyright (c) 2003 by Bitstream, Inc.  
+All Rights Reserved.  
 ([https://sourcefoundry.org/hack/](https://sourcefoundry.org/hack/))  
 主に Meslo LG のグリフの置き換えで使用しています。Hack のライセンスは [MIT Lincense](https://github.com/source-foundry/Hack/blob/master/LICENSE.md) です。
 
