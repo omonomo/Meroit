@@ -89,8 +89,8 @@ num_ss_lookups="10" # ssのルックアップ数 (lookupの数を変えた場合
 
 # 著作権
 copyright="Copyright (c) 2024 omonomo\n\n"
-copyright="${copyright}\" + \"[Meslo LG]\nCopyright 2009, 2010, 2013 André Berg.\n\n"
-copyright="${copyright}\" + \"[Hack]\nCopyright (c) 2018 Source Foundry Authors / Copyright (c) 2003 by Bitstream, Inc. All Rights Reserved.\n\n"
+copyright="${copyright}\" + \"[Meslo LG]\nCopyright 2009, 2010, 2013 André Berg.\nCopyright (c) 2009 Apple Inc.\nCopyright (c) 2006 by Tavmjong Bah.\nCopyright (c) 2003 by Bitstream, Inc.\nAll Rights Reserved.\n\n"
+copyright="${copyright}\" + \"[Hack]\nCopyright (c) 2018 Source Foundry Authors\nCopyright (c) 2003 by Bitstream, Inc.\nAll Rights Reserved.\n\n"
 copyright="${copyright}\" + \"[Inconsolata]\nCopyright 2006 The Inconsolata Project Authors (https://github.com/cyrealtype/Inconsolata)\n\n"
 copyright="${copyright}\" + \"[Circle M+]\nCopyright(c) 2020 M+ FONTS PROJECT, itouhiro\n\n"
 copyright="${copyright}\" + \"[BIZ UDGothic]\nCopyright 2022 The BIZ UDGothic Project Authors (https://github.com/googlefonts/morisawa-biz-ud-gothic)\n\n"
