@@ -29,20 +29,22 @@ tmpdir_name="font_generator_tmpdir" # 一時保管フォルダ名
 
 # グリフ保管アドレス
 num_mod_glyphs="4" # -t オプションで改変するグリフ数
-address_store_start="64336" # 0ufb50 避難したグリフの最初のアドレス
-address_store_g=${address_store_start} # 避難したgアドレス
-address_store_b_diagram=$((address_store_g + 1)) # 避難した▲▼■アドレス
-address_store_underline=$((address_store_b_diagram + 3)) # 避難した下線アドレス
-address_store_mod=$((address_store_underline + 2)) # 避難したDQVZアドレス
-address_store_braille=$((address_store_mod + num_mod_glyphs * 6)) # 避難した点字アドレス
-address_store_zero=$((address_store_braille + 256)) # 避難したスラッシュ無し0アドレス
-address_store_visi_latin=$((address_store_zero + 6)) # latinフォントの避難した識別性向上アドレス ⁄|
-address_store_visi_kana=$((address_store_visi_latin + 2)) # 仮名フォントの避難した識別性向上アドレス ゠-➓
-address_store_visi_kanzi=$((address_store_visi_kana + 26)) # 漢字フォントの避難した識別性向上アドレス 〇-口
-address_store_line=$((address_store_visi_kanzi + 9)) # 避難した罫線アドレス
-address_store_arrow=$((address_store_line + 32)) # 避難した矢印アドレス
-address_store_zenhan=$((address_store_arrow + 4)) # 避難した全角半角アドレス(縦書きの（-゠)
-address_store_end=$((address_store_zenhan + 282 - 1)) # 避難したグリフの最終アドレス(縦書きの゠)
+address_store_start="64336" # 0ufb50 保管したグリフの最初のアドレス
+address_store_g=${address_store_start} # 保管したgアドレス
+address_store_b_diagram=$((address_store_g + 1)) # 保管した▲▼■アドレス
+address_store_underline=$((address_store_b_diagram + 3)) # 保管した下線アドレス
+address_store_mod=$((address_store_underline + 3)) # 保管したDQVZアドレス
+address_store_braille=$((address_store_mod + num_mod_glyphs * 6)) # 保管した点字アドレス
+address_store_zero=$((address_store_braille + 256)) # 保管したスラッシュ無し0アドレス
+address_store_visi_latin=$((address_store_zero + 6)) # latinフォントの保管した識別性向上アドレス ⁄|
+address_store_visi_kana=$((address_store_visi_latin + 2)) # 仮名フォントの保管した識別性向上アドレス ゠ - ➓
+address_store_visi_kanzi=$((address_store_visi_kana + 26)) # 漢字フォントの保管した識別性向上アドレス 〇 - 口
+address_store_line=$((address_store_visi_kanzi + 9)) # 保管した罫線アドレス
+address_store_arrow=$((address_store_line + 32)) # 保管した矢印アドレス
+address_store_vert=$((address_store_arrow + 4)) # 保管した縦書きアドレス(縦書きの縦線無し（ - 縦書きの縦線無し⁉)
+address_store_zenhan=$((address_store_vert + 109)) # 保管した全角半角アドレス(！゠⁉)
+address_store_d_hyphen=$((address_store_zenhan + 172)) # 保管した縦書き゠アドレス
+address_store_end=${address_store_d_hyphen} # 保管したグリフの最終アドレス
 
 address_vert_start="1114181" # 合成後のvert置換の先頭アドレス
 address_vert_bracket=${address_vert_start} # vert置換アドレス （
@@ -326,7 +328,6 @@ fi
 # Powerline の Y座標移動量
 move_y_pl=$((move_y_pl + move_y_pl_revise)) # 実際の移動量
 move_y_pl2=$((move_y_pl + 3)) # 実際の移動量 2
-move_y_pl3=$((move_y_pl - 48)) # 実際の移動量 3
 
 # Powerline、ボックス要素の Y座標拡大率
 scale_height_pl=$(bc <<< "scale=1; ${scale_height_pl} * ${scale_height_pl_revise} / 100") # PowerlineY座標拡大率
@@ -671,7 +672,7 @@ move_y_calt_colon=$(bc <<< "scale=0; ${move_y_calt_colon} * ${scale_height_hanka
 move_y_calt_bar=$((move_y_math + 1)) # | のY座標移動量
 move_y_calt_bar=$(bc <<< "scale=0; ${move_y_calt_bar} * ${scale_height_latin} / 100") # | のY座標移動量
 move_y_calt_bar=$(bc <<< "scale=0; ${move_y_calt_bar} * ${scale_height_hankaku} / 100") # | のY座標移動量
-move_y_calt_tilde=$((move_y_math)) # ~ のY座標移動量
+move_y_calt_tilde=$((move_y_math + 0)) # ~ のY座標移動量
 move_y_calt_tilde=$(bc <<< "scale=0; ${move_y_calt_tilde} * ${scale_height_latin} / 100") # ~ のY座標移動量
 move_y_calt_tilde=$(bc <<< "scale=0; ${move_y_calt_tilde} * ${scale_height_hankaku} / 100") # ~ のY座標移動量
 move_y_calt_math=$((- move_y_math + move_y_bracket + 51)) # +-= のY座標移動量
@@ -1181,7 +1182,7 @@ while (i < SizeOf(input_list))
 
 # D (ss 用、クロスバーを付加することで少しくどい感じに)
     Select(0u0044); Copy() # D
-    Select(${address_store_mod}); Paste() # 避難所
+    Select(${address_store_mod}); Paste() # 保管所
     Select(${address_store_mod} + ${num_mod_glyphs}); Paste()
     Select(${address_store_mod} + ${num_mod_glyphs} * 2); Paste()
     Select(${address_store_mod} + ${num_mod_glyphs} * 3); Paste()
@@ -1233,6 +1234,85 @@ while (i < SizeOf(input_list))
     Move(-20, 0)
     SetWidth(${width_hankaku})
 
+# I (頭とつま先を少しスリムに)
+    # 中心の棒を保管
+    Select(0u2588); Copy() # Full block
+    Select(65552);  Paste() # Temporary glyph
+    Scale(50, 100)
+    Select(0u0049); Copy() # I
+    Select(65552);  PasteInto() # Temporary glyph
+    OverlapIntersect()
+    # 頭とつま先をカット
+    Select(0u0049); Copy() # I
+    Move(10, 0)
+    PasteWithOffset(-10, 0)
+    OverlapIntersect()
+    # 合成
+    Select(65552);  Copy() # Temporary glyph
+    Select(0u0049); PasteInto() # I
+    SetWidth(${width_hankaku})
+    RemoveOverlap()
+
+    Select(0u2588); Copy() # Full block
+    Select(65552);  Paste() # Temporary glyph
+    Scale(50, 100)
+    Select(0u0197); Copy() # Ɨ
+    Select(65552);  PasteInto() # Temporary glyph
+    OverlapIntersect()
+    # 頭とつま先とまわしをカット
+    Select(0u0197); Copy() # Ɨ
+    Move(10, 0)
+    PasteWithOffset(-10, 0)
+    OverlapIntersect()
+    # 合成
+    Select(65552);  Copy() # Temporary glyph
+    Select(0u0197); PasteInto() # Ɨ
+    SetWidth(${width_hankaku})
+    RemoveOverlap()
+
+    Select(0u0197); Copy() # Ɨ
+    Select(65552); Clear() # Temporary glyph
+
+    # ラテン文字
+    Select(0u2588); Copy() # Full block
+    Select(0u00cc); PasteWithOffset(0,  1010); OverlapIntersect() # Ì
+    Select(0u00cd); PasteWithOffset(0,  1010); OverlapIntersect() # Í
+    Select(0u00ce); PasteWithOffset(0,  1010); OverlapIntersect() # Î
+    Select(0u00cf); PasteWithOffset(0,  1010); OverlapIntersect() # Ï
+    Select(0u0128); PasteWithOffset(0,  1010); OverlapIntersect() # Ĩ
+    Select(0u012a); PasteWithOffset(0,  1010); OverlapIntersect() # Ī
+    Select(0u012c); PasteWithOffset(0,  1010); OverlapIntersect() # Ĭ
+    Select(0u012e); PasteWithOffset(0,  -818); OverlapIntersect() # Į
+    Select(0u0130); PasteWithOffset(0,  1010); OverlapIntersect() # İ
+    Select(0u01cf); PasteWithOffset(0,  1010); OverlapIntersect() # Ǐ
+    Select(0u0208); PasteWithOffset(0,  1010); OverlapIntersect() # Ȉ
+    Select(0u020a); PasteWithOffset(0,  1010); OverlapIntersect() # Ȋ
+    Select(0u1e2c); PasteWithOffset(0,  -860); OverlapIntersect() # Ḭ
+    Select(0u1eca); PasteWithOffset(0,  -860); OverlapIntersect() # Ị
+    Select(0u0049); Copy() # I
+    Select(0u00cc); PasteInto(); SetWidth(${width_hankaku}) # Ì
+    Select(0u00cd); PasteInto(); SetWidth(${width_hankaku}) # Í
+    Select(0u00ce); PasteInto(); SetWidth(${width_hankaku}) # Î
+    Select(0u00cf); PasteInto(); SetWidth(${width_hankaku}) # Ï
+    Select(0u0128); PasteInto(); SetWidth(${width_hankaku}) # Ĩ
+    Select(0u012a); PasteInto(); SetWidth(${width_hankaku}) # Ī
+    Select(0u012c); PasteInto(); SetWidth(${width_hankaku}) # Ĭ
+    Select(0u012e); PasteInto(); RemoveOverlap(); SetWidth(${width_hankaku}) # Į
+    Select(0u0130); PasteInto(); SetWidth(${width_hankaku}) # İ
+    Select(0u01cf); PasteInto(); SetWidth(${width_hankaku}) # Ǐ
+    Select(0u0208); PasteInto(); SetWidth(${width_hankaku}) # Ȉ
+    Select(0u020a); PasteInto(); SetWidth(${width_hankaku}) # Ȋ
+    Select(0u1e2c); PasteInto(); SetWidth(${width_hankaku}) # Ḭ
+    Select(0u1eca); PasteInto(); SetWidth(${width_hankaku}) # Ị
+    Select(0u1e2e); PasteInto(); SetWidth(${width_hankaku}) # Ḯ
+    Select(0u1ec8); PasteInto(); SetWidth(${width_hankaku}) # Ỉ
+    # キリル文字
+    Select(0u2588); Copy() # Full block
+    Select(0u0407); PasteWithOffset(0,  1010); OverlapIntersect() # Ї
+    Select(0u0049); Copy() # I
+    Select(0u0407); PasteInto(); SetWidth(${width_hankaku}) # Ї
+    Select(0u0406); Paste(); SetWidth(${width_hankaku}) # І
+
 # M (右に移動)
     if (input_list[i] == "${input_latin_regular}")
         # ラテン文字
@@ -1273,7 +1353,7 @@ while (i < SizeOf(input_list))
 
  # Q (ss用、突き抜けた尻尾でOと区別しやすく)
     Select(0u0051); Copy() # Q
-    Select(${address_store_mod} + 1); Paste() # 避難所
+    Select(${address_store_mod} + 1); Paste() # 保管所
     Select(${address_store_mod} + ${num_mod_glyphs} + 1); Paste()
     Select(${address_store_mod} + ${num_mod_glyphs} * 2 + 1); Paste()
     Select(${address_store_mod} + ${num_mod_glyphs} * 3 + 1); Paste()
@@ -1299,7 +1379,7 @@ while (i < SizeOf(input_list))
 
 # V (ss用、左上にセリフを追加してYやレと区別しやすく)
     Select(0u0056); Copy() # V
-    Select(${address_store_mod} + 2); Paste() # 避難所
+    Select(${address_store_mod} + 2); Paste() # 保管所
     Select(${address_store_mod} + ${num_mod_glyphs} + 2); Paste()
     Select(${address_store_mod} + ${num_mod_glyphs} * 2 + 2); Paste()
     Select(${address_store_mod} + ${num_mod_glyphs} * 3 + 2); Paste()
@@ -1351,7 +1431,7 @@ while (i < SizeOf(input_list))
 
 # Z (ss用、クロスバーを付加してゼェーットな感じに)
     Select(0u005a); Copy() # Z
-    Select(${address_store_mod} + 3); Paste() # 避難所
+    Select(${address_store_mod} + 3); Paste() # 保管所
     Select(${address_store_mod} + ${num_mod_glyphs} + 3); Paste()
     Select(${address_store_mod} + ${num_mod_glyphs} * 2 + 3); Paste()
     Select(${address_store_mod} + ${num_mod_glyphs} * 3 + 3); Paste()
@@ -1624,7 +1704,7 @@ while (i < SizeOf(input_list))
 # ⁄ (追加、/と区別するため分割)
     Select(0u002f); Copy() # /
     Select(0u2044); Paste() # ⁄
-    Select(${address_store_visi_latin}); Paste() # 避難所
+    Select(${address_store_visi_latin}); Paste() # 保管所
 
     Select(0u2044); Copy() # ⁄
     Select(65552);  Paste() # Temporary glyph
@@ -1754,15 +1834,15 @@ while (i < SizeOf(input_list))
         Select(0u004f); Copy() # O
         Select(65552);  Paste() # Temporary glyph
         Scale(90.3, 100); Copy()
-        Select(${address_store_zero}); PasteInto()
+        Select(${address_store_zero}); PasteInto() # 保管所
         RemoveOverlap()
         Copy()
         Select(65552);  Paste() # Temporary glyph
         Scale(100, 102.9); Copy()
-        Select(${address_store_zero}); PasteInto()
+        Select(${address_store_zero}); PasteInto() # 保管所
         OverlapIntersect()
     endif
-    SetWidth(${width_hankaku}) # 避難所
+    SetWidth(${width_hankaku})
     Copy()
     Select(${address_store_zero} + 3); Paste() # 下線無し全角
     Select(${address_store_zero} + 4); Paste() # 下線付き全角横書き
@@ -1770,12 +1850,12 @@ while (i < SizeOf(input_list))
 
     # 上付き
     Select(0u2070); Copy() # ⁰
-    Select(${address_store_zero} + 1); Paste()
+    Select(${address_store_zero} + 1); Paste() # 保管所
     Select(0u1d3c); Copy() # ᴼ
     Select(65552);  Paste() # Temporary glyph
     ChangeWeight(20)
     Copy()
-    Select(${address_store_zero} + 1); PasteInto()
+    Select(${address_store_zero} + 1); PasteInto() # 保管所
     OverlapIntersect()
     Scale(${scale_super_sub2}, 308, ${move_y_super})
     Move(0, ${move_y_super2})
@@ -1783,9 +1863,9 @@ while (i < SizeOf(input_list))
 
     # 下付き
     Select(0u2080); Copy() # ₀
-    Select(${address_store_zero} + 2); Paste()
+    Select(${address_store_zero} + 2); Paste() # 保管所
     Select(65552);  Copy() # Temporary glyph
-    Select(${address_store_zero} + 2); PasteWithOffset(0, -334)
+    Select(${address_store_zero} + 2); PasteWithOffset(0, -334) # 保管所
     OverlapIntersect()
     Scale(${scale_super_sub2}, 308, ${move_y_sub})
     SetWidth(${width_hankaku})
@@ -1795,11 +1875,11 @@ while (i < SizeOf(input_list))
 # | (破線にし、縦を短くして少し左に移動)
 # ¦ (隙間を開ける)
 
-    # 破線無しを避難させて加工
+    # 破線無しを保管して加工
     Select(0u007c)
     Move(-20, 50)
     Copy() # |
-    Select(${address_store_visi_latin} + 1); Paste() # 避難所
+    Select(${address_store_visi_latin} + 1); Paste() # 保管所
     Move(0, 60)
     PasteWithOffset(0, -60)
     OverlapIntersect()
@@ -1816,8 +1896,8 @@ while (i < SizeOf(input_list))
     Move(0, 540)
     PasteWithOffset(0, -540)
 
-    # 避難させたグリフを利用して高さを統一
-    Select(${address_store_visi_latin} + 1); Copy() # 避難所
+    # 保管したグリフを利用して高さを統一
+    Select(${address_store_visi_latin} + 1); Copy() # 保管所
     Select(0u007c); PasteInto() # |
     OverlapIntersect()
     SetWidth(${width_hankaku})
@@ -1867,16 +1947,16 @@ while (i < SizeOf(input_list))
     orig = [0u0030, 0u0031, 0u0032, 0u0033,\
             0u0034, 0u0035, 0u0036, 0u0037,\
             0u0038, 0u0039,\
-            0u002b, 0u002d, 0u003d, 0u0028, 0u0029] # 0-9,+-=()
+            0u002b, 0u002d, 0u003d, 0u0028, 0u0029] # 0-9 +-=()
     subs = [0u2080, 0u2081, 0u2082, 0u2083,\
             0u2084, 0u2085, 0u2086, 0u2087,\
             0u2088, 0u2089,\
-            0u208a, 0u208b, 0u208c, 0u208d, 0u208e] # ₀-₉,₊₋₌₍₎
+            0u208a, 0u208b, 0u208c, 0u208d, 0u208e] # ₀-₉ ₊₋₌₍₎
     j = 0
     while (j < SizeOf(orig))
         Select(subs[j])
         Scale(${scale_super_sub2}, 308, ${move_y_sub})
-        glyphName = GlyphInfo("Name")
+        glyphName = GlyphInfo("Name") # subs フィーチャ追加
         Select(orig[j])
         AddPosSub(lookupSub, glyphName)
         j += 1
@@ -1896,7 +1976,7 @@ while (i < SizeOf(input_list))
     while (j < SizeOf(orig))
         Select(subs[j])
         Scale(${scale_super_sub2}, 308, ${move_y_sub})
-        glyphName = GlyphInfo("Name")
+        glyphName = GlyphInfo("Name") # subs フィーチャ追加
         Select(orig[j])
         AddPosSub(lookupSub, glyphName)
         j += 1
@@ -1904,12 +1984,11 @@ while (i < SizeOf(input_list))
 
     orig = [0u03b2, 0u03b3, 0u03c1, 0u03c6, 0u03c7, 0u0259] # βγρφχə
     subs = [0u1d66, 0u1d67, 0u1d68, 0u1d69, 0u1d6a, 0u2094] # ᵦᵧᵨᵩᵪₔ
-
     j = 0
     while (j < SizeOf(orig))
         Select(subs[j])
         Scale(${scale_super_sub2}, 308, ${move_y_sub})
-        glyphName = GlyphInfo("Name")
+        glyphName = GlyphInfo("Name") # subs フィーチャ追加
         Select(orig[j])
         AddPosSub(lookupSub, glyphName)
         j += 1
@@ -1938,18 +2017,18 @@ while (i < SizeOf(input_list))
     orig = [0u0030, 0u0031, 0u0032, 0u0033,\
             0u0034, 0u0035, 0u0036, 0u0037,\
             0u0038, 0u0039,\
-            0u002b, 0u002d, 0u003d, 0u0028, 0u0029] # 0-9,+-=()
+            0u002b, 0u002d, 0u003d, 0u0028, 0u0029] # 0-9 +-=()
     sups = [0u2070, 0u00b9, 0u00b2, 0u00b3,\
             0u2074, 0u2075, 0u2076, 0u2077,\
             0u2078, 0u2079,\
-            0u207a, 0u207b, 0u207c, 0u207d, 0u207e] # ⁰-⁹,⁺⁻⁼⁽⁾
+            0u207a, 0u207b, 0u207c, 0u207d, 0u207e] # ⁰-⁹ ⁺⁻⁼⁽⁾
     j = 0
     while (j < SizeOf(orig))
         Select(sups[j])
         Scale(${scale_super_sub2}, 308, ${move_y_super})
         Move(0, ${move_y_super2})
         SetWidth(${width_hankaku})
-        glyphName = GlyphInfo("Name")
+        glyphName = GlyphInfo("Name") # sups フィーチャ追加
         Select(orig[j])
         AddPosSub(lookupSub, glyphName)
         j += 1
@@ -1971,7 +2050,7 @@ while (i < SizeOf(input_list))
         Scale(${scale_super_sub2}, 308, ${move_y_super})
         Move(0, ${move_y_super2})
         SetWidth(${width_hankaku})
-        glyphName = GlyphInfo("Name")
+        glyphName = GlyphInfo("Name") # sups フィーチャ追加
         Select(orig[j])
         AddPosSub(lookupSub, glyphName)
         j += 1
@@ -1987,7 +2066,7 @@ while (i < SizeOf(input_list))
         Scale(${scale_super_sub2}, 308, ${move_y_super})
         Move(0, ${move_y_super2})
         SetWidth(${width_hankaku})
-        glyphName = GlyphInfo("Name")
+        glyphName = GlyphInfo("Name") # sups フィーチャ追加
         Select(orig[j])
         AddPosSub(lookupSub, glyphName)
         j += 1
@@ -2009,7 +2088,7 @@ while (i < SizeOf(input_list))
         Scale(${scale_super_sub2}, 308, ${move_y_super})
         Move(0, ${move_y_super2})
         SetWidth(${width_hankaku})
-        glyphName = GlyphInfo("Name")
+        glyphName = GlyphInfo("Name") # sups フィーチャ追加
         Select(orig[j])
         AddPosSub(lookupSub, glyphName)
         j += 1
@@ -2023,7 +2102,7 @@ while (i < SizeOf(input_list))
         Scale(${scale_super_sub2}, 308, ${move_y_super})
         Move(0, ${move_y_super2})
         SetWidth(${width_hankaku})
-        glyphName = GlyphInfo("Name")
+        glyphName = GlyphInfo("Name") # sups フィーチャ追加
         Select(orig[j])
         AddPosSub(lookupSub, glyphName)
         j += 1
@@ -2039,7 +2118,21 @@ while (i < SizeOf(input_list))
         Scale(${scale_super_sub2}, 308, ${move_y_super})
         Move(0, ${move_y_super2})
         SetWidth(${width_hankaku})
-        glyphName = GlyphInfo("Name")
+        glyphName = GlyphInfo("Name") # sups フィーチャ追加
+        Select(orig[j])
+        AddPosSub(lookupSub, glyphName)
+        j += 1
+    endloop
+
+    orig = [0u043d] # н
+    sups = [0u1d78] # ᵸ
+    j = 0
+    while (j < SizeOf(orig))
+        Select(sups[j])
+        Scale(${scale_super_sub2}, 308, ${move_y_super})
+        Move(0, ${move_y_super2})
+        SetWidth(${width_hankaku})
+        glyphName = GlyphInfo("Name") # sups フィーチャ追加
         Select(orig[j])
         AddPosSub(lookupSub, glyphName)
         j += 1
@@ -2054,8 +2147,8 @@ while (i < SizeOf(input_list))
             0u0289, 0u028a, 0u028b, 0u028c,\
             0u0290, 0u0291, 0u0292, 0u029d,\
             0u029f, 0u0266, 0u0279, 0u027b,\
-            0u0281, 0u0294, 0u0295, 0u043d]
-            # ɐɑɒɔ ɕɛɜɟ ɡɥɨɩ ɪɭɯɰ ɱɲɳɴ ɵɸʂʃ ʉʊʋʌ ʐʑʒʝ ʟɦɹɻ ʁʔʕн
+            0u0281, 0u0294, 0u0295]
+            # ɐɑɒɔ ɕɛɜɟ ɡɥɨɩ ɪɭɯɰ ɱɲɳɴ ɵɸʂʃ ʉʊʋʌ ʐʑʒʝ ʟɦɹɻ ʁʔʕ
     sups = [0u1d44, 0u1d45, 0u1d9b, 0u1d53,\
             0u1d9d, 0u1d4b, 0u1d9f, 0u1da1,\
             0u1da2, 0u1da3, 0u1da4, 0u1da5,\
@@ -2065,15 +2158,15 @@ while (i < SizeOf(input_list))
             0u1db6, 0u1db7, 0u1db9, 0u1dba,\
             0u1dbc, 0u1dbd, 0u1dbe, 0u1da8,\
             0u1dab, 0u02b1, 0u02b4, 0u02b5,\
-            0u02b6, 0u02c0, 0u02c1, 0u1d78]
-            # ᵄᵅᶛᵓ ᶝᵋᶟᶡ ᶢᶣᶤᶥ ᶦᶩᵚᶭ ᶬᶮᶯᶰ ᶱᶲᶳᶴ ᶶᶷᶹᶺ ᶼᶽᶾᶨ ᶫʱʴʵ ʶˀˁᵸ
+            0u02b6, 0u02c0, 0u02c1]
+            # ᵄᵅᶛᵓ ᶝᵋᶟᶡ ᶢᶣᶤᶥ ᶦᶩᵚᶭ ᶬᶮᶯᶰ ᶱᶲᶳᶴ ᶶᶷᶹᶺ ᶼᶽᶾᶨ ᶫʱʴʵ ʶˀˁ
     j = 0
     while (j < SizeOf(orig))
         Select(sups[j])
         Scale(${scale_super_sub2}, 308, ${move_y_super})
         Move(0, ${move_y_super2})
         SetWidth(${width_hankaku})
-        glyphName = GlyphInfo("Name")
+        glyphName = GlyphInfo("Name") # sups フィーチャ追加
         Select(orig[j])
         AddPosSub(lookupSub, glyphName)
         j += 1
@@ -2089,13 +2182,13 @@ while (i < SizeOf(input_list))
         Scale(${scale_super_sub2}, 308, ${move_y_super})
         Move(0, ${move_y_super2})
         SetWidth(${width_hankaku})
-        glyphName = GlyphInfo("Name")
+        glyphName = GlyphInfo("Name") # sups フィーチャ追加
         Select(orig[j])
         AddPosSub(lookupSub, glyphName)
         j += 1
     endloop
 
-    sups = [0u1d3b, 0u1d4c, 0u1d4e] # ᴻᵌᵎ # 基本のグリフ無し、上付きのみ
+    sups = [0u1d3b, 0u1d46, 0u1d4c, 0u1d4e] # ᴻᵆᵌᵎ # 基本のグリフ無し、上付きのみ
     j = 0
     while (j < SizeOf(sups))
         Select(sups[j])
@@ -2154,6 +2247,12 @@ while (i < SizeOf(input_list))
     Scale(${scale_hankaku2zenkaku}, ${width_zenkaku} / 2, ${center_height_hankaku})
     SetWidth(${width_zenkaku})
 
+# ⏻⏼⏽⏾ (全角にする)
+    Select(0u23fb, 0u23fe) # ⏻⏼⏽⏾
+    Move(200, 0)
+    Scale(${scale_hankaku2zenkaku}, ${width_zenkaku} / 2, ${center_height_hankaku})
+    SetWidth(${width_zenkaku})
+
 # ☀-☸ (全角にする)
     Select(0u2600, 0u2638) # ☀-☸
     foreach
@@ -2179,6 +2278,26 @@ while (i < SizeOf(input_list))
     foreach
         if (WorthOutputting())
             Move(204, 0)
+            Scale(${scale_hankaku2zenkaku}, ${width_zenkaku} / 2, ${center_height_hankaku})
+            SetWidth(${width_zenkaku})
+        endif
+    endloop
+
+# ⟰-⟿ (全角にする)
+    Select(0u27f0, 0u27ff) # ⟰-⟿
+    foreach
+        if (WorthOutputting())
+            Move(200, 0)
+            Scale(${scale_hankaku2zenkaku}, ${width_zenkaku} / 2, ${center_height_hankaku})
+            SetWidth(${width_zenkaku})
+        endif
+    endloop
+
+# ⤀-⥿ (全角にする)
+    Select(0u2900, 0u297f) # ⤀-⥿
+    foreach
+        if (WorthOutputting())
+            Move(200, 0)
             Scale(${scale_hankaku2zenkaku}, ${width_zenkaku} / 2, ${center_height_hankaku})
             SetWidth(${width_zenkaku})
         endif
@@ -2235,7 +2354,7 @@ while (i < SizeOf(input_list))
         SelectMore(0u239b, 0u23ae) # 括弧・インテグラル # 高さそのまま
         SelectMore(0u23b0, 0u23b3) # 括弧括弧素片・総和記号部分
         SelectMore(0u23be, 0u23cc) # 歯科表記記号
-        Select(0u2500, 0u259f) # 罫線素片・ブロック要素 # 高さそのまま
+        SelectMore(0u2500, 0u259f) # 罫線素片・ブロック要素 # 高さそのまま
         foreach
             if (WorthOutputting())
                 if (GlyphInfo("Width") <= 700)
@@ -2246,9 +2365,9 @@ while (i < SizeOf(input_list))
             endif
         endloop
 
-        Select(${address_store_mod}, ${address_store_mod} + ${num_mod_glyphs} * 6 - 1) # 避難したDQVZ
-        SelectMore(${address_store_zero}, ${address_store_zero} + 5) # 避難したスラッシュ無し0
-        SelectMore(${address_store_visi_latin}, ${address_store_visi_latin} + 1) # 避難した ⁄|
+        Select(${address_store_mod}, ${address_store_mod} + ${num_mod_glyphs} * 6 - 1) # 保管したDQVZ
+        SelectMore(${address_store_zero}, ${address_store_zero} + 5) # 保管したスラッシュ無し0
+        SelectMore(${address_store_visi_latin}, ${address_store_visi_latin} + 1) # 保管した ⁄|
         SelectMore(0uf6c5) #  (私用領域)
         Scale(${scale_width_latin}, ${scale_height_latin}, 308, 0)
         Move(${move_x_hankaku_latin}, 0)
@@ -2260,19 +2379,6 @@ while (i < SizeOf(input_list))
 # 一部を除いた半角文字を拡大
     if (${scale_width_hankaku} != 100 || ${scale_height_hankaku} != 100)
         Print("Edit hankaku aspect ratio")
-
- #        Select(0u0020, 0u1ffe) # 基本ラテン - ギリシャ文字拡張
- #        SelectMore(0u2010, 0u2423) # 一般句読点 - 囲み英数字
- #        SelectMore(0u25a0, 0u25ff) # 幾何学模様・その他の記号・装飾記号
- #        SelectMore(0u2600, 0u27e9) # その他の記号 - 補助矢印 A
- #        SelectMore(0u29eb, 0u2a2f) # 補助矢印 B - 補助数学記号
- #        SelectMore(0u2b12, 0u2b1a) # その他の記号および矢印
- #        SelectMore(0u2c64, 0u2c7d) # ラテン文字拡張 C
- #        SelectMore(0u2e18, 0u2e2e) # 補助句読点
- #        SelectMore(0ua708, 0ua78c) # 声調装飾文字 - ラテン文字拡張 D
- #        SelectMore(0ufb01, 0ufb02) # アルファベット表示形
- #        SelectMore(0ufffd) # 特殊用途文字
- #        SelectMore(0uf6c5) #  (私用領域)
 
         Select(0u0020, 0u1fff) # 基本ラテン - ギリシャ文字拡張
         SelectMore(0u2010, 0u218f) # 一般句読点 - 数字の形
@@ -2327,9 +2433,9 @@ while (i < SizeOf(input_list))
             endif
         endloop
 
-        Select(${address_store_mod}, ${address_store_mod} + ${num_mod_glyphs} * 6 - 1) # 避難したDQVZ
-        SelectMore(${address_store_zero}, ${address_store_zero} + 5) # 避難したスラッシュ無し0
-        SelectMore(${address_store_visi_latin}, ${address_store_visi_latin} + 1) # 避難した ⁄|
+        Select(${address_store_mod}, ${address_store_mod} + ${num_mod_glyphs} * 6 - 1) # 保管したDQVZ
+        SelectMore(${address_store_zero}, ${address_store_zero} + 5) # 保管したスラッシュ無し0
+        SelectMore(${address_store_visi_latin}, ${address_store_visi_latin} + 1) # 保管した ⁄|
         SelectMore(0uf6c5) #  (私用領域)
         Scale(${scale_width_hankaku}, ${scale_height_hankaku}, ${width_hankaku} / 2, 0)
         SetWidth(${width_hankaku})
@@ -2691,6 +2797,7 @@ while (i < SizeOf(input_list))
     SelectMore(0ue0ca)
     SelectMore(0ue0cc, 0ue0d2)
     SelectMore(0ue0d4)
+    SelectMore(0ue0d6, 0ue0d7)
     Move(0, -${move_y_nerd}) # 元の位置に戻す
     Move(0, ${move_y_em_revise}) # em値変更でのズレ修正
     Select(0ue0a0);         Move(-226, ${move_y_pl}); SetWidth(512)
@@ -2725,8 +2832,8 @@ while (i < SizeOf(input_list))
     Select(0ue0d1);         Scale(105, ${scale_height_pl2}, 0,   ${center_height_pl}); Move(-21, ${move_y_pl}); SetWidth(1024)
     Select(0ue0d2);         Scale(105, ${scale_height_pl}, 0,    ${center_height_pl}); Move(0, ${move_y_pl}); SetWidth(1024)
     Select(0ue0d4);         Scale(105, ${scale_height_pl}, 1024, ${center_height_pl}); Move(0, ${move_y_pl});SetWidth(1024)
-    Select(0ue0d6);         Scale(105, ${scale_height_pl}, 0,    ${center_height_pl}); Move( 33, ${move_y_pl3}); SetWidth(1024)
-    Select(0ue0d7);         Scale(105, ${scale_height_pl}, 1024, ${center_height_pl}); Move(-33, ${move_y_pl3});SetWidth(1024)
+    Select(0ue0d6);         Scale(105, ${scale_height_pl}, 0,    ${center_height_pl}); Move( 33, ${move_y_pl}); SetWidth(1024)
+    Select(0ue0d7);         Scale(105, ${scale_height_pl}, 1024, ${center_height_pl}); Move(-33, ${move_y_pl});SetWidth(1024)
 
     # Loose 版対応
     if ("${loose_flag}" == "true")
@@ -2930,7 +3037,6 @@ while (i < \$argc)
     Move(0, ${move_y_pl})
 
     Select(0ue0d1); RemoveOverlap(); Copy() # 
-    Copy()
     j = 0
     while (j < 32)
         Select(0u2580 + j); PasteInto()
@@ -2946,7 +3052,7 @@ while (i < \$argc)
     Select(0u2630); Copy() # ☰
     Select(0u2631, 0u2637); Paste() # ☱-☷
     # 線を分割するスクリーン
-    Select(${address_store_b_diagram} + 2); Copy() # 避難した■
+    Select(${address_store_b_diagram} + 2); Copy() # 保管した■
     Select(65552, 65555); Paste() # Temporary glyph
     Scale(150)
     Select(65552)
@@ -3061,16 +3167,12 @@ while (i < \$argc)
 # 全角形加工 (半角英数記号を全角形にコピーし、下線を追加)
     Print("Copy hankaku to zenkaku and edit")
 
-    # 下線呼び出し
-    Select(${address_store_underline}); Copy() # 保管した全角下線
-    Select(65552); Paste()
-    SetWidth(${width_zenkaku})
-
     # 縦線作成
-    Copy()
-    Select(65553); Paste()
-    Rotate(-90, 499, 326)
-    SetWidth(${width_zenkaku})
+ #    Select(${address_store_underline}); Copy() # 保管した全角下線
+ #    Select(${address_store_underline} + 2); Paste() # 保管所 (後で使うために保管)
+ #    Rotate(-90, 512, 315)
+ #    Move(-13, 0)
+ #    SetWidth(${width_zenkaku})
 
 # 半角英数記号を全角形にコピー、加工
     # ! - }
@@ -3082,17 +3184,18 @@ while (i < \$argc)
           else
             Select(0u0021 + j)
           endif
-            Copy()
-            Select(0uff01 + j); Paste()
-            Move(256 - ${move_x_hankaku}, 0)
+          Copy()
+          Select(0uff01 + j); Paste()
+          Move(256 - ${move_x_hankaku}, 0)
         endif
         if (j == 7 || j == 58 || j == 90) # （ ［ ｛
-            Move(256 - ${move_x_hankaku}, 13 - ${move_y_bracket})
+            Move(128 - ${move_x_hankaku}, 13 - ${move_y_bracket})
         elseif (j == 8 || j == 60 || j == 92) # ） ］ ｝
-            Move(-256 + ${move_x_hankaku}, 13 - ${move_y_bracket})
+            Move(-128 + ${move_x_hankaku}, 13 - ${move_y_bracket})
  #        elseif (j == 11 || j == 13) # ， ．
  #            Move(-256 + ${move_x_hankaku}, 0)
         endif
+        SetWidth(${width_zenkaku})
         j += 1
     endloop
 
@@ -3103,24 +3206,31 @@ while (i < \$argc)
     Select(0u00a2);  Copy() # ¢
     Select(0uffe0); Paste() # ￠
     Move(256 - ${move_x_hankaku}, 0)
+    SetWidth(${width_zenkaku})
     Select(0u00a3);  Copy() # £
     Select(0uffe1); Paste() # ￡
     Move(256 - ${move_x_hankaku}, 0)
+    SetWidth(${width_zenkaku})
     Select(0u00ac);  Copy() # ¬
     Select(0uffe2); Paste() # ￢
     Move(256 - ${move_x_hankaku}, 0)
+    SetWidth(${width_zenkaku})
  #    Select(0u00af);  Copy() # ¯
  #    Select(0uffe3); Paste() # ￣
  #    Move(256 - ${move_x_hankaku}, 0)
+ #    SetWidth(${width_zenkaku})
     Select(0u00a6);  Copy() # ¦
     Select(0uffe4); Paste() # ￤
     Move(256 - ${move_x_hankaku}, 0)
+    SetWidth(${width_zenkaku})
     Select(0u00a5);  Copy() # ¥
     Select(0uffe5); Paste() # ￥
     Move(256 - ${move_x_hankaku}, 0)
+    SetWidth(${width_zenkaku})
     Select(0u20a9);  Copy() # ₩
     Select(0uffe6); Paste() # ￦
     Move(256 - ${move_x_hankaku}, 0)
+    SetWidth(${width_zenkaku})
 
     # ‼
     Select(0u0021); Copy() # !
@@ -3128,38 +3238,79 @@ while (i < \$argc)
     Move(50, 0)
     Select(0u203c); PasteWithOffset(420, 0) # ‼
     Move(-${move_x_hankaku}, 0)
+    SetWidth(${width_zenkaku})
 
     # ⁇
     Select(0u003F); Copy() # ?
     Select(0u2047); Paste() # ⁇
-    Move(10, 0)
-    Select(0u2047); PasteWithOffset(510, 0) # ⁇
+    Move(30, 0)
+    Select(0u2047); PasteWithOffset(490, 0) # ⁇
     Move(-${move_x_hankaku}, 0)
+    SetWidth(${width_zenkaku})
 
     # ⁈
     Select(0u003F); Copy() # ?
     Select(0u2048); Paste() # ⁈
-    Move(10, 0)
+    Move(60, 0)
     Select(0u0021); Copy() # !
     Select(0u2048); PasteWithOffset(420, 0) # ⁈
     Move(-${move_x_hankaku}, 0)
+    SetWidth(${width_zenkaku})
 
     # ⁉
     Select(0u0021); Copy() # !
     Select(0u2049); Paste() # ⁉
     Move(50, 0)
     Select(0u003F); Copy() # ?
-    Select(0u2049); PasteWithOffset(510, 0) # ⁉
+    Select(0u2049); PasteWithOffset(450, 0) # ⁉
     Move(-${move_x_hankaku}, 0)
+    SetWidth(${width_zenkaku})
+
+# 縦書き形句読点
+ #    hori = [0uff0c, 0u3001, 0u3002] # ，、。
+ #    vert = 0ufe10
+ #    j = 0
+ #    while (j < SizeOf(hori))
+ #        Select(hori[j]); Copy()
+ #        Select(vert + j); Paste()
+ #        if (hori[j] == 0uff0c)
+ #            Move(542, 597)
+ #        else
+ #            Move(594, 546)
+ #        endif
+ #        SetWidth(${width_zenkaku})
+ #        j += 1
+ #    endloop
+
+# CJK互換形下線
+ #    Select(0uff3f); Copy() # ＿
+ #    Select(0ufe33); Paste() # ︳
+ #    Rotate(-90, 512, 315)
+ #    SetWidth(${width_zenkaku})
 
 # CJK互換形括弧
+ #    hori = [0u3016, 0u3017] # 〖〗
+ #    vert = 0ufe17 # ︗
+ #    j = 0
+ #    while (j < SizeOf(hori))
+ #        Select(hori[j]); Copy()
+ #        Select(vert + j); Paste()
+ #        Rotate(-90, 512, 315)
+ #        SetWidth(${width_zenkaku})
+ #        j += 1
+ #    endloop
+
+ #    hori = [0uff08, 0uff09, 0uff5b, 0uff5d,\
+ #            0u3014, 0u3015, 0u3010, 0u3011,\
+ #            0u300a, 0u300b, 0u3008, 0u3009,\
+ #            0u300c, 0u300d, 0u300e, 0u300f] # （）｛｝ 〔〕【】 《》〈〉 「」『』
     hori = [0uff08, 0uff09, 0uff5b, 0uff5d] # （）｛｝
     vert = 0ufe35 # ︵
     j = 0
     while (j < SizeOf(hori))
         Select(hori[j]); Copy()
         Select(vert + j); Paste()
-        Rotate(-90, 499, 326)
+        Rotate(-90, 512, 315)
         SetWidth(${width_zenkaku})
         j += 1
     endloop
@@ -3170,7 +3321,7 @@ while (i < \$argc)
     while (j < SizeOf(hori))
         Select(hori[j]); Copy()
         Select(vert + j); Paste()
-        Rotate(-90, 499, 326)
+        Rotate(-90, 512, 315)
         SetWidth(${width_zenkaku})
         j += 1
     endloop
@@ -3192,12 +3343,12 @@ while (i < \$argc)
             if (hori[j] == 0uff0c || hori[j] == 0uff0e) # ， ．
                 Move(594 - ${move_x_hankaku}, 546)
             else
-                Rotate(-90, 499, 326)
+                Rotate(-90, 512, 315)
             endif
-        Copy(); Select(${address_store_zenhan} + k); Paste(); SetWidth(${width_zenkaku}) # 避難所にコピー
-        Select(65553);  Copy() # 縦線追加
-        Select(vert + j); PasteInto()
-        SetWidth(${width_zenkaku})
+            Copy(); Select(${address_store_vert} + k); Paste(); SetWidth(${width_zenkaku}) # 保管所にコピー
+            Select(${address_store_underline} + 2);  Copy() # 縦線追加
+            Select(vert + j); PasteInto()
+            SetWidth(${width_zenkaku})
         endif
         j += 1
         k += 1
@@ -3211,9 +3362,9 @@ while (i < \$argc)
         if (hori[j] != 0uff5f && hori[j] != 0uff60) # ｟｠
             Select(hori[j]); Copy()
             Select(vert + j); Paste()
-            Rotate(-90, 499, 326)
-            Copy(); Select(${address_store_zenhan} + k); Paste(); SetWidth(${width_zenkaku}) # 避難所にコピー
-            Select(65553);  Copy() # 縦線追加
+            Rotate(-90, 512, 315)
+            Copy(); Select(${address_store_vert} + k); Paste(); SetWidth(${width_zenkaku}) # 保管所にコピー
+            Select(${address_store_underline} + 2);  Copy() # 縦線追加
             Select(vert + j); PasteInto()
             SetWidth(${width_zenkaku})
         endif
@@ -3252,7 +3403,7 @@ while (i < \$argc)
             Select(hori[j]); Copy()
             Select(vert + j); Paste()
             if (j == 2 || j == 3) # ／＼
-                Rotate(-90, 499, 326)
+                Rotate(-90, 512, 315)
                 VFlip()
                 CorrectDirection()
             elseif (hori[j] == 0uff46\
@@ -3290,14 +3441,55 @@ while (i < \$argc)
             elseif (hori[j] == 0uff47) # ｇ
                 Move(0, ${move_y_vert_7})
             endif
-            Copy(); Select(${address_store_zenhan} + k); Paste(); SetWidth(${width_zenkaku}) # 避難所にコピー
-            Select(65553);  Copy() # 縦線追加x
+            Copy(); Select(${address_store_vert} + k); Paste(); SetWidth(${width_zenkaku}) # 保管所にコピー
+            Select(${address_store_underline} + 2);  Copy() # 縦線追加
             Select(vert + j); PasteInto()
             SetWidth(${width_zenkaku})
         endif
         j += 1
         k += 1
     endloop
+
+ #    vert += j
+ #    Select(0u2702); Copy() # ✂
+ #    Select(vert); Paste()
+ #    Rotate(-90, 512, 315)
+ #    SetWidth(${width_zenkaku})
+ #    j = 1
+
+ #    hori = [0u2016, 0u3030, 0u30a0] # ‖〰゠
+ #    vert += j
+ #    j = 0
+ #    while (j < SizeOf(hori))
+ #        Select(hori[j]); Copy()
+ #        Select(vert + j); Paste()
+ #        if (j == 0) # ‖
+ #            Rotate(-90, 512, 315)
+ #            Move(0, -256)
+ #            SetWidth(${width_zenkaku})
+ #        else # 〰゠
+ #            Rotate(-90, 512, 315)
+ #            SetWidth(${width_zenkaku})
+ #        endif
+ #        j += 1
+ #    endloop
+
+# 全角括弧を少し下げる
+ #    Select(0uff08, 0uff09) # （）
+ #    SelectMore(0uff3b) # ［
+ #    SelectMore(0uff3d) # ］
+ #    SelectMore(0uff5b) # ｛
+ #    SelectMore(0uff5d) # ｝
+ #    SelectMore(0uff5f, 0uff60) # ｟｠
+ #    SelectMore(0u3008, 0u3009) # 〈〉
+ #    SelectMore(0u3010, 0u3011) # 【】
+ #    SelectMore(0u300a, 0u300b) # 《》
+ #    SelectMore(0u3014, 0u3015) # 〔〕
+ #    SelectMore(0u3016, 0u3017) # 〖〗
+ #    SelectMore(0u3018, 0u3019) # 〘〙
+ #    SelectMore(0u301a, 0u301b) # 〚〛
+ #    Move(0, -13 + ${move_y_bracket})
+ #    SetWidth(${width_zenkaku})
 
 # 横書き全角形に下線追加
     j = 0 # ！ - ｠
@@ -3306,8 +3498,8 @@ while (i < \$argc)
         if (l != 0uff0c && l != 0uff0e \
          && l != 0uff3f && l != 0uff5e && l != 0uff5f && l != 0uff60) # ，．＿～｟｠
             Select(l)
-            Copy(); Select(${address_store_zenhan} + k); Paste(); SetWidth(${width_zenkaku}) # 避難所にコピー
-            Select(65552); Copy()
+            Copy(); Select(${address_store_vert} + k); Paste(); SetWidth(${width_zenkaku}) # 保管所にコピー
+            Select(${address_store_underline}); Copy() # 下線追加
             Select(l); PasteInto()
             SetWidth(${width_zenkaku})
         endif
@@ -3331,10 +3523,10 @@ while (i < \$argc)
         SetWidth(${width_zenkaku})
         Select(${address_store_mod} + ${num_mod_glyphs} * 4 + j); Paste() # 下線付き全角横書き
         Select(${address_store_mod} + ${num_mod_glyphs} * 5 + j); Paste() # 下線付き全角縦書き
-        Select(65552); Copy() # 下線追加
+        Select(${address_store_underline}); Copy() # 下線追加
         Select(${address_store_mod} + ${num_mod_glyphs} * 4 + j); PasteInto()
         SetWidth(${width_zenkaku})
-        Select(65553); Copy() # 縦線追加
+        Select(${address_store_underline} + 2); Copy() # 縦線追加
         Select(${address_store_mod} + ${num_mod_glyphs} * 5 + j); PasteInto()
         SetWidth(${width_zenkaku})
         j += 1
@@ -3348,10 +3540,10 @@ while (i < \$argc)
     Copy()
     Select(${address_store_zero} + 4); Paste() # 下線付き全角横書き
     Select(${address_store_zero} + 5); Paste() # 下線付き全角縦書き
-    Select(65552); Copy() # 下線追加
+    Select(${address_store_underline}); Copy() # 下線追加
     Select(${address_store_zero} + 4); PasteInto() # 下線付き全角横書き
     SetWidth(${width_zenkaku})
-    Select(65553); Copy() # 縦線追加
+    Select(${address_store_underline} + 2); Copy() # 縦線追加
     Select(${address_store_zero} + 5); PasteInto() # 下線付き全角縦書き
     SetWidth(${width_zenkaku})
 
@@ -3360,8 +3552,8 @@ while (i < \$argc)
     j = 0
     while (j < 63)
  #       Select(0uff61 + j) # ｡-ﾟ
- #       Copy(); Select(${address_store_zenhan} + k); Paste(); SetWidth(${width_hankaku}) # 避難所にコピー
- #       Select(${address_store_underline} + 1); Copy() # 保管した半角下線
+ #       Copy(); Select(${address_store_vert} + k); Paste(); SetWidth(${width_hankaku}) # 保管所にコピー
+ #       Select(${address_store_underline} + 1); Copy() # 下線追加
  #       Select(0uff61 + j); PasteInto() # ｡-ﾟ
  #       SetWidth(${width_hankaku})
         j += 1
@@ -3375,8 +3567,8 @@ while (i < \$argc)
         l = 0uffe0 + j
         if (l != 0uffe3) # ￣
             Select(l)
-            Copy(); Select(${address_store_zenhan} + k); Paste(); SetWidth(${width_zenkaku}) # 避難所にコピー
-            Select(65552); Copy()
+            Copy(); Select(${address_store_vert} + k); Paste(); SetWidth(${width_zenkaku}) # 保管所にコピー
+            Select(${address_store_underline}); Copy() # 下線追加
             Select(l); PasteInto()
             SetWidth(${width_zenkaku})
         endif
@@ -3390,8 +3582,8 @@ while (i < \$argc)
     while (j < SizeOf(hori))
         if (hori[j] != 0u309b && hori[j] != 0u309c) # ゛゜
             Select(hori[j])
-            Copy(); Select(${address_store_zenhan} + k); Paste(); SetWidth(${width_zenkaku}) # 避難所にコピー
-            Select(65552);  Copy()
+            Copy(); Select(${address_store_vert} + k); Paste(); SetWidth(${width_zenkaku}) # 保管所にコピー
+            Select(${address_store_underline});  Copy() # 下線追加
             Select(hori[j]); PasteInto()
             SetWidth(${width_zenkaku})
         endif
@@ -3399,19 +3591,22 @@ while (i < \$argc)
         k += 1
     endloop
 
-    Select(65552); Clear() # Temporary glyph
-    Select(65553); Clear() # Temporary glyph
-
 # 保管している、改変されたグリフの縦書きを追加
     Select(${address_store_visi_latin} + 1); Copy() # |
-    Select(${address_store_zenhan} + 10); Paste() # 縦書き
+    Select(${address_store_vert} + 10); Paste() # 縦書き
     Move(256 - ${move_x_hankaku}, 0)
-    Rotate(-90, 487, 318)
+    Rotate(-90, 512, 315)
     SetWidth(${width_zenkaku})
 
- #    Select(${address_store_zenhan} + 200); Paste() # 全角縦棒を破線にする場合有効にする
+ #    Select(${address_store_vert} + 200); Paste() # 全角縦棒を破線にする場合有効にする
  #    Move(256 - ${move_x_hankaku}, 0) # ただし ss06 に対応する処理の追加が必要
  #    SetWidth(${width_zenkaku})
+
+ #    Select(${address_store_visi_kana}); Copy() # ゠
+ #    Select(${address_store_vert} + k); Paste() # 縦書き
+ #    Rotate(-90, 512, 315)
+ #    SetWidth(${width_zenkaku})
+ #    k += 1
 
 # --------------------------------------------------
 
@@ -3659,7 +3854,7 @@ while (i < \$argc)
 
     j = 0
     while (j < 10)
-        Select(${address_store_b_diagram}); Copy() # 避難した▲
+        Select(${address_store_b_diagram}); Copy() # 保管した▲
         Select(k); Paste()
         Scale(15, 27)
         Move(${move_x_calt_separate}, ${move_y_calt_separate3})
@@ -3687,7 +3882,7 @@ while (i < \$argc)
 
     j = 0
     while (j < 10)
-        Select(${address_store_b_diagram} + 1); Copy() # 避難した▼
+        Select(${address_store_b_diagram} + 1); Copy() # 保管した▼
         Select(k); Paste()
         Scale(15, 27)
         Move(${move_x_calt_separate}, ${move_y_calt_separate4})
@@ -4055,7 +4250,7 @@ while (i < \$argc)
         elseif (j == 70)
             Select(${address_store_mod} + ${num_mod_glyphs} * 2 + 3) # 縦書きＺ
         else
-            Select(${address_store_zenhan} + l)
+            Select(${address_store_vert} + l)
         endif
         Copy()
         Select(k); Paste()
@@ -4079,7 +4274,7 @@ while (i < \$argc)
         elseif (j == 57)
             Select(${address_store_mod} + ${num_mod_glyphs} + 3) # Ｚ
         else
-            Select(${address_store_zenhan} + l)
+            Select(${address_store_vert} + l)
         endif
         Copy()
         Select(k); Paste()
@@ -4098,7 +4293,7 @@ while (i < \$argc)
 
     j = 0
     while (j < 7) # ￠-￦
-        Select(${address_store_zenhan} + l); Copy()
+        Select(${address_store_vert} + l); Copy()
         Select(k); Paste()
         SetWidth(${width_zenkaku})
         glyphName = GlyphInfo("Name")
@@ -4113,7 +4308,7 @@ while (i < \$argc)
             0u2048, 0u2049] # ゛゜‼⁇ ⁈⁉
     j = 0
     while (j < SizeOf(orig))
-        Select(${address_store_zenhan} + l); Copy()
+        Select(${address_store_vert} + l); Copy()
         Select(k); Paste()
         SetWidth(${width_zenkaku})
         glyphName = GlyphInfo("Name")
@@ -4278,7 +4473,7 @@ while (i < \$argc)
         l += 1
     endloop
 
-    Select(${address_store_end}); Copy() # 縦書き゠
+    Select(${address_store_d_hyphen}); Copy() # 縦書き゠
     Select(k); Paste()
     SetWidth(${width_zenkaku})
     glyphName = GlyphInfo("Name")
@@ -4409,7 +4604,7 @@ while (i < \$argc)
 
     j = 0
     while (j < SizeOf(orig))
-        Select(${address_store_zenhan} + num1[j]); Copy() # 下線無し全角
+        Select(${address_store_vert} + num1[j]); Copy() # 下線無し全角
         Select(k); Paste()
         SetWidth(${width_zenkaku})
         glyphName = GlyphInfo("Name")
@@ -4487,7 +4682,7 @@ while (i < \$argc)
     endloop
 
     # 3桁区切り
-    Select(${address_store_b_diagram}); Copy() # 避難した▲
+    Select(${address_store_b_diagram}); Copy() # 保管した▲
     Select(k); Paste()
     Scale(15, 27)
     Move(${move_x_calt_separate}, ${move_y_calt_separate3})
@@ -4503,7 +4698,7 @@ while (i < \$argc)
     k += 1
 
     # 4桁区切り
-    Select(${address_store_b_diagram} + 1); Copy() # 避難した▼
+    Select(${address_store_b_diagram} + 1); Copy() # 保管した▼
     Select(k); Paste()
     Scale(15, 27)
     Move(${move_x_calt_separate}, ${move_y_calt_separate4})
@@ -4622,6 +4817,17 @@ while (i < \$argc)
         j += 1
     endloop
 
+    orig = [0u043d] # н
+    supb = [0u1d78] # ᵸ
+    j = 0
+    while (j < SizeOf(orig))
+        Select(supb[j])
+        glyphName = GlyphInfo("Name")
+        Select(orig[j])
+        AddPosSub(lookups[0][0],glyphName)
+        j += 1
+    endloop
+
     orig = [0u0250, 0u0251, 0u0252, 0u0254,\
             0u0255, 0u025b, 0u025c, 0u025f,\
             0u0261, 0u0265, 0u0268, 0u0269,\
@@ -4631,8 +4837,8 @@ while (i < \$argc)
             0u0289, 0u028a, 0u028b, 0u028c,\
             0u0290, 0u0291, 0u0292, 0u029d,\
             0u029f, 0u0266, 0u0279, 0u027b,\
-            0u0281, 0u0294, 0u0295, 0u043d]
-            # ɐɑɒɔ ɕɛɜɟ ɡɥɨɩ ɪɭɯɰ ɱɲɳɴ ɵɸʂʃ ʉʊʋʌ ʐʑʒʝ ʟɦɹɻ ʁʔʕн
+            0u0281, 0u0294, 0u0295]
+            # ɐɑɒɔ ɕɛɜɟ ɡɥɨɩ ɪɭɯɰ ɱɲɳɴ ɵɸʂʃ ʉʊʋʌ ʐʑʒʝ ʟɦɹɻ ʁʔʕ
     supb = [0u1d44, 0u1d45, 0u1d9b, 0u1d53,\
             0u1d9d, 0u1d4b, 0u1d9f, 0u1da1,\
             0u1da2, 0u1da3, 0u1da4, 0u1da5,\
@@ -4642,8 +4848,8 @@ while (i < \$argc)
             0u1db6, 0u1db7, 0u1db9, 0u1dba,\
             0u1dbc, 0u1dbd, 0u1dbe, 0u1da8,\
             0u1dab, 0u02b1, 0u02b4, 0u02b5,\
-            0u02b6, 0u02c0, 0u02c1, 0u1d78]
-            # ᵄᵅᶛᵓ ᶝᵋᶟᶡ ᶢᶣᶤᶥ ᶦᶩᵚᶭ ᶬᶮᶯᶰ ᶱᶲᶳᶴ ᶶᶷᶹᶺ ᶼᶽᶾᶨ ᶫʱʴʵ ʶˀˁᵸ
+            0u02b6, 0u02c0, 0u02c1]
+            # ᵄᵅᶛᵓ ᶝᵋᶟᶡ ᶢᶣᶤᶥ ᶦᶩᵚᶭ ᶬᶮᶯᶰ ᶱᶲᶳᶴ ᶶᶷᶹᶺ ᶼᶽᶾᶨ ᶫʱʴʵ ʶˀˁ
     j = 0
     while (j < SizeOf(orig))
         Select(supb[j])
@@ -4854,11 +5060,317 @@ while (i < \$argc)
 # --------------------------------------------------
 
 # Transform
-    Print("Transform all glyphs (it may take a few minutes)")
+    Print("Transform glyphs (it may take a few minutes)")
     SelectWorthOutputting()
+    SelectFewer(0u0020) # 半角スペース
+    SelectFewer(0u00a0) # ノーブレークスペース
+ #    SelectFewer(0u2000, 0u2140) # 文字様記号
+    SelectFewer(0u2102) # ℂ
+    SelectFewer(0u210d) # ℍ
+    SelectFewer(0u2115) # ℕ
+    SelectFewer(0u2119) # ℙ
+    SelectFewer(0u211a) # ℚ
+    SelectFewer(0u211d) # ℝ
+    SelectFewer(0u2124) # ℤ
+    SelectFewer(0u212e) # ℮
+    SelectFewer(0u213c, 0u2140) # ℼℽℾℿ⅀
+    SelectFewer(0u2145, 0u2149) # ⅅⅆⅇⅈⅉ
+ #    SelectFewer(0u2190, 0u21ff) # 矢印
+    SelectFewer(0u2191) # ↑
+    SelectFewer(0u2193) # ↓
+    SelectFewer(0u2195, 0u2199) # ↕↖↗↘↙
+    SelectFewer(0u219f) # ↟
+    SelectFewer(0u21a1) # ↡
+    SelectFewer(0u21a5) # ↥
+    SelectFewer(0u21a7, 0u21a8) # ↧↨
+    SelectFewer(0u21b8) # ↸
+    SelectFewer(0u21be, 0u21bf) # ↾↿
+    SelectFewer(0u21c2, 0u21c3) # ⇂⇃
+    SelectFewer(0u21c5) # ⇅
+    SelectFewer(0u21c8) # ⇈
+    SelectFewer(0u21ca) # ⇊
+    SelectFewer(0u21d1) # ⇑
+    SelectFewer(0u21d3) # ⇓
+    SelectFewer(0u21d5, 0u21d9) # ⇕⇖⇗⇘⇙
+    SelectFewer(0u21de, 0u21df) # ⇞⇟
+    SelectFewer(0u21e1) # ⇡
+    SelectFewer(0u21e3) # ⇣
+    SelectFewer(0u21e7) # ⇧
+    SelectFewer(0u21e9, 0u21ef) # ⇩⇪⇫⇬⇭⇮⇯
+    SelectFewer(0u21f1, 0u21f3) # ⇱⇲⇳
+    SelectFewer(0u21f5) # ⇵
+ #    SelectFewer(0u2200, 0u22ff) # 数学記号
+    SelectFewer(0u221f, 0u2222) # ∟∠∡∢
+    SelectFewer(0u2225, 0u2226) # ∥∦
+    SelectFewer(0u2295, 0u22af) # ⊕ - ⊯
+    SelectFewer(0u22b6, 0u22b8) # ⊶ - ⊸
+    SelectFewer(0u22be, 0u22bf) # ⊾⊿
+    SelectFewer(0u22c8, 0u22cc) # ⋈⋉⋊⋋⋌
+    SelectFewer(0u22ee, 0u22f1) # ⋮⋯⋰⋱
+ #    SelectFewer(0u2300, 0u23ff) # その他の技術用記号
+    SelectFewer(0u2300, 0u2307) # ⌀ - ⌇
+    SelectFewer(0u2311, 0u2318) # ⌑ - ⌘
+    SelectFewer(0u231a, 0u231b) # ⌚⌛
+    SelectFewer(0u2320, 0u2328) # ⌠ - ⌨
+    SelectFewer(0u232b, 0u2372) # ⌫ - ⍲
+    SelectFewer(0u237b, 0u23ff) # ⍻ - ⏿
+ #    SelectFewer(0u2400, 0u243f) # 制御機能用記号
+    SelectFewer(0u2425) # ␥
+    SelectFewer(0u2440, 0u245f) # 光学的文字認識、OCR
+    SelectFewer(0u2500, 0u259f) # 罫線素片・ブロック要素
+ #    SelectFewer(0u25a0, 0u25ff) # 幾何学模様
+    SelectFewer(0u25a0, 0u25db) # ■ - ◛
+    SelectFewer(0u25e0, 0u25ff) # ◠ - ◿
+    SelectFewer(0u2600, 0u26ff) # その他の記号
+ #    SelectFewer(0u2700, 0u27bf) # 装飾記号
+    SelectFewer(0u2700, 0u2752) # ✀ - ❒
+    SelectFewer(0u2756) # ❖
+    SelectFewer(0u2758, 0u275a) # ❘ - ❚
+    SelectFewer(0u2761, 0u2767) # ❡ - ❧
+    SelectFewer(0u2795, 0u2798) # ➕ - ➘
+    SelectFewer(0u279a) # ➚
+    SelectFewer(0u27b0) # ➰
+    SelectFewer(0u27b2) # ➲
+    SelectFewer(0u27b4) # ➴
+    SelectFewer(0u27b6, 0u27b7) # ➶➷
+    SelectFewer(0u27b9) # ➹
+    SelectFewer(0u27bf) # ➿
+ #    SelectFewer(0u27c0, 0u27ef) # その他の数学記号 A
+    SelectFewer(0u27c0, 0u27c2) # ⟀⟁⟂
+    SelectFewer(0u27d3, 0u27e5) # ⟓ - ⟥
+ #    SelectFewer(0u27f0, 0u27ff) # 補助矢印 A
+    SelectFewer(0u27f0, 0u27f1) # ⟰⟱
+    SelectFewer(0u2800, 0u28ff) # 点字
+ #    SelectFewer(0u2900, 0u2970) # 補助矢印 B
+    SelectFewer(0u2908, 0u290b) # ⤈⤉⤊⤋
+    SelectFewer(0u2912, 0u2913) # ⤒⤓
+    SelectFewer(0u2921, 0u2932) # ⤡ - ⤲
+    SelectFewer(0u2949) # ⥉
+    SelectFewer(0u294c, 0u294d) # ⥌⥍
+    SelectFewer(0u294f) # ⥏
+    SelectFewer(0u2951) # ⥑
+    SelectFewer(0u2954, 0u2955) # ⥔⥕
+    SelectFewer(0u2958, 0u2959) # ⥘⥙
+    SelectFewer(0u295c, 0u295d) # ⥜⥝
+    SelectFewer(0u2960, 0u2961) # ⥠⥡
+    SelectFewer(0u2963) # ⥣
+    SelectFewer(0u2965) # ⥥
+    SelectFewer(0u296e, 0u296f) # ⥮⥯
+    SelectFewer(0u297e, 0u297f) # ⥾⥿
+ #    SelectFewer(0u2980, 0u29ff) # その他の数学記号 B
+    SelectFewer(0u299b, 0u29d7) # ⦛ - ⧗
+    SelectFewer(0u29df, 0u29f3) # ⧟ - ⧳
+ #    SelectFewer(0u2a00, 0u2aff) # 補助数学記号
+    SelectFewer(0u2a00, 0u2a02) # ⨀⨁⨂
+    SelectFewer(0u2a36, 0u2a38) # ⨶⨷⨸
+    SelectFewer(0u2ade, 0u2af1) # ⫞ - ⫱
+ #    SelectFewer(0u2b00, 0u2bff) # その他の記号および矢印
+    SelectFewer(0u2b00, 0u2b03) # ⬀⬁⬂⬃
+    SelectFewer(0u2b06, 0u2b0b) # ⬆⬇⬈⬉⬊⬋
+    SelectFewer(0u2b0d, 0u2b2f) # ⬍⬯
+    SelectFewer(0u2b4e, 0u2b5f) # ⭎⭟
+    SelectFewer(0u2b61) # ⭡
+    SelectFewer(0u2b63) # ⭣
+    SelectFewer(0u2b65, 0u2b69) # ⭥⭦⭧⭨⭩
+    SelectFewer(0u2b6b) # ⭫
+    SelectFewer(0u2b6d) # ⭭
+    SelectFewer(0u2b71) # ⭱
+    SelectFewer(0u2b73) # ⭳
+    SelectFewer(0u2b76, 0u2b79) # ⭶⭷⭸⭹
+    SelectFewer(0u2b7b) # ⭻
+    SelectFewer(0u2b7d) # ⭽
+    SelectFewer(0u2b7f) # ⭿
+    SelectFewer(0u2b81) # ⮁
+    SelectFewer(0u2b83) # ⮃
+    SelectFewer(0u2b85) # ⮅
+    SelectFewer(0u2b87, 0u2b8b) # ⮇⮈⮉⮊⮋
+    SelectFewer(0u2b97) # ⮗
+    SelectFewer(0u2b99) # ⮙
+    SelectFewer(0u2b9b) # ⮛
+    SelectFewer(0u2b9d) # ⮝
+    SelectFewer(0u2b9f) # ⮟
+    SelectFewer(0u2bb8, 0u2bff) # ⮸ - ⯿
+    SelectFewer(0u2ff0, 0u2fff) # 漢字構成記述文字
+    SelectFewer(0u3000) # 全角スペース
+    SelectFewer(0u3004) # 〄
+    SelectFewer(0u3012) # 〒
+    SelectFewer(0u3020) # 〠
+    SelectFewer(0u3036) # 〶
+    SelectFewer(0u31ef) # ㇯
+    SelectFewer(0ufe17, 0ufe18) # 縦書き用括弧
+    SelectFewer(0ufe19) # ︙
+    SelectFewer(0ufe30, 0ufe34) # ︰︱︲︳︴
+    SelectFewer(0ufe35, 0ufe44) # 縦書き用括弧
+    SelectFewer(0ufe47, 0ufe48) # 縦書き用括弧
+  #    SelectFewer(0u1d538, 0u1d56b) # 数学用英数字記号
+    SelectFewer(0u1f310) # 🌐
+    SelectFewer(0u1f3a4) # 🎤
+    SelectFewer("uniFFFD") # Replacement Character
+    SelectFewer(".notdef") # notdef
+    if ("${nerd_flag}" == "true")
+        SelectFewer(0ue000, 0uf6c4) # NerdFonts
+        SelectFewer(0uf6c6, 0uf8ff) # NerdFonts
+        SelectFewer(0uf0001, 0uf1af0) # NerdFonts
+    endif
+
+    SelectFewer(${address_store_underline}, ${address_store_underline} + 2) # 保管した下線
+    SelectFewer(${address_store_braille}, ${address_store_braille} + 255) # 保管した点字
+    SelectFewer(${address_store_line}, ${address_store_line} + 31) # 保管した罫線
+    SelectFewer(${address_store_visi_kana} + 3) # 保管した︲
+    SelectFewer(${address_store_visi_kana} + 5) # 保管した︱
+    SelectFewer(${address_store_arrow}, ${address_store_arrow} + 3) # 保管した矢印
+    SelectFewer(${address_store_vert}, ${address_store_vert} + 1) # 保管した縦書きの縦線無し（）
+    SelectFewer(${address_store_vert} + 4, ${address_store_vert} + 19) # 保管した縦書きの縦線無し： - ｠
+    SelectFewer(${address_store_vert} + 22, ${address_store_vert} + 23) # 保管した縦書きの縦線無し／＼
+    SelectFewer(${address_store_vert} + 102) # 保管した縦書きの縦線無し￤
+    SelectFewer(${address_store_d_hyphen}) # 保管した縦書きの゠
+
+    SelectFewer("uni3008.vert", "uni301F.vert") # 縦書きの括弧類
+    SelectFewer("uni30FC.vert") # 縦書きのー
+    SelectFewer("uniFFE4.vert") # 縦書きの￤
+    SelectFewer("uni2702.vert", "uni30A0.vert") # 縦書きの✂‖〰゠
+
+    SelectFewer("uniFF08.vert.ss06", "uniFF09.vert.ss06") # ss06の縦書きの（）
+    SelectFewer("uniFF1A.vert.ss06", "uniFF60.vert.ss06") # ss06の縦書きの： - ｠
+    SelectFewer("uniFF0F.vert.ss06", "uniFF3C.vert.ss06") # ss06の縦書きの／＼
+    SelectFewer("uniFFE4.vert.ss06") # ss06の縦書きの￤
+    SelectFewer("uni2800.ss06", "uni28FF.ss06") # ss06の点字
+
+    SelectFewer("uniFE32.ss07") # ss07の︲
+    SelectFewer("uniFE31.ss07") # ss07の︱
+    SelectFewer("uni30A0.vert.ss07") # ss07の縦書きの゠
+
+    SelectFewer("SF100000.ss09", "arrowdown.ss09") # ss09の罫線、矢印
+
     Transform(100, 0, ${tan_oblique}, 100, ${move_x_oblique}, 0)
     RemoveOverlap()
     RoundToInt()
+
+# 半角・全角形、縦書き用を作り直し
+    Print("Edit hankaku kana, zenkaku eisuu and vert glyphs")
+
+    j = 0
+    while (j < ${num_mod_glyphs})
+        Select(${address_store_mod} + ${num_mod_glyphs} * 1 + j); Copy() # 保管した横書きのＤＱＶＺ
+        Select(${address_store_mod} + ${num_mod_glyphs} * 4 + j); Paste() # 保管した下線ありの横書きのＤＱＶＺ
+        Select(${address_store_underline}); Copy() # 下線追加
+        Select(${address_store_mod} + ${num_mod_glyphs} * 4 + j); PasteInto() # 保管した下線ありの横書きのＤＱＶＺ
+        SetWidth(${width_zenkaku})
+
+        Select(${address_store_mod} + ${num_mod_glyphs} * 2 + j); Copy() # 保管した縦書きのＤＱＶＺ
+        Select(${address_store_mod} + ${num_mod_glyphs} * 5 + j); Paste() # 保管した縦線ありの縦書きのＤＱＶＺ
+        Select(${address_store_underline} + 2); Copy() # 縦線追加
+        Select(${address_store_mod} + ${num_mod_glyphs} * 5 + j); PasteInto() # 保管した縦線ありの縦書きのＤＱＶＺ
+        SetWidth(${width_zenkaku})
+        j += 1
+    endloop
+
+    Select(${address_store_zero} + 3); Copy() # 保管した全角のスラッシュ無し０
+    Select(${address_store_zero} + 4); Paste() # 保管した横書きのスラッシュ無し０
+    Select(${address_store_underline}); Copy() # 下線追加
+    Select(${address_store_zero} + 4); PasteInto() # 保管した横書きのスラッシュ無し０
+    SetWidth(${width_zenkaku})
+
+    Select(${address_store_zero} + 3); Copy() # 保管した全角のスラッシュ無し０
+    Select(${address_store_zero} + 5); Paste() # 保管した縦書きのスラッシュ無し０
+    Select(${address_store_underline} + 2); Copy() # 縦線追加
+    Select(${address_store_zero} + 5); PasteInto() # 保管した縦書きのスラッシュ無し０
+    SetWidth(${width_zenkaku})
+
+    Select("uniFF08.vert")
+    vert = GlyphInfo("Encoding")
+    Select("uni2702.vert")
+    vert2 = GlyphInfo("Encoding")
+    j = 0
+    while (j < vert2 - vert)
+        Select(${address_store_vert} + j); Copy() # 保管した縦線無し縦書き
+        Select(vert + j); Paste() # 縦書き
+        Select(${address_store_underline} + 2); Copy() # 縦線追加
+        Select(vert + j); PasteInto() # 縦書き
+        SetWidth(${width_zenkaku})
+        j += 1
+    endloop
+
+    Select("uniFF24.ss08")
+    ss = GlyphInfo("Encoding")
+    st = [35, 48, 53, 57] # 保管した全角半角文字の頭からＤＱＶＺまでの数
+    j = 0
+    while (j < SizeOf(st))
+        Select(${address_store_zenhan} + st[j]); Copy() # 保管した横書きのＤＱＶＺ
+        Select(ss + j); Paste() # 横書きのss08用ＤＱＶＺ
+        Select(${address_store_underline}); Copy() # 下線追加
+        Select(ss + j); PasteInto() # 横書きのss08用ＤＱＶＺ
+        SetWidth(${width_zenkaku})
+        j += 1
+    endloop
+
+    Select("uniFF24.vert.ss08")
+    ss = GlyphInfo("Encoding")
+    st = [48, 61, 66, 70] # 保管した縦書き文字の頭からＤＱＶＺまでの数
+    j = 0
+    while (j < SizeOf(st))
+        Select(${address_store_vert} + st[j]); Copy() # 保管した縦書きのＤＱＶＺ
+        Select(ss + j); Paste() # 縦書きのss08用ＤＱＶＺ
+        Select(${address_store_underline} + 2); Copy() # 縦線追加
+        Select(ss + j); PasteInto() # 縦書きのss08用ＤＱＶＺ
+        SetWidth(${width_zenkaku})
+        j += 1
+    endloop
+
+    Select(${address_store_zero} + 3); Copy() # 保管した全角のスラッシュ無し０
+    Select("uniFF10.ss10"); Paste() # 横書きのスラッシュ無し０
+    Select(${address_store_underline}); Copy() # 下線追加
+    Select("uniFF10.ss10"); PasteInto() # 横書きのスラッシュ無し０
+    SetWidth(${width_zenkaku})
+
+    Select(${address_store_zero} + 3); Copy() # 保管した全角のスラッシュ無し０
+    Select("uniFF10.vert.ss10"); Paste() # 縦書きのスラッシュ無し０
+    Select(${address_store_underline} + 2); Copy() # 縦線追加
+    Select("uniFF10.vert.ss10"); PasteInto() # 縦書きのスラッシュ無し０
+    SetWidth(${width_zenkaku})
+
+    j = 0
+    k = 0
+    while (k < 96)
+        Select(${address_store_zenhan} + k); Copy() # 保管した全角半角文字
+        Select(0uff01 + j); Paste() # 全角半角形
+        Select(${address_store_underline}); Copy() # 下線追加
+        Select(0uff01 + j); PasteInto() # 全角半角形
+        SetWidth(${width_zenkaku})
+        j += 1
+        k += 1
+    endloop
+    while (k < 159)
+        Select(${address_store_zenhan} + k); Copy() # 保管した全角半角文字
+        Select(0uff01 + j); Paste() # 全角半角形
+        Select(${address_store_underline} + 1); Copy() # 下線追加
+        Select(0uff01 + j); PasteInto() # 全角半角形
+        SetWidth(${width_hankaku})
+        j += 1
+        k += 1
+    endloop
+    j = 0
+    while (k < 166)
+        Select(${address_store_zenhan} + k); Copy() # 保管した全角半角文字
+        Select(0uffe0 + j); Paste() # 全角半角形
+        Select(${address_store_underline}); Copy() # 下線追加
+        Select(0uffe0 + j); PasteInto() # 全角半角形
+        SetWidth(${width_zenkaku})
+        j += 1
+        k += 1
+    endloop
+    hori = [0u309b, 0u309c, 0u203c, 0u2047,\
+            0u2048, 0u2049] # ゛゜‼⁇ ⁈⁉
+    j = 0
+    while (k < 172)
+        Select(${address_store_zenhan} + k); Copy() # 保管した全角半角文字
+        Select(hori[j]); Paste()
+        Select(${address_store_underline}); Copy() # 下線追加
+        Select(hori[j]); PasteInto()
+        SetWidth(${width_zenkaku})
+        j += 1
+        k += 1
+    endloop
 
 # --------------------------------------------------
 
@@ -4971,7 +5483,7 @@ while (i < \$argc)
         # 全角縦書き
         j = 0
         while (j < 109)
-            Select(${address_store_zenhan} + k); Copy()
+            Select(${address_store_vert} + k); Copy()
             Select(${address_vert_bracket} + j); Paste()
             SetWidth(${width_zenkaku})
             j += 1
@@ -4981,7 +5493,7 @@ while (i < \$argc)
         # 全角横書き
         j = 0 # ！-｠
         while (j < 96)
-            Select(${address_store_zenhan} + k); Copy()
+            Select(${address_store_vert} + k); Copy()
             Select(0uff01 + j); Paste()
             SetWidth(${width_zenkaku})
             j += 1
@@ -4991,7 +5503,7 @@ while (i < \$argc)
         # 半角横書き
         j = 0 # ｡-ﾟ
         while (j < 63)
-            Select(${address_store_zenhan} + k); Copy();
+            Select(${address_store_vert} + k); Copy();
             Select(0uff61 + j); Paste()
             SetWidth(${width_hankaku})
             j += 1
@@ -5001,7 +5513,7 @@ while (i < \$argc)
         # 全角横書き (続き)
         j = 0 # ￠-￦
         while (j < 7)
-            Select(${address_store_zenhan} + k); Copy()
+            Select(${address_store_vert} + k); Copy()
             Select(0uffe0 + j); Paste()
             SetWidth(${width_zenkaku})
             j += 1
@@ -5011,7 +5523,7 @@ while (i < \$argc)
                 0u2048, 0u2049] # ゛゜‼⁇ ⁈⁉
         j = 0
         while (j < SizeOf(orig))
-            Select(${address_store_zenhan} + k); Copy()
+            Select(${address_store_vert} + k); Copy()
             Select(orig[j]); Paste()
             SetWidth(${width_zenkaku})
             j += 1
@@ -5068,7 +5580,7 @@ while (i < \$argc)
             k += 1
         endloop
 
-        Select(${address_store_end}); Copy() # 縦書き゠
+        Select(${address_store_d_hyphen}); Copy() # 縦書き゠
         Select(${address_vert_dh}); Paste()
         SetWidth(${width_zenkaku})
     endif
