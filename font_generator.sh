@@ -2249,7 +2249,7 @@ while (i < SizeOf(input_list))
 
 # ⏻⏼⏽⏾ (全角にする)
     Select(0u23fb, 0u23fe) # ⏻⏼⏽⏾
-    Move(200, 0)
+    Move(204, 0)
     Scale(${scale_hankaku2zenkaku}, ${width_zenkaku} / 2, ${center_height_hankaku})
     SetWidth(${width_zenkaku})
 
@@ -2287,7 +2287,7 @@ while (i < SizeOf(input_list))
     Select(0u27f0, 0u27ff) # ⟰-⟿
     foreach
         if (WorthOutputting())
-            Move(200, 0)
+            Move(204, 0)
             Scale(${scale_hankaku2zenkaku}, ${width_zenkaku} / 2, ${center_height_hankaku})
             SetWidth(${width_zenkaku})
         endif
@@ -2297,7 +2297,7 @@ while (i < SizeOf(input_list))
     Select(0u2900, 0u297f) # ⤀-⥿
     foreach
         if (WorthOutputting())
-            Move(200, 0)
+            Move(204, 0)
             Scale(${scale_hankaku2zenkaku}, ${width_zenkaku} / 2, ${center_height_hankaku})
             SetWidth(${width_zenkaku})
         endif
