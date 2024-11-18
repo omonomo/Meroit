@@ -1270,7 +1270,6 @@ while (i < SizeOf(input_list))
     SetWidth(${width_hankaku})
     RemoveOverlap()
 
-    Select(0u0197); Copy() # Ɨ
     Select(65552); Clear() # Temporary glyph
 
     # ラテン文字
@@ -1304,8 +1303,22 @@ while (i < SizeOf(input_list))
     Select(0u020a); PasteInto(); SetWidth(${width_hankaku}) # Ȋ
     Select(0u1e2c); PasteInto(); SetWidth(${width_hankaku}) # Ḭ
     Select(0u1eca); PasteInto(); SetWidth(${width_hankaku}) # Ị
-    Select(0u1e2e); PasteInto(); SetWidth(${width_hankaku}) # Ḯ
-    Select(0u1ec8); PasteInto(); SetWidth(${width_hankaku}) # Ỉ
+ #    Select(0u1e2e) # Ḯ
+ #    Select(0u1ec8) # Ỉ
+    # ギリシア文字
+    Select(0u2588); Copy() # █
+    Select(65552);  Paste() # Temporary glyph
+    Move(-545, 50)
+    PasteWithOffset(-300, 980)
+    RemoveOverlap()
+    Copy()
+
+    Select(0u038a); PasteInto(); OverlapIntersect() # Ί
+    Select(0u0049); Copy() # I
+    Select(0u038a); PasteInto(); SetWidth(${width_hankaku}) # Ί
+    Select(0u0399); Paste(); SetWidth(${width_hankaku}) # Ι
+
+    Select(65552);  Clear() # Temporary glyph
     # キリル文字
     Select(0u2588); Copy() # Full block
     Select(0u0407); PasteWithOffset(0,  1010); OverlapIntersect() # Ї
@@ -5116,6 +5129,7 @@ while (i < \$argc)
     SelectFewer(0u232b, 0u2372) # ⌫ - ⍲
     SelectFewer(0u237b, 0u23ff) # ⍻ - ⏿
  #    SelectFewer(0u2400, 0u243f) # 制御機能用記号
+    SelectFewer(0u2423) # ␣
     SelectFewer(0u2425) # ␥
     SelectFewer(0u2440, 0u245f) # 光学的文字認識、OCR
     SelectFewer(0u2500, 0u259f) # 罫線素片・ブロック要素
@@ -5163,7 +5177,7 @@ while (i < \$argc)
     SelectFewer(0u29df, 0u29f3) # ⧟ - ⧳
  #    SelectFewer(0u2a00, 0u2aff) # 補助数学記号
     SelectFewer(0u2a00, 0u2a02) # ⨀⨁⨂
-    SelectFewer(0u2a36, 0u2a38) # ⨶⨷⨸
+    SelectFewer(0u2a36, 0u2a3b) # ⨶⨷⨸⨹⨺⨻
     SelectFewer(0u2ade, 0u2af1) # ⫞ - ⫱
  #    SelectFewer(0u2b00, 0u2bff) # その他の記号および矢印
     SelectFewer(0u2b00, 0u2b03) # ⬀⬁⬂⬃
