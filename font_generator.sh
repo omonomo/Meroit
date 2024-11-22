@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Custom font generator
+# Custom font generator for Meroit
 #
 # Copyright (c) 2024 omonomo
 #
@@ -177,8 +177,8 @@ scale_width_hankaku="100" # 半角英数文字の横拡大率
 scale_height_hankaku="100" # 半角英数文字の縦拡大率
 width_hankaku="512" # 半角文字幅
 center_width=$((width_hankaku / 2)) # 半角文字X座標中心
-move_x_calt_latin="16" # ラテン文字のX座標移動量
-move_x_calt_symbol="32" # 記号のX座標移動量
+move_x_calt_latin="16" # ラテン文字のカーニングX座標移動量
+move_x_calt_symbol="32" # 記号のカーニングX座標移動量
 move_x_hankaku="0" # 半角文字移動量
 
 # Loose 版用
@@ -189,8 +189,8 @@ scale_width_hankaku_loose="100" # 半角英数文字の横拡大率 (Loose 版)
 scale_height_hankaku_loose="100" # 半角英数文字の縦拡大率 (Loose 版)
 width_hankaku_loose="576" # 半角文字幅 (Loose 版)
 center_width_loose=$((width_hankaku_loose / 2)) # 半角文字X座標中心 (Loose 版)
-move_x_calt_latin_loose="18" # ラテン文字のX座標移動量 (Loose 版)
-move_x_calt_symbol_loose="36" # 記号のX座標移動量 (Loose 版)
+move_x_calt_latin_loose="18" # ラテン文字のカーニングX座標移動量 (Loose 版)
+move_x_calt_symbol_loose="36" # 記号のカーニングX座標移動量 (Loose 版)
 move_x_hankaku_loose=$(((width_hankaku_loose - ${width_hankaku}) / 2)) # 半角文字移動量 (Loose 版)
 
 # デバッグ用
@@ -1583,7 +1583,7 @@ while (i < SizeOf(input_list))
  #    SelectMore(0uab47) # ꭇ
  #    SelectMore(0uab49) # ꭉ
     if (input_list[i] == "${input_latin_regular}")
-        Move(-50, 0)
+        Move(-40, 0)
     else
         Move(-20, 0)
     endif
@@ -1706,6 +1706,11 @@ while (i < SizeOf(input_list))
         Move(0, 50)
         SetWidth(${width_hankaku})
     endif
+
+# _ (上げる)
+    Select(0u005f) # _
+    Move(0, 69)
+    SetWidth(${width_hankaku})
 
 # \`´ (拡大する)
     Select(0u0060) # \`
@@ -2235,7 +2240,7 @@ while (i < SizeOf(input_list))
 
 # 括弧を上下に移動
     brkt = [0u0028, 0u0029, 0u005b, 0u005d,\
-            0u007b, 0u007b] # ()[] {}
+            0u007b, 0u007d] # ()[] {}
     j = 0
     while (j < SizeOf(brkt))
         Select(brkt[j]);
@@ -2457,6 +2462,7 @@ while (i < SizeOf(input_list))
     Select(0u23e4); Clear() # ⏤
     Select(0u23e5); Clear() # ⏥
     Select(0u2425); Clear() # ␥
+ #    Select(0u2500, 0u259f); Clear() # 罫線素片・ブロック要素
     Select(0u25a0, 0u25a1); Clear() # ■□
     Select(0u25ac, 0u25af); Clear() # ▬▭▮▯
     Select(0u25b0, 0u25b1); Clear() # ▰▱
@@ -3120,6 +3126,30 @@ while (i < \$argc)
     HFlip()
     CorrectDirection()
     SetWidth(${width_hankaku})
+
+# ＿ (latin フォントの _ に合わせる)
+    Select(0uff3f) # ＿
+    Move(0, -10)
+    SetWidth(${width_zenkaku})
+
+# 演算子を上下に移動
+ #    math = [0u2243, 0u2248, 0u2252, 0u223c] # ≃≈≒∼
+ #    j = 0
+ #    while (j < SizeOf(math))
+ #        Select(math[j]);
+ #        Move(0, ${move_y_math} - 17)
+ #    SetWidth(${width_hankaku})
+ #        j += 1
+ #    endloop
+
+    math = [0u226a, 0u226b] # ≪≫
+    j = 0
+    while (j < SizeOf(math))
+        Select(math[j]);
+        Move(0, ${move_y_math} - 17)
+        SetWidth(${width_zenkaku})
+        j += 1
+    endloop
 
 # --------------------------------------------------
 
@@ -5195,7 +5225,7 @@ while (i < \$argc)
     SelectFewer(${address_store_vert} + 102) # 保管した縦書きの縦線無し￤
     SelectFewer(${address_store_d_hyphen}) # 保管した縦書きの゠
 
-    SelectFewer("uni3008.vert", "uni301F.vert") # 縦書きの括弧類
+    SelectFewer("uni3008.vert", "uni301F.vert") # 縦書きの括弧、〓
     SelectFewer("uni30FC.vert") # 縦書きのー
     SelectFewer("uniFFE4.vert") # 縦書きの￤
     SelectFewer("uni2702.vert", "uni30A0.vert") # 縦書きの✂‖〰゠
