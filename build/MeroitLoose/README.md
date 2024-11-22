@@ -4,7 +4,7 @@ Copyright (c) 2024 omonomo ([https://omonomo.github.io/Meroit/](https://omonomo.
 
 ## 簡単な説明
 
-自作合成フォント [Cyroit](https://omonomo.github.io/Cyroit/) に [Meslo LG](https://github.com/andreberg/Meslo-Font) と [Hack](https://sourcefoundry.org/hack/) を合成しました。Cyroit の姉妹フォントになります。
+自作合成フォント [Cyroit](https://omonomo.github.io/Cyroit/) に [Meslo LG](https://github.com/andreberg/Meslo-Font) と [Hack](https://sourcefoundry.org/hack/) を合成しました。
 
 ## 収録フォントの主な違い
 
@@ -64,7 +64,7 @@ All Rights Reserved.
 [Inconsolata (Version 3.001)]  
 Copyright 2006 The Inconsolata Project Authors  
 ([https://levien.com/type/myfonts/inconsolata.html](https://levien.com/type/myfonts/inconsolata.html))  
-主に Meslo LG に含まれないラテン文字で使用しています。Inconsolata のライセンスは [SIL Open Font License v1.1](https://github.com/google/fonts/blob/main/ofl/inconsolata/OFL.txt) です。
+主に Meslo LG に含まれない文字で使用しています。Inconsolata のライセンスは [SIL Open Font License v1.1](https://github.com/google/fonts/blob/main/ofl/inconsolata/OFL.txt) です。
 
 [Circle M+ (Version 1.063a)]  
 Copyright(c) 2020 M+ FONTS PROJECT, itouhiro  
