@@ -36,16 +36,17 @@ Meroit (めろいと) はコーディングにもお使いいただける日本�
 
 ## ダウンロード
 
-最新版 v1.1.1 (2024-11-9)
+最新版 v1.2.0 (2024-11-23)
 
 | リンク                                                                                                      | 説明                                   |
 | ----------------------------------------------------------------------------------------------------------- | -------------------------------------- |
-| [フォント (Meroit)](https://github.com/omonomo/Meroit/releases/download/v1.1.1/Meroit_v1.1.1.zip)           | 通常版。半角幅が全角の1/2。            |
-| [フォント (MeroitLoose)](https://github.com/omonomo/Meroit/releases/download/v1.1.1/MeroitLoose_v1.1.1.zip) | 文字間隔ゆるい版。半角幅が全角の9/16。 |
-| [ソースコード](https://github.com/omonomo/Meroit/archive/refs/tags/v1.1.1.zip)                              | 使用方法は下の方にあります。           |
+| [フォント (Meroit)](https://github.com/omonomo/Meroit/releases/download/v1.2.0/Meroit_v1.2.0.zip)           | 通常版。半角幅が全角の1/2。            |
+| [フォント (MeroitLoose)](https://github.com/omonomo/Meroit/releases/download/v1.2.0/MeroitLoose_v1.2.0.zip) | 文字間隔ゆるい版。半角幅が全角の9/16。 |
+| [ソースコード](https://github.com/omonomo/Meroit/archive/refs/tags/v1.2.0.zip)                              | 使用方法は下の方にあります。           |
 
 フォントやスクリプトの使用は自己責任にてお願いいたします。  
-各ファイルを使用することで生じた不具合・損害等について omonomo は責任を負いません。
+各ファイルを使用することで生じた不具合・損害等について omonomo は責任を負いません。  
+[ライセンス](#ライセンス)に従ってのご使用をお願いいたします。
 
 ## その他の特徴
 
@@ -63,8 +64,9 @@ Meroit (めろいと) はコーディングにもお使いいただける日本�
 
 - Cyroit のグリフに合わせるため、全体的に縮小されています。
 - Meslo のこだわりポイントであるラインギャップについても、Cyroit に合わせてあります。LG M が一番近いです。
-- 上付き、下付き文字は、通常の文字と比較して少し大きくしています。
+- 上付き、下付き文字は少し拡大しています。
 - 一部の文字や記号について、グリフの形状や表示座標を微調整しています。
+- オブリーク体は新規に生成し直しています。
 
 ### 仮名文字について
 
@@ -77,6 +79,7 @@ Meroit (めろいと) はコーディングにもお使いいただける日本�
 ### 記号類について
 
 - 半角の矢印や装飾記号などは全角に改変しています。
+- Cyroit に加え Meslo に含まれる豊富なグリフをご利用いただけます。
 
 ### 機能的なものについて
 
@@ -84,7 +87,7 @@ Meroit (めろいと) はコーディングにもお使いいただける日本�
 
 ### Loose (文字間隔ゆるい) 版について
 
-- Cyroit 同様、半角英数文字の大きさや縦横比を通常版から変更しています。むしろ Loose 版のほうが Meslo に近い形状になっています。
+- Cyroit 同様、半角英数文字の大きさや縦横比を通常版から変更しています。むしろ Loose 版のほうが素の Meslo に近い形状をしています。
 
 ## 収録フォントの違い
 
@@ -132,10 +135,10 @@ Loose 版は名称が 「MeroitLoose...」 になります。
 
 Meroit は以下の環境でビルドできることを確認しています。
 
-- OS: macOS Sequoia (version 15.1)
+- OS: macOS Sequoia (version 15.1.1)
 - Shell: GNU bash, version 5.2.37(1)-release (aarch64-apple-darwin23.4.0)
 - FontForge: 20230101
-- FontTools: 4.54.1
+- FontTools: 4.55.0
 
 ### 基本的な使い方
 
@@ -272,11 +275,13 @@ font_generator で合成したフォントの情報を FontTools の ttx コマ�
 #### 5. `calt_table_maker.sh`
 
 通常、直接実行する必要はありません。  
-calt テーブル (前後の文字によってグリフ置換を行う設定) を作成します。作成したデータは table_modificator で使用します。
+calt テーブル (前後の文字によってグリフ置換を行う設定) を作成します。作成したデータは table_modificator で使用します。  
+作成に時間がかかるため、通常はテーブルファイルが存在しないか calt_table_maker.sh を更新した場合、オプションやフォントのグリフ数を変更した時のみテーブルを作り直します。
 
 - オプション  
   `-h` ヘルプを表示します。  
   `-x` スクリプトと同じフォルダにある一時作成ファイルの削除のみ行って終了します。  
+  `-X` スクリプトと同じフォルダにある一時作成ファイルと、カーニング設定 (保存してある設定も含む) の削除のみ行って終了します。  
   `-l` 一時作成ファイルを残したままにします。  
   `-n number` calt で置換する先頭のグリフ (左に動いた A になります) を示す番号に _number_ を指定します。  
   &emsp; &emsp;先に uvs_table_maker を実行し、`gsubList.txt` が生成されていれば省略しても問題ありません。  
@@ -306,5 +311,7 @@ calt テーブル (前後の文字によってグリフ置換を行う設定) �
 
 - [GitHubページ](https://github.com/omonomo/Meroit): 過去のバージョンや更新履歴はこちらをご参照ください。
 - [全角英数や半角カナが判別しやすい、文字間隔調整機能付き等幅フォント「Cyroit」](https://omonomo.github.io/Cyroit/): Meroit のお姉さんフォントです。
+- [全角英数や半角カナが判別しやすい、文字間隔調整機能付き等幅フォント「Jeroit」](https://omonomo.github.io/Jeroit/): Meroit の一つ下の妹さんフォントです。
+- [全角英数や半角カナが判別しやすい、文字間隔調整機能付き等幅フォント「Ubroit」](https://omonomo.github.io/Ubroit/): Meroit の二つ下の妹さんフォントです。
 - [小指の移動量が少ない日本語かな入力配列 「水草配列」](https://omonomo.github.io/Mizukusa/): オリジナル日本語かな入力配列を紹介しています。
 - [DefaultKeyBinding.dict サンプル](https://omonomo.github.io/DefaultKeyBinding/): タイトル通りです。
