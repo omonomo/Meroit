@@ -175,6 +175,7 @@ scale_height_latin="88" # Latin フォントの半角英数文字の縦拡大率
 move_x_hankaku_latin="-52" # Latin フォント全体のX座標移動量
 scale_width_hankaku="100" # 半角英数文字の横拡大率
 scale_height_hankaku="100" # 半角英数文字の縦拡大率
+scale_width_box="83" # 半角罫線素片・ブロック要素の横拡大率
 width_hankaku="512" # 半角文字幅
 center_width=$((width_hankaku / 2)) # 半角文字X座標中心
 move_x_calt_latin="16" # ラテン文字のカーニングX座標移動量
@@ -187,6 +188,7 @@ scale_height_latin_loose="92" # Latin フォントの半角英数文字の縦拡
 move_x_hankaku_latin_loose="-20" # Latin フォント全体のX座標移動量 (Loose 版)
 scale_width_hankaku_loose="100" # 半角英数文字の横拡大率 (Loose 版)
 scale_height_hankaku_loose="100" # 半角英数文字の縦拡大率 (Loose 版)
+scale_width_box_loose="92" # 半角罫線素片・ブロック要素の横拡大率 (Loose 版)
 width_hankaku_loose="576" # 半角文字幅 (Loose 版)
 center_width_loose=$((width_hankaku_loose / 2)) # 半角文字X座標中心 (Loose 版)
 move_x_calt_latin_loose="18" # ラテン文字のカーニングX座標移動量 (Loose 版)
@@ -434,7 +436,9 @@ do
             move_x_hankaku_latin=${move_x_hankaku_latin_loose} # Latin フォント全体のX座標移動量
             scale_width_hankaku=${scale_width_hankaku_loose} # 半角英数文字の横拡大率
             scale_height_hankaku=${scale_height_hankaku_loose} # 半角英数文字の縦拡大率
+            scale_width_box=${scale_width_box_loose} # 半角罫線素片・ブロック要素の横拡大率
             width_hankaku=${width_hankaku_loose} # 半角文字幅
+            center_width=${center_width_loose} # 半角文字X座標中心
             move_x_hankaku=${move_x_hankaku_loose} # 半角文字移動量
             move_x_calt_latin=${move_x_calt_latin_loose} # ラテン文字のX座標移動量
             move_x_calt_symbol=${move_x_calt_symbol_loose} # 記号のX座標移動量
@@ -2270,9 +2274,9 @@ while (i < SizeOf(input_list))
 
 # --------------------------------------------------
 
-# Scale down hankaku glyphs
+# Change the scale of hankaku glyphs
     if ("${draft_flag}" == "false")
-        Print("Scale down hankaku glyphs")
+        Print("Change the scale of hankaku glyphs")
         Select(0u0020, 0u1fff) # 基本ラテン - ギリシア文字拡張 # 一部全角
         SelectMore(0u2010, 0u218f) # 一般句読点 - 数字の形
         SelectMore(0u2200, 0u22ff) # 数学記号 # 全角半角混合
@@ -2316,14 +2320,24 @@ while (i < SizeOf(input_list))
         endloop
 
         Select(0u2320, 0u2321) # インテグラル # 高さそのまま
-        SelectMore(0u239b, 0u23ae) # 括弧・インテグラル # 高さそのまま
-        SelectMore(0u23b0, 0u23b3) # 括弧括弧素片・総和記号部分
-        SelectMore(0u23be, 0u23cc) # 歯科表記記号
-        SelectMore(0u2500, 0u259f) # 罫線素片・ブロック要素 # 高さそのまま
+        SelectMore(0u239b, 0u23ae) # 括弧素片・インテグラル # 高さそのまま
+        SelectMore(0u23b0, 0u23b3) # 括弧素片・総和記号部分
         foreach
             if (WorthOutputting())
                 if (GlyphInfo("Width") <= 700)
                     Scale(${scale_width_latin}, 100, 308, ${center_height_hankaku})
+                    Move(${move_x_hankaku_latin}, 0)
+                    SetWidth(${width_hankaku})
+                endif
+            endif
+        endloop
+
+        Select(0u23be, 0u23cc) # 歯科表記記号
+        SelectMore(0u2500, 0u259f) # 罫線素片・ブロック要素 # 高さそのまま、幅固定
+        foreach
+            if (WorthOutputting())
+                if (GlyphInfo("Width") <= 700)
+                    Scale(${scale_width_box}, 100, 308, ${center_height_hankaku})
                     Move(${move_x_hankaku_latin}, 0)
                     SetWidth(${width_hankaku})
                 endif
@@ -2386,9 +2400,8 @@ while (i < SizeOf(input_list))
         endloop
 
         Select(0u2320, 0u2321) # インテグラル
-        SelectMore(0u239b, 0u23ae) # 括弧・インテグラル
-        SelectMore(0u23b0, 0u23b3) # 括弧括弧素片・総和記号部分
-        SelectMore(0u23be, 0u23cc) # 歯科表記記号
+        SelectMore(0u239b, 0u23ae) # 括弧素片・インテグラル
+        SelectMore(0u23b0, 0u23b3) # 括弧素片・総和記号部分
         foreach
             if (WorthOutputting())
                 if (GlyphInfo("Width") <= 700)
@@ -3003,6 +3016,11 @@ while (i < \$argc)
     Move(0, ${move_y_pl})
 
     Select(0ue0d1); RemoveOverlap(); Copy() # 
+    Select(65552); Paste() # Temporary glyph
+    if ("${loose_flag}" == "true") # Loose 版対応
+        Scale(113, 100, 256, ${center_height_hankaku})
+    endif
+    Copy()
     j = 0
     while (j < 32)
         Select(0u2580 + j); PasteInto()
@@ -3012,6 +3030,8 @@ while (i < \$argc)
         SetWidth(${width_hankaku})
         j += 1
     endloop
+
+    Select(65552); Clear() # Temporary glyph
 
 # 八卦
     Print("Edit bagua trigrams")
