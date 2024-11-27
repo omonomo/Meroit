@@ -2177,6 +2177,11 @@ while (i < SizeOf(input_list))
     j = 0
     while (j < SizeOf(orig))
         Select(sups[j])
+        if (input_list[i] == "${input_latin_regular}")
+            if(sups[j] == 0u02c0 || sups[j] == 0u02c1)
+                Move(0, -121)
+            endif
+        endif
         Scale(${scale_super_sub2}, ${width_latin} / 2, ${move_y_super})
         Move(0, ${move_y_super2})
         SetWidth(${width_hankaku})
