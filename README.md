@@ -1,14 +1,15 @@
 # 全角英数や半角カナが判別しやすい、文字間隔調整機能付き等幅フォント「Meroit」
 
 Meroit (めろいと) はコーディングにもお使いいただける日本語等幅フォントです。  
-自作合成フォント [Cyroit](https://omonomo.github.io/Cyroit/) に [Meslo LG](https://github.com/andreberg/Meslo-Font) (一部に [Hack](https://sourcefoundry.org/hack/)) を合成した姉妹フォントになります。
+自作合成フォント [Cyroit](https://omonomo.github.io/Cyroit/) に [Meslo LG](https://github.com/andreberg/Meslo-Font) (一部に [Hack](https://sourcefoundry.org/hack/)) を合成した姉妹フォントになります。  
+全く別のフォントを一から合成して Cyroit 並の機能を持たせるのは大変ですが、英数フォントだけ置き換えるのであれば比較的楽に作れそうな気がしたため製作してみました。
 
 全角英数記号や半角カナ等にアンダーラインが引いてあるため、全角・半角の組み合わせになっている括弧や、誤って使われている全角チルダなどをすぐに見つけることができます。  
 また calt を利用したカーニング機能を実装しており、ラテン文字は等幅のまま前後の文字に合わせて文字間隔を調整します。
 
 その他にも全角・半角・ノーブレークスペースを可視化したバージョンや自動で桁区切りマークを表示するバージョン、カラー絵文字フォントとの併用を前提として絵文字を減らしたバージョンなども用意してあり、使い分けて使用できます。
 
-お好みにより、半角と全角の横幅の比率を9:16にしたバージョンもお選びいただけます。
+英数文字が窮屈に感じられる方は、半角と全角の横幅の比率を9:16にしたバージョンもございますので、お好みによりお選びください。
 
 フォント生成用のスクリプトを利用すれば、必要な機能のみ実装したフォントを各自で作っていただくこともできます。
 
@@ -40,13 +41,13 @@ Meroit (めろいと) はコーディングにもお使いいただける日本�
 
 ## ダウンロード
 
-最新版 v1.2.0 (2024-11-23)
+最新版 v1.3.0 (2024-12-01)
 
 | リンク                                                                                                      | 説明                                   |
 | ----------------------------------------------------------------------------------------------------------- | -------------------------------------- |
-| [フォント (Meroit)](https://github.com/omonomo/Meroit/releases/download/v1.2.0/Meroit_v1.2.0.zip)           | 通常版。半角幅が全角の1/2。            |
-| [フォント (MeroitLoose)](https://github.com/omonomo/Meroit/releases/download/v1.2.0/MeroitLoose_v1.2.0.zip) | 文字間隔ゆるい版。半角幅が全角の9/16。 |
-| [ソースコード](https://github.com/omonomo/Meroit/archive/refs/tags/v1.2.0.zip)                              | 使用方法は下の方にあります。           |
+| [フォント (Meroit)](https://github.com/omonomo/Meroit/releases/download/v1.3.0/Meroit_v1.3.0.zip)           | 通常版。半角幅が全角の1/2。            |
+| [フォント (MeroitLoose)](https://github.com/omonomo/Meroit/releases/download/v1.3.0/MeroitLoose_v1.3.0.zip) | 文字間隔ゆるい版。半角幅が全角の9/16。 |
+| [ソースコード](https://github.com/omonomo/Meroit/archive/refs/tags/v1.3.0.zip)                              | 使用方法は下の方にあります。           |
 
 フォントやスクリプトの使用は自己責任にてお願いいたします。  
 各ファイルを使用することで生じた不具合・損害等について omonomo は責任を負いません。  
