@@ -1720,11 +1720,11 @@ while (i < SizeOf(input_list))
     Move(0, 69)
     SetWidth(${width_hankaku})
 
-# \`´ (拡大する)
+# \`´′″‴‵‶‷ (拡大する)
     Select(0u0060) # \`
     SelectMore(0u00b4) # ´
     SelectMore(0u2032, 0u2037) # ′″‴‵‶‷
-    Scale(130, 130, 308, 800)
+    Scale(130, 130,  ${width_latin} / 2, 800)
     SetWidth(${width_hankaku})
 
 # ∐ (追加)
