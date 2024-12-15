@@ -1514,7 +1514,11 @@ while (i < SizeOf(input_list))
     SelectMore(0u0430) # а
     SelectMore(0u04d1) # ӑ
     SelectMore(0u04d3) # ӓ
-    Move(10, 0)
+    if (input_list[i] == "${input_latin_regular}")
+        Move(8, 0)
+    else
+        Move(4, 0)
+    endif
     SetWidth(${width_hankaku})
 
 # b (左に移動)
@@ -1528,7 +1532,11 @@ while (i < SizeOf(input_list))
     SelectMore(0u1e05) # ḅ
     SelectMore(0u1e07) # ḇ
  #    SelectMore(0ua797) # ꞗ
-    Move(-10, 0)
+    if (input_list[i] == "${input_latin_regular}")
+        Move(-10, 0)
+    else
+        Move(-5, 0)
+    endif
     SetWidth(${width_hankaku})
 
  # c (左に移動)
@@ -1563,7 +1571,11 @@ while (i < SizeOf(input_list))
     SelectMore(0u1e0f) # ḏ
     SelectMore(0u1e11) # ḑ
     SelectMore(0u1e13) # ḓ
-    Move(10, 0)
+    if (input_list[i] == "${input_latin_regular}")
+        Move(10, 0)
+    else
+        Move(5, 0)
+    endif
     SetWidth(${width_hankaku})
 
  # f (左に移動)
@@ -1590,7 +1602,11 @@ while (i < SizeOf(input_list))
  #    SelectMore(0u1d83) # ᶃ
     SelectMore(0u1e21) # ḡ
  #    SelectMore(0ua7a1) # ꞡ
-    Move(10, 0)
+    if (input_list[i] == "${input_latin_regular}")
+        Move(10, 0)
+    else
+        Move(5, 0)
+    endif
     SetWidth(${width_hankaku})
 
 # i (左に移動)
@@ -1675,7 +1691,11 @@ while (i < SizeOf(input_list))
  #    SelectMore(0ua751) # ꝑ
  #    SelectMore(0ua753) # ꝓ
  #    SelectMore(0ua755) # ꝕ
-    Move(-10, 0)
+    if (input_list[i] == "${input_latin_regular}")
+        Move(-10, 0)
+    else
+        Move(-5, 0)
+    endif
     SetWidth(${width_hankaku})
 
 # q (右に移動)
@@ -1684,7 +1704,11 @@ while (i < SizeOf(input_list))
     SelectMore(0u02a0) # ʠ
  #    SelectMore(0ua757) # ꝗ
  #    SelectMore(0ua759) # ꝙ
-    Move(10, 0)
+    if (input_list[i] == "${input_latin_regular}")
+        Move(10, 0)
+    else
+        Move(5, 0)
+    endif
     SetWidth(${width_hankaku})
 
 # r (左に移動)
@@ -1714,7 +1738,11 @@ while (i < SizeOf(input_list))
 
 # Þ (左に移動)
     Select(0u00de) # Þ
-    Move(-10, 0)
+    if (input_list[i] == "${input_latin_regular}")
+        Move(-10, 0)
+    else
+        Move(-5, 0)
+    endif
     SetWidth(${width_hankaku})
 
 # 記号のグリフを加工
