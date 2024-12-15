@@ -1474,6 +1474,63 @@ while (i < SizeOf(input_list))
 
     Select(65552);  Clear() # Temporary glyph
 
+# a (右に移動)
+    # ラテン文字
+    Select(0u0061) # a
+    SelectMore(0u00e0) # à
+    SelectMore(0u00e1) # á
+    SelectMore(0u00e2) # â
+    SelectMore(0u00e3) # ã
+    SelectMore(0u00e4) # ä
+    SelectMore(0u00e5) # å
+    SelectMore(0u0101) # ā
+    SelectMore(0u0103) # ă
+    SelectMore(0u0105) # ą
+    SelectMore(0u01ce) # ǎ
+    SelectMore(0u01df) # ǟ
+    SelectMore(0u01e1) # ǡ
+ #    SelectMore(0u01fb) # ǻ
+    SelectMore(0u0201) # ȁ
+    SelectMore(0u0203) # ȃ
+    SelectMore(0u0227) # ȧ
+ #    SelectMore(0u1d8f) # ᶏ
+    SelectMore(0u1e01) # ḁ
+ #    SelectMore(0u1e9a) # ẚ
+    SelectMore(0u1ea1) # ạ
+ #    SelectMore(0u1ea3) # ả
+ #    SelectMore(0u1ea5) # ấ
+ #    SelectMore(0u1ea7) # ầ
+ #    SelectMore(0u1ea9) # ẩ
+ #    SelectMore(0u1eab) # ẫ
+    SelectMore(0u1ead) # ậ
+ #    SelectMore(0u1eaf) # ắ
+    SelectMore(0u1eb1) # ằ
+ #    SelectMore(0u1eb3) # ẳ
+ #    SelectMore(0u1eb5) # ẵ
+    SelectMore(0u1eb7) # ặ
+ #    SelectMore(0u2c65) # ⱥ
+ #    SelectMore(0uab31) # ꬱ
+    # キリル文字
+    SelectMore(0u0430) # а
+    SelectMore(0u04d1) # ӑ
+    SelectMore(0u04d3) # ӓ
+    Move(10, 0)
+    SetWidth(${width_hankaku})
+
+# b (左に移動)
+    Select(0u0062) # b
+    SelectMore(0u0180) # ƀ
+    SelectMore(0u0183) # ƃ
+    SelectMore(0u0253) # ɓ
+ #    SelectMore(0u1d6c) # ᵬ
+ #    SelectMore(0u1d80) # ᶀ
+    SelectMore(0u1e03) # ḃ
+    SelectMore(0u1e05) # ḅ
+    SelectMore(0u1e07) # ḇ
+ #    SelectMore(0ua797) # ꞗ
+    Move(-10, 0)
+    SetWidth(${width_hankaku})
+
  # c (左に移動)
  #    Select(0u0063) # c
  #    SelectMore(0u00e7) # ç
@@ -1490,6 +1547,25 @@ while (i < SizeOf(input_list))
  #    Move(-10, 0)
  #    SetWidth(${width_hankaku})
 
+# d (右に移動)
+    Select(0u0064) # d
+    SelectMore(0u010f) # ď
+    SelectMore(0u0111) # đ
+    SelectMore(0u018c) # ƌ
+    SelectMore(0u0221) # ȡ
+    SelectMore(0u0256) # ɖ
+    SelectMore(0u0257) # ɗ
+ #    SelectMore(0u1d6d) # ᵭ
+ #    SelectMore(0u1d81) # ᶁ
+ #    SelectMore(0u1d91) # ᶑ
+    SelectMore(0u1e0b) # ḋ
+    SelectMore(0u1e0d) # ḍ
+    SelectMore(0u1e0f) # ḏ
+    SelectMore(0u1e11) # ḑ
+    SelectMore(0u1e13) # ḓ
+    Move(10, 0)
+    SetWidth(${width_hankaku})
+
  # f (左に移動)
     # ラテン文字
     Select(0u0066) # f
@@ -1499,6 +1575,22 @@ while (i < SizeOf(input_list))
  #    SelectMore(0u1d82) # ᶂ
  #    SelectMore(0ua799) # ꞙ
     Move(-20, 0)
+    SetWidth(${width_hankaku})
+
+# g (右に移動)
+    Select(0u0067) # g
+    SelectMore(0u011d) # ĝ
+    SelectMore(0u011f) # ğ
+    SelectMore(0u0121) # ġ
+    SelectMore(0u0123) # ģ
+ #    SelectMore(0u01e5) # ǥ
+    SelectMore(0u01e7) # ǧ
+    SelectMore(0u01f5) # ǵ
+    SelectMore(0u0260) # ɠ
+ #    SelectMore(0u1d83) # ᶃ
+    SelectMore(0u1e21) # ḡ
+ #    SelectMore(0ua7a1) # ꞡ
+    Move(10, 0)
     SetWidth(${width_hankaku})
 
 # i (左に移動)
@@ -1572,6 +1664,29 @@ while (i < SizeOf(input_list))
         SetWidth(${width_hankaku})
     endif
 
+# p (左に移動)
+    Select(0u0070) # p
+    SelectMore(0u01a5) # ƥ
+ #    SelectMore(0u1d71) # ᵱ
+ #    SelectMore(0u1d7d) # ᵽ
+ #    SelectMore(0u1d88) # ᶈ
+    SelectMore(0u1e55) # ṕ
+    SelectMore(0u1e57) # ṗ
+ #    SelectMore(0ua751) # ꝑ
+ #    SelectMore(0ua753) # ꝓ
+ #    SelectMore(0ua755) # ꝕ
+    Move(-10, 0)
+    SetWidth(${width_hankaku})
+
+# q (右に移動)
+    Select(0u0071) # q
+ #    SelectMore(0u024b) # ɋ
+    SelectMore(0u02a0) # ʠ
+ #    SelectMore(0ua757) # ꝗ
+ #    SelectMore(0ua759) # ꝙ
+    Move(10, 0)
+    SetWidth(${width_hankaku})
+
 # r (左に移動)
     Select(0u0072) # r
     SelectMore(0u024d) # ɍ
@@ -1595,6 +1710,11 @@ while (i < SizeOf(input_list))
     else
         Move(-15, 0)
     endif
+    SetWidth(${width_hankaku})
+
+# Þ (左に移動)
+    Select(0u00de) # Þ
+    Move(-10, 0)
     SetWidth(${width_hankaku})
 
 # 記号のグリフを加工
