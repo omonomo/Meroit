@@ -2440,7 +2440,7 @@ while (i < SizeOf(input_list))
                 if (GlyphInfo("Width") <= 700)
                     Scale(${scale_width_latin}, ${scale_height_latin}, ${width_latin} / 2, 0)
                     Move(${move_x_hankaku_latin}, 0)
-                    SetWidth(${width_latin})
+                    SetWidth(${width_hankaku})
                 endif
             endif
         endloop
@@ -2463,7 +2463,7 @@ while (i < SizeOf(input_list))
                 if (GlyphInfo("Width") <= 700)
                     Scale(${scale_width_latin}, ${scale_width_latin}, ${width_latin} / 2, ${center_height_hankaku})
                     Move(${move_x_hankaku_latin}, 0)
-    	              SetWidth(${width_latin})
+    	              SetWidth(${width_hankaku})
                 endif
             endif
         endloop
@@ -2476,7 +2476,7 @@ while (i < SizeOf(input_list))
                 if (GlyphInfo("Width") <= 700)
                     Scale(${scale_width_latin}, 100, ${width_latin} / 2, ${center_height_hankaku})
                     Move(${move_x_hankaku_latin}, 0)
-                    SetWidth(${width_latin})
+                    SetWidth(${width_hankaku})
                 endif
             endif
         endloop
@@ -2488,7 +2488,7 @@ while (i < SizeOf(input_list))
                 if (GlyphInfo("Width") <= 700)
                     Scale(${scale_width_block}, 100, ${width_latin} / 2, ${center_height_hankaku})
                     Move(${move_x_hankaku_latin}, 0)
-                    SetWidth(${width_latin})
+                    SetWidth(${width_hankaku})
                 endif
             endif
         endloop
@@ -2499,7 +2499,7 @@ while (i < SizeOf(input_list))
         SelectMore(0uf6c5) #  (私用領域)
         Scale(${scale_width_latin}, ${scale_height_latin}, ${width_latin} / 2, 0)
         Move(${move_x_hankaku_latin}, 0)
-        SetWidth(${width_latin})
+        SetWidth(${width_hankaku})
     endif
 
 # --------------------------------------------------
@@ -3289,8 +3289,6 @@ while (i < \$argc)
     Print("Modified space width")
 
     Select(0u00ad) # soft hyphen
-    SelectMore(0u115f) # hangul choseong filler
-    SelectMore(0u1160) # hangul jungseong filler
     SelectMore(0u2000) # en quad
     SelectMore(0u2001) # em quad
     SelectMore(0u2002) # en space
@@ -3306,15 +3304,9 @@ while (i < \$argc)
     SelectMore(0u2029) # paragraph separator
     SelectMore(0u202f) # narrow no-break space
     SelectMore(0u205f) # medium mathematical space
-    SelectMore(0u3164) # hangul filler
-    SelectMore(0uffa0) # halfwidth hangul filler
     SetWidth(${width_hankaku})
 
     Select(0u034f) # combining grapheme joiner
-    SelectMore(0u061c) # arabic letter mark
-    SelectMore(0u17b4) # khmer vowel inherent aq
-    SelectMore(0u17b5) # khmer vowel inherent aa
-    SelectMore(0u180e) # mongolian vowel separator
     SelectMore(0u200b) # zero width space
     SelectMore(0u200c) # zero width non-joiner
     SelectMore(0u200d) # zero width joiner
@@ -3402,7 +3394,7 @@ while (i < \$argc)
           Select(0uff01 + j); Paste()
           Move(256 - ${move_x_hankaku}, 0)
         endif
-        if (j == 7 || j == 58 || j == 90) # （ ［ ｛
+        if (j == 7 || j == 58 || j == 90) # （ ［ ｛ # 全角縦書き対応のため少し上げる(後で元に戻す)
             Move(128 - ${move_x_hankaku}, 13 - ${move_y_bracket})
         elseif (j == 8 || j == 60 || j == 92) # ） ］ ｝
             Move(-128 + ${move_x_hankaku}, 13 - ${move_y_bracket})
@@ -3688,12 +3680,12 @@ while (i < \$argc)
  #        j += 1
  #    endloop
 
-# 全角括弧を少し下げる
- #    Select(0uff08, 0uff09) # （）
- #    SelectMore(0uff3b) # ［
- #    SelectMore(0uff3d) # ］
- #    SelectMore(0uff5b) # ｛
- #    SelectMore(0uff5d) # ｝
+# 全角括弧を少し下げる (元に戻す)
+    Select(0uff08, 0uff09) # （）
+    SelectMore(0uff3b) # ［
+    SelectMore(0uff3d) # ］
+    SelectMore(0uff5b) # ｛
+    SelectMore(0uff5d) # ｝
  #    SelectMore(0uff5f, 0uff60) # ｟｠
  #    SelectMore(0u3008, 0u3009) # 〈〉
  #    SelectMore(0u3010, 0u3011) # 【】
@@ -3702,8 +3694,8 @@ while (i < \$argc)
  #    SelectMore(0u3016, 0u3017) # 〖〗
  #    SelectMore(0u3018, 0u3019) # 〘〙
  #    SelectMore(0u301a, 0u301b) # 〚〛
- #    Move(0, -13 + ${move_y_bracket})
- #    SetWidth(${width_zenkaku})
+    Move(0, -13 + ${move_y_bracket})
+    SetWidth(${width_zenkaku})
 
 # 横書き全角形に下線追加
     j = 0 # ！ - ｠
@@ -4987,32 +4979,7 @@ while (i < \$argc)
 
     spc =[\
     0u00ad,\
-    0u17b4,\
-    0u17b5,\
     0u034f,\
-    0u061c,\
-    0u115f,\
-    0u180e,\
-    0u200a,\
-    0u200b,\
-    0u200c,\
-    0u200d,\
-    0u200e,\
-    0u200f,\
-    0u202a,\
-    0u202b,\
-    0u202c,\
-    0u202d,\
-    0u202e,\
-    0u202f,\
-    0u205f,\
-    0u206a,\
-    0u206b,\
-    0u206c,\
-    0u206d,\
-    0u206e,\
-    0u206f,\
-    0u1160,\
     0u2000,\
     0u2001,\
     0u2002,\
@@ -5023,8 +4990,21 @@ while (i < \$argc)
     0u2007,\
     0u2008,\
     0u2009,\
+    0u200a,\
+    0u200b,\
+    0u200c,\
+    0u200d,\
+    0u200e,\
+    0u200f,\
     0u2028,\
     0u2029,\
+    0u202a,\
+    0u202b,\
+    0u202c,\
+    0u202d,\
+    0u202e,\
+    0u202f,\
+    0u205f,\
     0u2060,\
     0u2061,\
     0u2062,\
@@ -5034,9 +5014,13 @@ while (i < \$argc)
     0u2067,\
     0u2068,\
     0u2069,\
-    0u3164,\
-    0ufeff,\
-    0uffa0\
+    0u206a,\
+    0u206b,\
+    0u206c,\
+    0u206d,\
+    0u206e,\
+    0u206f,\
+    0ufeff\
     ]
     j = 0
     while (j < SizeOf(spc))
