@@ -60,7 +60,7 @@ Copyright (c) 2018 Source Foundry Authors
 Copyright (c) 2003 by Bitstream, Inc.  
 All Rights Reserved.  
 ([https://sourcefoundry.org/hack/](https://sourcefoundry.org/hack/))  
-主に Meslo LG のグリフの置き換えで使用しています。Hack のライセンスは [MIT Lincense](https://github.com/source-foundry/Hack/blob/master/LICENSE.md) です。
+主に Meslo LG のグリフの置き換えで使用しています。Hack のライセンスは [The MIT License Lincense](https://github.com/source-foundry/Hack/blob/master/LICENSE.md) です。
 
 [Inconsolata (Version 3.001)]  
 Copyright 2006 The Inconsolata Project Authors  
@@ -85,7 +85,7 @@ Copyright(c) National Institute for Japanese Language and Linguistics (NINJAL), 
 [Symbols Nerd Font (Version 001.000;Nerd Fonts 3.3.0)]  
 Copyright (c) 2016, Ryan McIntyre  
 ([https://www.nerdfonts.com](https://www.nerdfonts.com))  
-サイズを調整して使用しています。Symbols Nerd Font のライセンスは [MIT](https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/NerdFontsSymbolsOnly/LICENSE) です。
+サイズを調整して使用しています。Symbols Nerd Font のライセンスは [The MIT License](https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/NerdFontsSymbolsOnly/LICENSE) です。
 
 ## Meroit のライセンス
 
