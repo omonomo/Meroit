@@ -165,10 +165,10 @@ Loose 版は名称が 「MeroitLoose...」 になります。
 
 Meroit は以下の環境でビルドできることを確認しています。
 
-- OS: macOS Sequoia (version 15.3)
+- OS: macOS Sequoia (version 15.3.1)
 - Shell: GNU bash, version 5.2.37(1)-release (aarch64-apple-darwin23.4.0)
 - FontForge: 20230101
-- FontTools: 4.55.8
+- FontTools: 4.56.0
 
 ### 基本的な使い方
 
