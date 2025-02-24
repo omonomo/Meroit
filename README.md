@@ -154,8 +154,8 @@ Loose 版は名称が 「MeroitLoose...」 になります。
 
 ## ライセンス
 
-- フォント : [SIL Open Font License 1.1](build/OFL.txt)
-- スクリプト : [MIT](./LICENSE.txt)
+- フォント : [SIL Open Font License 1.1](https://github.com/omonomo/Meroit/blob/main/build/Meroit/OFL.txt)
+- スクリプト : [The MIT License](https://github.com/omonomo/Meroit/blob/main/LICENSE.txt)
 
 素材元のフォントやスクリプトはライセンスが異なる場合があります。
 
@@ -340,7 +340,7 @@ calt テーブル (前後の文字によってグリフ置換を行う設定) �
 
 ## リンク
 
-- [GitHubページ](https://github.com/omonomo/Meroit): 過去のバージョンや更新履歴はこちらをご参照ください。
+- [GitHub リリースページ](https://github.com/omonomo/Meroit/releases): 過去のバージョンや更新履歴はこちらをご参照ください。
 - [全角英数や半角カナが判別しやすい、文字間隔調整機能付き等幅フォント「Cyroit」](https://omonomo.github.io/Cyroit/): Meroit のお姉さんフォントです。
 - [全角英数や半角カナが判別しやすい、文字間隔調整機能付き等幅フォント「Jeroit」](https://omonomo.github.io/Jeroit/): 一つ下の妹さんフォントです。
 - [全角英数や半角カナが判別しやすい、文字間隔調整機能付き等幅フォント「Ubroit」](https://omonomo.github.io/Ubroit/): 二つ下の妹さんフォントです。
