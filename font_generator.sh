@@ -149,7 +149,13 @@ move_y_sub="0" # 下付き文字のY座標移動量
 move_y_super_base="15" # ベースフォントの上付き文字Y座標移動量 (Latin フォントとベースラインを合わせる)
 move_y_sub_base="0" # ベースフォントの下付き文字Y座標移動量 (Latin フォントとベースラインを合わせる)
 
-# 全角アンダーバー移動量
+# latin 括弧移動量 (ベースフォントと中心を合わせる)
+move_y_latin_bracket="-5"
+
+# latin アンダーバー移動量
+move_y_latin_underbar="69"
+
+# 全角アンダーバー移動量 (Latin フォントと高さを合わせる)
 move_y_zenkaku_underbar="-10"
 
 # 縦書き全角記号移動量
@@ -175,6 +181,7 @@ move_x_oblique="-48" # 移動量 (後の処理で * 100 にする)
 # 演算子移動量
 move_y_math="20" # 通常
 move_y_s_math="10" # 上付き、下付き
+move_y_zenkaku_math="-17" # ベースフォントの演算子上下移動量 (Latin フォントと高さを合わせる)
 
 # calt用
 move_y_calt_separate3="-510" # 3桁区切り表示のY座標
@@ -693,6 +700,7 @@ fi
 echo
 
 # calt用
+move_x_calt_colon="13" # : のX座標移動量
 move_y_calt_colon=$((move_y_math + 40)) # : のY座標移動量
 move_y_calt_colon=$(bc <<< "scale=0; ${move_y_calt_colon} * ${scale_height_latin} / 100") # : のY座標移動量
 move_y_calt_colon=$(bc <<< "scale=0; ${move_y_calt_colon} * ${scale_height_hankaku} / 100") # : のY座標移動量
@@ -1874,7 +1882,7 @@ while (i < SizeOf(input_list))
 
 # _ (上げる)
     Select(0u005f) # _
-    Move(0, 69)
+    Move(0, ${move_y_latin_underbar})
     SetWidth(${width_latin})
 
 # \`´′″‴‵‶‷ (拡大する)
@@ -2416,7 +2424,7 @@ while (i < SizeOf(input_list))
     j = 0
     while (j < SizeOf(brkt))
         Select(brkt[j]);
-        Move(0, -5)
+        Move(0, ${move_y_latin_bracket})
         SetWidth(${width_latin})
         j += 1
     endloop
@@ -3374,7 +3382,7 @@ while (i < \$argc)
  #    j = 0
  #    while (j < SizeOf(math))
  #        Select(math[j]);
- #        Move(0, ${move_y_math} - 17)
+ #        Move(0, ${move_y_math} + ${move_y_zenkaku_math})
  #    SetWidth(${width_hankaku})
  #        j += 1
  #    endloop
@@ -3383,7 +3391,7 @@ while (i < \$argc)
     j = 0
     while (j < SizeOf(math))
         Select(math[j]);
-        Move(0, ${move_y_math} - 17)
+        Move(0, ${move_y_math} + ${move_y_zenkaku_math})
         SetWidth(${width_zenkaku})
         j += 1
     endloop
@@ -4222,7 +4230,7 @@ while (i < \$argc)
     Select(0u003a); Copy() # :
     glyphName = GlyphInfo("Name")
     Select(k); Paste()
-    Move(13, ${move_y_calt_colon})
+    Move(${move_x_calt_colon}, ${move_y_calt_colon})
     SetWidth(${width_hankaku})
  #    AddPosSub(lookupSub0, glyphName) # 移動前←後
     glyphName = GlyphInfo("Name")
