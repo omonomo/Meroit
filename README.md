@@ -41,13 +41,13 @@ Meroit (めろいと) はコーディングにもお使いいただける日本�
 
 ## ダウンロード
 
-最新版 v1.5.0 (2025-05-04)
+最新版 v1.5.1 (2025-06-08)
 
 | リンク                                                                                                      | 説明                                            |
 | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------- |
-| [フォント (Meroit)](https://github.com/omonomo/Meroit/releases/download/v1.5.0/Meroit_v1.5.0.zip)           | 通常版。半角幅が全角の1/2。                     |
-| [フォント (MeroitLoose)](https://github.com/omonomo/Meroit/releases/download/v1.5.0/MeroitLoose_v1.5.0.zip) | 文字間隔ゆるい版。半角幅が全角の9/16。          |
-| [ソースコード](https://github.com/omonomo/Meroit/archive/refs/tags/v1.5.0.zip)                              | 使用方法は[下の方](#基本的な使い方)にあります。 |
+| [フォント (Meroit)](https://github.com/omonomo/Meroit/releases/download/v1.5.1/Meroit_v1.5.1.zip)           | 通常版。半角幅が全角の1/2。                     |
+| [フォント (MeroitLoose)](https://github.com/omonomo/Meroit/releases/download/v1.5.1/MeroitLoose_v1.5.1.zip) | 文字間隔ゆるい版。半角幅が全角の9/16。          |
+| [ソースコード](https://github.com/omonomo/Meroit/archive/refs/tags/v1.5.1.zip)                              | 使用方法は[下の方](#基本的な使い方)にあります。 |
 
 フォントやスクリプトの使用は自己責任にてお願いいたします。  
 各ファイルを使用することで生じた不具合・損害等について omonomo は責任を負いません。  
@@ -165,14 +165,14 @@ Loose 版は名称が 「MeroitLoose...」 になります。
 
 Meroit は以下の環境でビルドできることを確認しています。
 
-- macOS Sequoia 15.4.1
+- macOS Sequoia 15.5
 - GNU bash, version 5.2.37(1)-release (aarch64-apple-darwin23.4.0)
 - FontForge 20230101
-- FontTools 4.57.0
+- FontTools 4.58.2
 
 または上記 macOS 上にて
 
-- Docker Desktop 4.40.0(Engine 28.0.4, Compose v2.34.0-desktop.1)
+- Docker Desktop 4.42.0 (Engine 28.2.2, Compose v2.36.2-desktop.1)
   - Ubuntu 24.04.2 LTS
   - GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)
   - FontForge 20230101
@@ -192,7 +192,8 @@ docker compose run --rm font ./run_ff_ttx.sh -F S
 
 - Docker 内に「fontcaches」「karningcaches」という名前を含むボリュームが作成されますのでご注意ください。
 - 「fontcaches」「karningcaches」には、コマンドを複数回実行する際にビルド時間を短縮するためのキャッシュファイルが保存されます。
- 
+- ソースコードに変更があった場合は先に `docker compose build` を実行してください。
+
 #### 2. Docker を使用しない場合
 
 あらかじめパッケージマネージャ等を利用して [FontForge](https://fontforge.org/en-US/) と [FontTools](https://github.com/fonttools/fonttools) をインストールし、使える状態にしておいてください。
