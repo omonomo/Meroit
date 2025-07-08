@@ -137,6 +137,7 @@ scale_nerd="89" # Pomicons Powerline 以外の拡大率
 
 # 半角から全角に変換する場合の拡大率
 scale_hankaku2zenkaku="125"
+scale_hankaku2zenkaku2="150"
 
 # 上付き、下付き用
 scale_super_sub="45" # 基本から作成する上付き・下付き文字の拡大率
@@ -2004,6 +2005,16 @@ while (i < SizeOf(input_list))
     Scale(100, 110, 308, 278)
     SetWidth(${width_latin})
 
+# ♳ - ♺ (位置とサイズを統一)
+    Select(0u2673); Move(0, 2);  Scale(104.2, ${width_latin} / 2, 62) # ♳
+    Select(0u2674); Move(0, 4);  Scale(106.8, ${width_latin} / 2, 62) # ♴
+    Select(0u2675); Move(0, 2);  Scale(105.7, ${width_latin} / 2, 62) # ♵
+    Select(0u2676); Move(0, 0);  Scale(100,   ${width_latin} / 2, 62) # ♶
+    Select(0u2677); Move(0, 2);  Scale(104.6, ${width_latin} / 2, 62) # ♷
+    Select(0u2678); Move(0, 8);  Scale(107.1, ${width_latin} / 2, 62) # ♸
+    Select(0u2679); Move(0, -1); Scale(101.4, ${width_latin} / 2, 62) # ♹
+    Select(0u267a); Move(0, 6);  Scale(101.2, ${width_latin} / 2, 62) # ♺
+
 # スラッシュ無し0を作成
     Print("Edit slashed zero")
 
@@ -2437,6 +2448,69 @@ while (i < SizeOf(input_list))
     endloop
 
 # 一部の記号を全角にする
+    Select(0u2389, 0u238a) # ⎉⎊
+    Move(0, 25)
+    Select(0u2b12, 0u2b1a) # ⬒-⬚
+    Move(0, 65)
+    Select(0u27f5, 0u27f7) # ⟵-⟷
+    Move(0, 78)
+    Select(0u2389, 0u238a) # ⎉⎊
+    SelectMore(0u2758, 0u2775) # ❘-❵
+    SelectMore(0u27f5, 0u27f7) # ⟵-⟷
+    SelectMore(0u2b12, 0u2b1a) # ⬒-⬚
+    foreach
+        if (WorthOutputting())
+            if (GlyphInfo("Width") <= 700)
+                Move(${width_zenkaku} / 2 - ${width_latin} / 2, 0)
+                Scale(${scale_hankaku2zenkaku}, ${width_zenkaku} / 2, ${center_height_hankaku})
+                SetWidth(${width_zenkaku})
+            endif
+        endif
+    endloop
+
+    Select(0u2638, 0u263b) # ☸-☻
+    Move(0, -25)
+    Select(0u2706, 0u2707) # ✆✇
+    SelectMore(0u273b, 0u273e) # ✻✾
+    SelectMore(0u2746, 0u2747) # ❆❇
+    Move(0, 30)
+    Select(0u2622) # ☢
+    SelectMore(0u2745) # ❅
+    Move(0, 40)
+    Select(0u2609) # ☉
+    SelectMore(0u260f) # ☏
+    SelectMore(0u262e, 0u262f) # ☮☯
+    SelectMore(0u2699) # ⚙
+    SelectMore(0u269b) # ⚛
+    SelectMore(0u2715) # ✕
+    SelectMore(0u2719, 0u271c) # ✙-✜
+    SelectMore(0u2720) # ✠
+    SelectMore(0u2731, 0u2735) # ✱-✵
+    SelectMore(0u273a) # ✺
+    SelectMore(0u2741, 0u2742) # ❁❂
+    SelectMore(0u2748, 0u274a) # ❈-❊
+    Move(0, 50)
+    Select(0u2722, 0u2727) # ✢-✧
+    SelectMore(0u2737, 0u2738) # ✷-✸
+    Move(0, 57)
+    Select(0u2190, 0u21ae) # ←-↮
+    Select(0u21b0, 0u21ff) # ↰-⇿
+    SelectMore(0u2615) # ☕
+    SelectMore(0u2623) # ☣
+    SelectMore(0u2629) # ☩
+    SelectMore(0u2672, 0u267e) # ♲-♾
+    SelectMore(0u2680, 0u2689) # ⚀-⚉
+    SelectMore(0u2692, 0u2694) # ⚒-⚔
+    SelectMore(0u2696, 0u2697) # ⚖⚗
+    SelectMore(0u26a0) # ⚠
+    SelectMore(0u2708, 0u2709) # ✈✉
+    SelectMore(0u2729, 0u2730) # ✩-✰
+    SelectMore(0u2739) # ✹
+    SelectMore(0u273f, 0u2740) # ✿-❀
+    SelectMore(0u274b) # ❋
+    SelectMore(0u274d) # ❍
+    SelectMore(0u274f, 0u2752) # ❏-❒
+    Move(0, 65)
     Select(0u2190, 0u21ff) # ←-⇿
     SelectMore(0u2389, 0u238a) # ⎉⎊
     SelectMore(0u23fb, 0u23fe) # ⏻⏼⏽⏾
@@ -2446,11 +2520,16 @@ while (i < SizeOf(input_list))
     SelectMore(0u27f0, 0u27ff) # ⟰-⟿
     SelectMore(0u2900, 0u297f) # ⤀-⥿
     SelectMore(0u2b00, 0u2bff) # ⬀-⯿
+
+    SelectFewer(0u2389, 0u238a) # ⎉⎊
+    SelectFewer(0u2758, 0u2775) # ❘-❵
+    SelectFewer(0u27f5, 0u27f7) # ⟵-⟷
+    SelectFewer(0u2b12, 0u2b1a) # ⬒-⬚
     foreach
         if (WorthOutputting())
             if (GlyphInfo("Width") <= 700)
-                Move(${width_zenkaku} / 2 - ${width_latin} / 2 , 0)
-                Scale(${scale_hankaku2zenkaku}, ${width_zenkaku} / 2, ${center_height_hankaku})
+                Move(${width_zenkaku} / 2 - ${width_latin} / 2, 0)
+                Scale(${scale_hankaku2zenkaku2}, ${width_zenkaku} / 2, ${center_height_hankaku})
                 SetWidth(${width_zenkaku})
             endif
         endif
