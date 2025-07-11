@@ -2448,12 +2448,56 @@ while (i < SizeOf(input_list))
     endloop
 
 # 一部の記号を全角にする
-    Select(0u2389, 0u238a) # ⎉⎊
-    Move(0, 25)
-    Select(0u2b12, 0u2b1a) # ⬒-⬚
-    Move(0, 65)
-    Select(0u27f5, 0u27f7) # ⟵-⟷
-    Move(0, 78)
+    Select(0u2190, 0u21ae); Move(0, 70) # ←-↮
+    Select(0u21b0, 0u21ff); Move(0, 70) # ↰-⇿
+    Select(0u2389, 0u238a); Move(0, 24) # ⎉⎊
+    Select(0u2609); Move(0, 57) # ☉
+    Select(0u260f); Move(0, 50) # ☏
+    Select(0u2615); Move(0, 60) # ☕
+    Select(0u2620); Move(0, 40) # ☠
+    Select(0u2622); Move(0, 43) # ☢
+    Select(0u2623); Move(0, 80) # ☣
+    Select(0u2629); Move(0, 65) # ☩
+    Select(0u262e); Move(0, 52) # ☮
+    Select(0u262f); Move(0, 45) # ☯
+    Select(0u2638); Move(0, -22) # ☸
+    Select(0u2639, 0u263b); Move(0, -35) # ☹-☻
+    Select(0u2672, 0u267e); Move(0, 60) # ♲-♾
+    Select(0u2680, 0u2689); Move(0, 63) # ⚀-⚉
+    Select(0u2692); Move(0, 65) # ⚒
+    Select(0u2693, 0u2694); Move(0, 55) # ⚓⚔
+    Select(0u2696, 0u2697); Move(0, 65) # ⚖⚗
+    Select(0u2699); Move(0, 40) # ⚙
+    Select(0u269b); Move(0, 40) # ⚛
+    Select(0u26a0); Move(0, 65) # ⚠
+    Select(0u2706, 0u2707); Move(0, 30) # ✆✇
+    Select(0u2708, 0u2709); Move(0, 65) # ✈✉
+    Select(0u2715); Move(0, 48) # ✕
+    Select(0u2719); Move(0, 68) # ✙
+    Select(0u271a); Move(0, 87) # ✚
+    Select(0u271b, 0u271c); Move(0, 68) # ✛-✜
+    Select(0u2720); Move(0, 65) # ✠
+    Select(0u2721); Move(0, 31) # ✡
+    Select(0u2722, 0u2727); Move(0, 65) # ✢-✧
+    Select(0u2729, 0u2730); Move(0, 85) # ✩-✰
+    Select(0u2731, 0u2735); Move(0, 60) # ✱-✵
+    Select(0u2736); Move(0, 35) # ✶
+    Select(0u2737, 0u2738); Move(0, 73) # ✷-✸
+    Select(0u2739); Move(0, 75) # ✹
+    Select(0u273a); Move(0, 60) # ✺
+    Select(0u273b, 0u273e); Move(0, 38) # ✻-✾
+    Select(0u273f, 0u2740); Move(0, 80) # ✿-❀
+    Select(0u2741, 0u2742); Move(0, 60) # ❁❂
+    Select(0u2743, 0u2744); Move(0, 20) # ❃❄
+    Select(0u2745); Move(0, 50) # ❅
+    Select(0u2746, 0u2747); Move(0, 42) # ❆❇
+    Select(0u2748, 0u274a); Move(0, 65) # ❈-❊
+    Select(0u274b); Move(0, 90) # ❋
+    Select(0u274d); Move(0, 80) # ❍
+    Select(0u274f, 0u2752); Move(0, 80) # ❏-❒
+    Select(0u27f5, 0u27f7); Move(0, 78) # ⟵-⟷
+    Select(0u2b12, 0u2b1a); Move(0, 65) # ⬒-⬚
+
     Select(0u2389, 0u238a) # ⎉⎊
     SelectMore(0u2758, 0u2775) # ❘-❵
     SelectMore(0u27f5, 0u27f7) # ⟵-⟷
@@ -2468,49 +2512,6 @@ while (i < SizeOf(input_list))
         endif
     endloop
 
-    Select(0u2638, 0u263b) # ☸-☻
-    Move(0, -25)
-    Select(0u2706, 0u2707) # ✆✇
-    SelectMore(0u273b, 0u273e) # ✻✾
-    SelectMore(0u2746, 0u2747) # ❆❇
-    Move(0, 30)
-    Select(0u2622) # ☢
-    SelectMore(0u2745) # ❅
-    Move(0, 40)
-    Select(0u2609) # ☉
-    SelectMore(0u260f) # ☏
-    SelectMore(0u262e, 0u262f) # ☮☯
-    SelectMore(0u2699) # ⚙
-    SelectMore(0u269b) # ⚛
-    SelectMore(0u2715) # ✕
-    SelectMore(0u2719, 0u271c) # ✙-✜
-    SelectMore(0u2720) # ✠
-    SelectMore(0u2731, 0u2735) # ✱-✵
-    SelectMore(0u273a) # ✺
-    SelectMore(0u2741, 0u2742) # ❁❂
-    SelectMore(0u2748, 0u274a) # ❈-❊
-    Move(0, 50)
-    Select(0u2722, 0u2727) # ✢-✧
-    SelectMore(0u2737, 0u2738) # ✷-✸
-    Move(0, 57)
-    Select(0u2190, 0u21ae) # ←-↮
-    Select(0u21b0, 0u21ff) # ↰-⇿
-    SelectMore(0u2615) # ☕
-    SelectMore(0u2623) # ☣
-    SelectMore(0u2629) # ☩
-    SelectMore(0u2672, 0u267e) # ♲-♾
-    SelectMore(0u2680, 0u2689) # ⚀-⚉
-    SelectMore(0u2692, 0u2694) # ⚒-⚔
-    SelectMore(0u2696, 0u2697) # ⚖⚗
-    SelectMore(0u26a0) # ⚠
-    SelectMore(0u2708, 0u2709) # ✈✉
-    SelectMore(0u2729, 0u2730) # ✩-✰
-    SelectMore(0u2739) # ✹
-    SelectMore(0u273f, 0u2740) # ✿-❀
-    SelectMore(0u274b) # ❋
-    SelectMore(0u274d) # ❍
-    SelectMore(0u274f, 0u2752) # ❏-❒
-    Move(0, 65)
     Select(0u2190, 0u21ff) # ←-⇿
     SelectMore(0u2389, 0u238a) # ⎉⎊
     SelectMore(0u23fb, 0u23fe) # ⏻⏼⏽⏾
