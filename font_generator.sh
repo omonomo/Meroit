@@ -189,7 +189,7 @@ move_y_calt_separate3="-510" # 3桁区切り表示のY座標
 move_y_calt_separate4="452" # 4桁区切り表示のY座標
 scale_calt_decimal="93" # 小数の拡大率
 calt_init () {
-    move_x_calt_colon="13" # : のX座標移動量
+    move_x_calt_colon="0" # : のX座標移動量
     move_y_calt_colon=$((move_y_math + 40)) # : のY座標移動量
     move_y_calt_colon=$(bc <<< "scale=0; ${move_y_calt_colon} * ${scale_height_latin} / 100") # : のY座標移動量
     move_y_calt_colon=$(bc <<< "scale=0; ${move_y_calt_colon} * ${scale_height_hankaku} / 100") # : のY座標移動量
@@ -1773,6 +1773,20 @@ while (i < SizeOf(input_list))
 # 記号のグリフを加工
     Print("Edit symbols")
 
+# " (位置調整)
+    if (input_list[i] == "${input_latin_regular}")
+        Select(0u0022) # "
+        Move(25, 0)
+        SetWidth(${width_latin})
+    endif
+
+# ' (位置調整)
+    if (input_list[i] == "${input_latin_regular}")
+        Select(0u0027) # "
+        Move(-7, 0)
+        SetWidth(${width_latin})
+    endif
+
 # * (少し小さくして下げる)
     Select(0u002a) # *
     Scale(96)
@@ -1785,12 +1799,19 @@ while (i < SizeOf(input_list))
     Move(0, -138)
     SetWidth(${width_latin})
 
-# - (少し短くする)
+# - (少し短くして位置調整)
     Select(0u002d) # -
+    Move(-8, 0)
     Scale(96, 100)
+    if (input_list[i] == "${input_latin_bold}")
+        Move(0, 22)
+    endif
     SetWidth(${width_latin})
 
 # + (横棒を少し短くしてほんの少し下げる) ※ - の後に加工すること
+    if (input_list[i] == "${input_latin_regular}")
+        Select(0u002b); Move(-10, 0) # +
+    endif
     Select(0u002d); Copy() # -
     Select(65552);  Paste() # Temporary glyph
     Scale(100, 800)
@@ -1801,6 +1822,27 @@ while (i < SizeOf(input_list))
     SetWidth(${width_latin})
 
     Select(65552); Clear() # Temporary glyph
+
+# , (位置調整)
+    if (input_list[i] == "${input_latin_regular}")
+        Select(0u002c) # ,
+        Move(7, 0)
+        SetWidth(${width_latin})
+    endif
+
+# . (位置調整)
+    if (input_list[i] == "${input_latin_regular}")
+        Select(0u002e) # .
+        Move(22, 0)
+        SetWidth(${width_latin})
+    endif
+
+# :; (位置調整)
+    if (input_list[i] == "${input_latin_regular}")
+        Select(0u003a, 0u003b) # :;
+        Move(16, 0)
+        SetWidth(${width_latin})
+    endif
 
 # = (少し短くしてほんの少し下げる)
     Select(0u003d) # =
@@ -1892,6 +1934,13 @@ while (i < SizeOf(input_list))
     Select(0u005f) # _
     Move(0, ${move_y_latin_underbar})
     SetWidth(${width_latin})
+
+# ~ (位置調整)
+    if (input_list[i] == "${input_latin_bold}")
+        Select(0u007e) # ~
+        Move(5, 50)
+        SetWidth(${width_latin})
+    endif
 
 # \`´′″‴‵‶‷ (拡大する)
     Select(0u0060) # \`
