@@ -1782,7 +1782,7 @@ while (i < SizeOf(input_list))
 
 # ' (位置調整)
     if (input_list[i] == "${input_latin_regular}")
-        Select(0u0027) # "
+        Select(0u0027) # '
         Move(-7, 0)
         SetWidth(${width_latin})
     endif
