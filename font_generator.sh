@@ -199,22 +199,22 @@ move_y_calt_separate4="452" # 4桁区切り表示のY座標
 scale_calt_decimal="93" # 小数の拡大率
 calt_init () {
     move_x_calt_colon="0" # : のX座標移動量
-    move_y_calt_colon=$((move_y_math + 40)) # : のY座標移動量
+    move_y_calt_colon=$((move_y_math + 40)) # : のY座標移動量 (= 基準)
     move_y_calt_colon=$(bc <<< "scale=0; ${move_y_calt_colon} * ${scale_height_latin} / 100") # : のY座標移動量
     move_y_calt_colon=$(bc <<< "scale=0; ${move_y_calt_colon} * ${scale_height_hankaku} / 100") # : のY座標移動量
-    move_y_calt_bar=$((move_y_math + 1)) # | のY座標移動量
+    move_y_calt_bar=$((move_y_math + 1)) # | のY座標移動量 (= 基準)
     move_y_calt_bar=$(bc <<< "scale=0; ${move_y_calt_bar} * ${scale_height_latin} / 100") # | のY座標移動量
     move_y_calt_bar=$(bc <<< "scale=0; ${move_y_calt_bar} * ${scale_height_hankaku} / 100") # | のY座標移動量
-    move_y_calt_tilde=$((move_y_math + 0)) # ~ のY座標移動量
+    move_y_calt_tilde=$((move_y_math + 0)) # ~ のY座標移動量 (> 基準)
     move_y_calt_tilde=$(bc <<< "scale=0; ${move_y_calt_tilde} * ${scale_height_latin} / 100") # ~ のY座標移動量
     move_y_calt_tilde=$(bc <<< "scale=0; ${move_y_calt_tilde} * ${scale_height_hankaku} / 100") # ~ のY座標移動量
-    move_y_calt_math=$((- move_y_math + 47)) # +-= のY座標移動量
+    move_y_calt_math=$((- move_y_math + 47)) # +-= のY座標移動量 (括弧基準)
     move_y_calt_math=$(bc <<< "scale=0; ${move_y_calt_math} * ${scale_height_latin} / 100") # *+-= のY座標移動量
     move_y_calt_math=$(bc <<< "scale=0; ${move_y_calt_math} * ${scale_height_hankaku} / 100") # *+-= のY座標移動量
-    move_y_calt_colon2="86" # : のY座標移動量 (括弧用)
+    move_y_calt_colon2="86" # : のY座標移動量 (括弧基準)
     move_y_calt_colon2=$(bc <<< "scale=0; ${move_y_calt_colon2} * ${scale_height_latin} / 100") # : のY座標移動量
     move_y_calt_colon2=$(bc <<< "scale=0; ${move_y_calt_colon2} * ${scale_height_hankaku} / 100") # : のY座標移動量
-    move_y_calt_bar2="46" # | のY座標移動量 (括弧用)
+    move_y_calt_bar2="46" # | のY座標移動量 (括弧基準)
     move_y_calt_bar2=$(bc <<< "scale=0; ${move_y_calt_bar2} * ${scale_height_latin} / 100") # | のY座標移動量
     move_y_calt_bar2=$(bc <<< "scale=0; ${move_y_calt_bar2} * ${scale_height_hankaku} / 100") # | のY座標移動量
 }
@@ -1621,7 +1621,7 @@ while (i < SizeOf(input_list))
 # f (左に移動)
     # ラテン文字
     Select(0u0066) # f
-    SelectMore(0u0192) # ƒ
+ #    SelectMore(0u0192) # ƒ
     SelectMore(0u1e1f) # ḟ
  #    SelectMore(0u1d6e) # ᵮ
  #    SelectMore(0u1d82) # ᶂ
@@ -1694,7 +1694,7 @@ while (i < SizeOf(input_list))
     SelectMore(0u03f3) # ϳ
     # キリル文字
     SelectMore(0u0458) # ј
-    Move(20, 0)
+    Move(30, 0)
     SetWidth(${width_latin})
 
 # l (左に移動)
@@ -5164,7 +5164,11 @@ while (i < \$argc)
         Copy()
         glyphName = GlyphInfo("Name")
         Select(k); Paste()
-        Move(-${move_x_calt_symbol}, 0)
+        if (j <= 6) # *+-=_solidus reverse solidus
+            Move(-${move_x_calt_latin}, 0)
+        else
+            Move(-${move_x_calt_symbol}, 0)
+        endif
         if (symb[j] == 0u0022) # quote
             Move(${move_x_calt_quote}, 0)
         endif
@@ -5212,7 +5216,11 @@ while (i < \$argc)
         Copy()
         glyphName = GlyphInfo("Name")
         Select(k); Paste()
-        Move(${move_x_calt_symbol}, 0)
+        if (j <= 6) # *+-=_solidus reverse solidus
+            Move(${move_x_calt_latin}, 0)
+        else
+            Move(${move_x_calt_symbol}, 0)
+        endif
         if (symb[j] == 0u0022) # quote
             Move(-${move_x_calt_quote}, 0)
         endif
@@ -6287,7 +6295,7 @@ while (i < \$argc)
 
     Select(${address_store_escape}); Copy() # 加工した reverse solidus
     Select(k); Paste()
-    Move(-${move_x_calt_symbol}, 0)
+    Move(-${move_x_calt_latin}, 0)
     SetWidth(${width_hankaku})
     glyphName = GlyphInfo("Name")
     Select(${address_calt_hyphenL} + 6) # 左に移動した reverse solidus
@@ -6296,7 +6304,7 @@ while (i < \$argc)
 
     Select(${address_store_escape}); Copy() # 加工した reverse solidus
     Select(k); Paste()
-    Move(${move_x_calt_symbol}, 0)
+    Move(${move_x_calt_latin}, 0)
     SetWidth(${width_hankaku})
     glyphName = GlyphInfo("Name")
     Select(${address_calt_hyphenR} + 6) # 右に移動した reverse solidus
