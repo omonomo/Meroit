@@ -845,7 +845,7 @@ while (i < SizeOf(input_list))
 # 罫線、ブロックを少し移動
     Print("Move box drawing and block")
     Select(0u2500, 0u259f)
-    Move(0, ${move_y_em_revise} + 40)
+    Move(0, 30)
     SetWidth(${width_latin})
 
     Print("Edit alphabets")
@@ -1354,15 +1354,25 @@ while (i < SizeOf(input_list))
  #    Select(0u1ec8) # Ỉ
     # ギリシア文字
     Select(0u2588); Copy() # Full block
+    Select(0u03aa); PasteWithOffset(0,  1010); OverlapIntersect() # Ϊ
+    Select(0u1fd8, 0u1fd9); PasteWithOffset(0,  1010); OverlapIntersect() # ῘῙ
+
+    Select(0u2588); Copy() # Full block
     Select(65552);  Paste() # Temporary glyph
     Move(-545, 50)
     PasteWithOffset(-300, 980)
     RemoveOverlap()
     Copy()
-
     Select(0u038a); PasteInto(); OverlapIntersect() # Ί
+    Select(0u1f38, 0u1f3f); PasteInto(); OverlapIntersect() # ἸἹἺἻἼἼἽἾἿ
+    Select(0u1fda, 0u1fdb); PasteInto(); OverlapIntersect() # ῚΊ
+
     Select(0u0049); Copy() # I
     Select(0u038a); PasteInto(); SetWidth(${width_latin}) # Ί
+    Select(0u03aa); PasteInto(); SetWidth(${width_latin}) # Ϊ
+    Select(0u1f38, 0u1f3f); PasteInto(); SetWidth(${width_latin}) # ἸἹἺἻἼἼἽἾἿ
+    Select(0u1fd8, 0u1fd9); PasteInto(); SetWidth(${width_latin}) # ῘῙ
+    Select(0u1fda, 0u1fdb); PasteInto(); SetWidth(${width_latin}) # ῚΊ
     Select(0u0399); Paste(); SetWidth(${width_latin}) # Ι
 
     Select(65552);  Clear() # Temporary glyph
@@ -2118,6 +2128,7 @@ while (i < SizeOf(input_list))
     Scale(120); Copy()
     Select(0u2044) # ⁄
     PasteWithOffset(250, 535); PasteWithOffset(-250, -535)
+    Move(0, 45)
     SetWidth(${width_latin})
     OverlapIntersect()
 
@@ -2598,12 +2609,19 @@ while (i < SizeOf(input_list))
         endif
     endloop
 
+# 罫線、ブロックをもう一回移動
+    Print("Move box drawing and block")
+    Select(0u2500, 0u259f)
+    Move(0, ${move_y_em_revise} + 10)
+    SetWidth(${width_latin})
+
 # --------------------------------------------------
 
 # Change the scale of hankaku glyphs
     if ("${draft_flag}" == "false")
         Print("Change the scale of hankaku glyphs")
-        Select(0u0020, 0u1fff) # 基本ラテン - ギリシア文字拡張 # 一部全角
+        Select(0u0021, 0u1fff) # 基本ラテン - ギリシャ文字拡張 ※一部全角
+        SelectFewer(0u00a0) # ノーブレークスペースを除外
         SelectMore(0u2010, 0u218f) # 一般句読点 - 数字の形
         SelectMore(0u2200, 0u22ff) # 数学記号 # 全角半角混合
         SelectMore(0u27c0, 0u27ef) # その他の数学記号 A
@@ -2686,7 +2704,8 @@ while (i < SizeOf(input_list))
     if (${scale_width_hankaku} != 100 || ${scale_height_hankaku} != 100)
         Print("Edit hankaku aspect ratio")
 
-        Select(0u0020, 0u1fff) # 基本ラテン - ギリシャ文字拡張
+        Select(0u0021, 0u1fff) # 基本ラテン - ギリシャ文字拡張
+        SelectFewer(0u00a0) # ノーブレークスペースを除外
         SelectMore(0u2010, 0u218f) # 一般句読点 - 数字の形
         SelectMore(0u2200, 0u22ff) # 数学記号
         SelectMore(0u27c0, 0u27ef) # その他の数学記号 A
