@@ -141,7 +141,7 @@ em_descent1024="197" # win_descent - (設定したい typo_linegap) / 2 が適�
 typo_ascent1024="${em_ascent1024}" # typo_ascent + typo_descent = em値にしないと縦書きで文字間隔が崩れる
 typo_descent1024="${em_descent1024}" # 縦書きに対応させない場合、linegap = 0で typo、win、hhea 全てを同じにするのが無難
  #typo_linegap1024="224" # 本来設定したい値 (win_ascent + win_descent = typo_ascent + typo_descent + typo_linegap)
-typo_linegap1024="150" # 数値が大きすぎると Excel (Windows版) で文字コード 80h 以上 (おそらく) の文字がずれる (Mac版については不明) 
+typo_linegap1024="150" # 数値が大きすぎると Excel (Windows版) で文字コード 80h 以上 (おそらく) の文字がずれる (Mac版については不明)
 win_ascent1024="939"
 win_descent1024="309"
 hhea_ascent1024="${win_ascent1024}"
@@ -8477,8 +8477,6 @@ while (i < \$argc)
     SelectFewer("filledbox.ss12", "uni266F.ss12") # ss12の■-♯
 
     Transform(100, 0, ${tan_oblique}, 100, ${move_x_oblique}, 0)
-    RemoveOverlap()
-    RoundToInt()
 
 # 半角・全角形、縦書き用を作り直し
     Print("Edit hankaku kana, zenkaku eisuu and vert glyphs")
