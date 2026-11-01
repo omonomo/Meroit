@@ -98,7 +98,7 @@ address_init() {
     address_ss_escape=$((address_ss_ambiguous + 128)) # ss置換のエスケープ文字アドレス(細いバックスラッシュ) ※リガチャ用1スロット
     address_ss_equal=$((address_ss_escape + 4)) # ss置換の太字=アドレス ※リガチャ用1スロット
     address_ss_hyphen=$((address_ss_equal + 4)) # ss置換の横棒アドレス(ハイフン)
-    address_ss_small=$((address_ss_hyphen + 4 + 74)) # ss置換の大文字と同じ形状の小文字アドレス
+    address_ss_small=$((address_ss_hyphen + 4 + 119)) # ss置換の大文字と同じ形状の小文字アドレス
     address_ss_katakana=$((address_ss_small + 45)) # ss置換のヘベペアドレス
     address_ss_liga=$((address_ss_katakana + 3)) # ss置換の独自リガチャアドレス
     address_ss_zero2=$((address_ss_liga + 8)) # ss置換のドット0アドレス
@@ -7195,7 +7195,7 @@ while (i < \$argc)
     AddPosSub(lookupSub, glyphName)
 
     ss += 1
-# ss16 ハイフン、ダッシュ、マイナス、ギリシア文字、キリル文字を判別しやすくする
+# ss16 ハイフン、ダッシュ、マイナス、ギリシア文字、キリル文字等を判別しやすくする
     Print("ss16")
     lookupName = "'ss" + ToString(ss) + "' スタイルセット" + ToString(ss)
     lookupSub = lookupName + "サブテーブル"
@@ -7256,8 +7256,8 @@ while (i < \$argc)
             0u03a4, 0u03a5, 0u03a7, 0u03b3,\
             0u03bd, 0u03bf, 0u03c1, 0u03c3,\
             0u03c5, 0u03c7, 0u03d2, 0u03dc,\
-            0u03dd, 0u03f2, 0u03f3, 0u03f9,\
-            0u03fa] # ギリシア文字
+            0u03dd, 0u03f1, 0u03f2, 0u03f3,\
+            0u03f9, 0u03fa, 0u1d26] # ギリシア文字
 
     j = 0
     while (j < SizeOf(orig))
@@ -7265,6 +7265,14 @@ while (i < \$argc)
         if (WorthOutputting())
             Select(${address_store_underline} + 1); Copy()
             Select(k); Paste()
+            if (orig[j] == 0u03b3 \
+             || orig[j] == 0u03c1 \
+             || orig[j] == 0u03c7 \
+             || orig[j] == 0u03dd \
+             || orig[j] == 0u03f1 \
+             || orig[j] == 0u03f3)
+                Move(0, -100)
+            endif
             Select(orig[j]); Copy()
             Select(k); PasteInto()
             glyphName = GlyphInfo("Name")
@@ -7284,9 +7292,10 @@ while (i < \$argc)
             0u0441, 0u0443, 0u0445, 0u0455,\
             0u0456, 0u0458, 0u0474, 0u0475,\
             0u04ae, 0u04af, 0u04ba, 0u04bb,\
-            0u04c0, 0u04cf, 0u0501, 0u050c,\
-            0u051a, 0u051b, 0u051c, 0u051d,\
-            0u1d26] # キリル文字
+            0u04bd, 0u04c0, 0u04cf, 0u04e0,\
+            0u0500, 0u0501, 0u050c, 0u051a,\
+            0u051b, 0u051c, 0u051d, 0u1c82,\
+            0u1c83, 0u1c84, 0u1c85] # キリル文字
 
     j = 0
     while (j < SizeOf(orig))
@@ -7295,6 +7304,52 @@ while (i < \$argc)
             Select(${address_store_underline} + 1); Copy()
             Select(k); Paste()
             VFlip(); CorrectDirection()
+            if (orig[j] == 0u0440 \
+             || orig[j] == 0u0443 \
+             || orig[j] == 0u0458 \
+             || orig[j] == 0u04af \
+             || orig[j] == 0u051a \
+             || orig[j] == 0u051b)
+                Move(0, -100)
+            endif
+            Select(orig[j]); Copy()
+            Select(k); PasteInto()
+            glyphName = GlyphInfo("Name")
+            Select(orig[j])
+            AddPosSub(lookupSub, glyphName)
+        endif
+        j += 1
+        k += 1
+    endloop
+
+    orig = [0u0184, 0u01a7, 0u01b7, 0u01bc,\
+            0u01bd, 0u01bf, 0u024c, 0u0261,\
+            0u028b, 0u0292, 0u054d, 0u054f,\
+            0u0555, 0u0563, 0u0566, 0u0570,\
+            0u0578, 0u057d, 0u0581, 0u0585,\
+            0u1d04, 0u1d0f, 0u1d11, 0u1d1c,\
+            0u1d20, 0u1d21, 0u1d22, 0u1d28,\
+            0u1e9d, 0u2374, 0ua731, 0ua76a,\
+            0ua76e, 0ua76f, 0ua7ab, 0ua7ae,\
+            0uab35] # ラテン文字
+
+    j = 0
+    while (j < SizeOf(orig))
+        Select(orig[j])
+        if (WorthOutputting())
+            Select(${address_store_otherspace} + 1); Copy()
+            Select(k); Paste()
+            if (orig[j] == 0u01bd \
+             || orig[j] == 0u01bf \
+             || orig[j] == 0u0261 \
+             || orig[j] == 0u0292 \
+             || orig[j] == 0u0563 \
+             || orig[j] == 0u0566 \
+             || orig[j] == 0u0581 \
+             || orig[j] == 0u2374 \
+             || orig[j] == 0ua76f)
+                Move(0, -100)
+            endif
             Select(orig[j]); Copy()
             Select(k); PasteInto()
             glyphName = GlyphInfo("Name")
@@ -8747,8 +8802,8 @@ while (i < \$argc)
             0u03a4, 0u03a5, 0u03a7, 0u03b3,\
             0u03bd, 0u03bf, 0u03c1, 0u03c3,\
             0u03c5, 0u03c7, 0u03d2, 0u03dc,\
-            0u03dd, 0u03f2, 0u03f3, 0u03f9,\
-            0u03fa] # ギリシア文字
+            0u03dd, 0u03f1, 0u03f2, 0u03f3,\
+            0u03f9, 0u03fa, 0u1d26] # ギリシア文字
 
     j = 0
     while (j < SizeOf(orig))
@@ -8756,6 +8811,14 @@ while (i < \$argc)
         if (WorthOutputting())
             Select(${address_store_underline} + 1); Copy()
             Select(k); Paste()
+            if (orig[j] == 0u03b3 \
+             || orig[j] == 0u03c1 \
+             || orig[j] == 0u03c7 \
+             || orig[j] == 0u03dd \
+             || orig[j] == 0u03f1 \
+             || orig[j] == 0u03f3)
+                Move(0, -100)
+            endif
             Select(orig[j]); Copy()
             Select(k); PasteInto()
         endif
@@ -8772,9 +8835,10 @@ while (i < \$argc)
             0u0441, 0u0443, 0u0445, 0u0455,\
             0u0456, 0u0458, 0u0474, 0u0475,\
             0u04ae, 0u04af, 0u04ba, 0u04bb,\
-            0u04c0, 0u04cf, 0u0501, 0u050c,\
-            0u051a, 0u051b, 0u051c, 0u051d,\
-            0u1d26] # キリル文字
+            0u04bd, 0u04c0, 0u04cf, 0u04e0,\
+            0u0500, 0u0501, 0u050c, 0u051a,\
+            0u051b, 0u051c, 0u051d, 0u1c82,\
+            0u1c83, 0u1c84, 0u1c85] # キリル文字
 
     j = 0
     while (j < SizeOf(orig))
@@ -8783,6 +8847,49 @@ while (i < \$argc)
             Select(${address_store_underline} + 1); Copy()
             Select(k); Paste()
             VFlip(); CorrectDirection()
+            if (orig[j] == 0u0440 \
+             || orig[j] == 0u0443 \
+             || orig[j] == 0u0458 \
+             || orig[j] == 0u04af \
+             || orig[j] == 0u051a \
+             || orig[j] == 0u051b)
+                Move(0, -100)
+            endif
+            Select(orig[j]); Copy()
+            Select(k); PasteInto()
+        endif
+        j += 1
+        k += 1
+    endloop
+
+    orig = [0u0184, 0u01a7, 0u01b7, 0u01bc,\
+            0u01bd, 0u01bf, 0u024c, 0u0261,\
+            0u028b, 0u0292, 0u054d, 0u054f,\
+            0u0555, 0u0563, 0u0566, 0u0570,\
+            0u0578, 0u057d, 0u0581, 0u0585,\
+            0u1d04, 0u1d0f, 0u1d11, 0u1d1c,\
+            0u1d20, 0u1d21, 0u1d22, 0u1d28,\
+            0u1e9d, 0u2374, 0ua731, 0ua76a,\
+            0ua76e, 0ua76f, 0ua7ab, 0ua7ae,\
+            0uab35] # ラテン文字
+
+    j = 0
+    while (j < SizeOf(orig))
+        Select(orig[j])
+        if (WorthOutputting())
+            Select(${address_store_otherspace} + 1); Copy()
+            Select(k); Paste()
+            if (orig[j] == 0u01bd \
+             || orig[j] == 0u01bf \
+             || orig[j] == 0u0261 \
+             || orig[j] == 0u0292 \
+             || orig[j] == 0u0563 \
+             || orig[j] == 0u0566 \
+             || orig[j] == 0u0581 \
+             || orig[j] == 0u2374 \
+             || orig[j] == 0ua76f)
+                Move(0, -100)
+            endif
             Select(orig[j]); Copy()
             Select(k); PasteInto()
         endif
