@@ -9,7 +9,7 @@
 # docker compose build
 # を実行
 
-FROM ubuntu:24.04
+FROM ubuntu:26.04
 
 RUN apt update && \
   DEBIAN_FRONTEND=noninteractive apt install -y \
