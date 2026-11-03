@@ -41,13 +41,13 @@ Meroit (めろいと) はコーディングにもお使いいただける日本�
 
 ## ダウンロード
 
-最新版 v2.0.2 (2026-10-04)
+最新版 v3.0.0 (2026-11-03)
 
 | リンク                                                                                                      | 説明                                            |
 | ------------------------------------------------------------------------------------------------------------| ----------------------------------------------- |
-| [フォント (Meroit)](https://github.com/omonomo/Meroit/releases/download/v2.0.2/Meroit_v2.0.2.zip)           | 通常版。半角幅が全角の1/2。                     |
-| [フォント (MeroitLoose)](https://github.com/omonomo/Meroit/releases/download/v2.0.2/MeroitLoose_v2.0.2.zip) | 文字間隔ゆるい版。半角幅が全角の9/16。          |
-| [ソースコード](https://github.com/omonomo/Meroit/archive/refs/tags/v2.0.2.zip)                              | 使用方法は[下の方](#基本的な使い方)にあります。 |
+| [フォント (Meroit)](https://github.com/omonomo/Meroit/releases/download/v3.0.0/Meroit_v3.0.0.zip)           | 通常版。半角幅が全角の1/2。                     |
+| [フォント (MeroitLoose)](https://github.com/omonomo/Meroit/releases/download/v3.0.0/MeroitLoose_v3.0.0.zip) | 文字間隔ゆるい版。半角幅が全角の9/16。          |
+| [ソースコード](https://github.com/omonomo/Meroit/archive/refs/tags/v3.0.0.zip)                              | 使用方法は[下の方](#基本的な使い方)にあります。 |
 
 [Homebrew](https://brew.sh/ja/) でもインストールできます。[こちら](https://github.com/omonomo/homebrew-tap)をご参照下さい。
 
@@ -137,33 +137,33 @@ Loose 版は名称が 「MeroitLoose...」 になります。
 | Meroit DG | <img alt="DG" src="./images/DG.png" width="266">         | 桁区切り表示版。<br> たくさん並んだ数字とにらめっこする時間を短縮できます。                                             |
 | Meroit FX | <img alt="TS" src="./images/FX.png" width="266">         | 文字間隔固定版。calt と相性が悪いソフト用。<br> また他のバージョンよりも軽快に動作します。                              |
 | Meroit HB | <img alt="HB" src="./images/HB.png" width="266">         | 平凡版。全てのスペースが不可視でグリフ改変も抑えたバージョン。<br> プリントアウト用にどうぞ。                           |
-| Meroit TM | <img alt="TM" src="./images/TM.png" width="266">         | ターミナル版。<br>中立・曖昧幅の文字を半角にしたバージョン。                                                            |
+| Meroit TM | <img alt="TM" src="./images/TM.png" width="266">         | ターミナル対応版。<br>中立・曖昧幅の文字を半角にしたバージョン。                                                        |
 
 ### 通常版、絵文字減らした版のスタイルセット、異体字について
 
 設定方法については、[Fira Code の説明](https://github.com/tonsky/FiraCode/wiki/How-to-enable-stylistic-sets)が分かりやすいと思います。
 
-| タグ名 | サンプル                                             | 内容                                                                                        |
-| ------ | ---------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| ss01   | <img alt="ss01" src="./images/ss01.png" width="266"> | 全角スペース可視化                                                                          |
-| ss02   | <img alt="ss02" src="./images/ss02.png" width="266"> | 半角スペース、ノーブレークスペース可視化                                                    |
-| ss03   | <img alt="ss03" src="./images/ss03.png" width="266"> | 3桁区切りマーク表示                                                                         |
-| ss04   | <img alt="ss04" src="./images/ss04.png" width="266"> | 4桁区切りマーク表示                                                                         |
-| ss05   | <img alt="ss05" src="./images/ss05.png" width="266"> | 小数小文字化                                                                                |
-| ss06   | <img alt="ss06" src="./images/ss06.png" width="266"> | 全角・半角形の下線、点字の外枠消去                                                          |
-| ss07   | <img alt="ss07" src="./images/ss07.png" width="266"> | 識別性向上グリフ無効                                                                        |
-| ss08   | <img alt="ss08" src="./images/ss08.png" width="266"> | DQVZ のグリフ変更                                                                           |
-| ss09   | <img alt="ss09" src="./images/ss09.png" width="266"> | JIS に含まれる罫線を全角化、矢印を細線化<br> (環境によって全角にならないことがあります)     |
-| ss10   | <img alt="ss10" src="./images/ss10.png" width="266"> | 0のスラッシュ消去                                                                           |
-| ss11   | <img alt="ss11" src="./images/ss11.png" width="266"> | 全角、半角以外のスペース可視化<br> (環境によって可視化されないことがあります)               |
-| ss12   | <img alt="ss12" src="./images/ss12.png" width="266"> | ファイル名に使われがちな曖昧幅の文字を半角化<br> (環境によって半角にならないことがあります) |
-| ss13   | <img alt="ss13" src="./images/ss13.png" width="266"> | バックスラッシュ細線化<br> (2つ並んだ場合、右側は通常の太さになります)                      |
-| ss14   | <img alt="ss14" src="./images/ss14.png" width="266"> | 2つ並んだイコールを太字化                                                                   |
-| ss15   | <img alt="ss15" src="./images/ss15.png" width="266"> | 2つ以上並んだ半角スペース可視化<br> (ss02が優先されます)                                    |
-| ss16   | <img alt="ss16" src="./images/ss16.png" width="266"> | ハイフン、ノーブレークハイフン、マイナスサインや<br> フィギュアダッシュに判別マーク表示     |
-| ss17   | <img alt="ss17" src="./images/ss17.png" width="266"> | 大文字とほぼ同じ形状の小文字に判別マーク表示<br> (基本ラテン文字のみ)                       |
-| ss18   | <img alt="ss18" src="./images/ss18.png" width="266"> | アロー演算子とパイプライン演算子にリガチャを適用                                            |
-| ss20   | <img alt="ss20" src="./images/ss20.png" width="266"> | 楕円ドット0に置き換え<br> (ss10が優先されます)                                              |
+| タグ名 | サンプル                                             | 内容                                                                                                                   |
+| ------ | ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| ss01   | <img alt="ss01" src="./images/ss01.png" width="266"> | 全角スペース可視化                                                                                                     |
+| ss02   | <img alt="ss02" src="./images/ss02.png" width="266"> | 半角スペース、ノーブレークスペース可視化                                                                               |
+| ss03   | <img alt="ss03" src="./images/ss03.png" width="266"> | 3桁区切りマーク表示                                                                                                    |
+| ss04   | <img alt="ss04" src="./images/ss04.png" width="266"> | 4桁区切りマーク表示                                                                                                    |
+| ss05   | <img alt="ss05" src="./images/ss05.png" width="266"> | 小数小文字化                                                                                                           |
+| ss06   | <img alt="ss06" src="./images/ss06.png" width="266"> | 全角・半角形の下線、点字の外枠消去                                                                                     |
+| ss07   | <img alt="ss07" src="./images/ss07.png" width="266"> | 識別性向上グリフ無効                                                                                                   |
+| ss08   | <img alt="ss08" src="./images/ss08.png" width="266"> | DQVZ のグリフ変更                                                                                                      |
+| ss09   | <img alt="ss09" src="./images/ss09.png" width="266"> | JIS に含まれる罫線を全角化、矢印を細線化<br> (環境によって全角にならないことがあります)                                |
+| ss10   | <img alt="ss10" src="./images/ss10.png" width="266"> | 0のスラッシュ消去                                                                                                      |
+| ss11   | <img alt="ss11" src="./images/ss11.png" width="266"> | 全角、半角以外のスペース可視化<br> (環境によって可視化されないことがあります)                                          |
+| ss12   | <img alt="ss12" src="./images/ss12.png" width="266"> | ファイル名に使われがちな曖昧幅の文字を半角化<br> (環境によって半角にならないことがあります)                            |
+| ss13   | <img alt="ss13" src="./images/ss13.png" width="266"> | バックスラッシュ細線化<br> (2つ並んだ場合、右側は通常の太さになります)                                                 |
+| ss14   | <img alt="ss14" src="./images/ss14.png" width="266"> | 2つ並んだイコールを太字化                                                                                              |
+| ss15   | <img alt="ss15" src="./images/ss15.png" width="266"> | 2つ以上並んだ半角スペース可視化<br> (ss02が優先されます)                                                               |
+| ss16   | <img alt="ss16" src="./images/ss16.png" width="266"> | 基本ラテン文字と形が似ているギリシア文字、キリル文字や<br>マイナスサイン、フィギュアダッシュ、ハイフンに判別マーク表示 |
+| ss17   | <img alt="ss17" src="./images/ss17.png" width="266"> | 大文字とほぼ同じ形状の小文字に判別マーク表示<br> (基本ラテン文字のみ)                                                  |
+| ss18   | <img alt="ss18" src="./images/ss18.png" width="266"> | アロー演算子とパイプライン演算子にリガチャ適用                                                                         |
+| ss20   | <img alt="ss20" src="./images/ss20.png" width="266"> | 楕円ドット0に置き換え<br> (ss10が優先されます)                                                                         |
 
 cv タグを有効にすることでより細かく見た目をカスタマイズできます。
 
@@ -182,18 +182,22 @@ cv タグを有効にすることでより細かく見た目をカスタマイ�
 
 Meroit は以下の環境でビルドできることを確認しています。
 
-- macOS Tahoe 26.6.2
+- macOS Tahoe 27.2
 - GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin25.6.0)
+- Python 3.14.8
 - FontForge 20251009
-- FontTools 4.66.0
+- FontTools 4.68.0
+- SkiaPathOps 0.9.2
 
 または上記 macOS 上にて
 
-- Docker Desktop 4.93.0 (Engine 29.8.1, Compose v5.5.1)
+- Docker Desktop 4.97.0 (Engine 29.9.2, Compose v5.6.1)
   - Ubuntu 26.04 LTS
   - GNU bash, version 5.3.9(1)-release (aarch64-unknown-linux-gnu)
+  - Python 3.14.4
   - FontForge 20230101
-  - FontTooles 4.61.1
+  - FontTooles 4.68.0
+  - SkiaPathOps 0.9.2
 
 ### 基本的な使い方
 
@@ -213,7 +217,8 @@ docker compose run --rm font ./run_ff_ttx.sh -F S
 
 #### 2. Docker を使用しない場合
 
-あらかじめパッケージマネージャ等を利用して [FontForge](https://fontforge.org/en-US/) と [FontTools](https://github.com/fonttools/fonttools) をインストールし、使える状態にしておいてください。
+あらかじめパッケージマネージャ等を利用して [FontForge](https://fontforge.org/en-US/) と [FontTools](https://github.com/fonttools/fonttools) CLI をインストールし、使える状態にしておいてください。  
+また [FontTools](https://github.com/fonttools/fonttools)、[SkiaPathOps](https://github.com/fonttools/skia-pathops) パッケージをインストールした Python 実行環境を用意してください。
 
 スクリプトのある場所をカレントディレクトリにして
 
@@ -260,7 +265,7 @@ Cyroit の生成スクリプトと使い方は同じです。
   &emsp; &emsp;カーニング設定はラテン文字拡張 A までになります。  
   &emsp; &emsp;・パラメータ有りの場合、パラメータに応じたフォントのみ生成します。  
   &emsp; &emsp;・パラメータ無し、`-n` 有りの場合、スタイルセットに対応した (`S` を有効にした) フォントのみ生成します。  
-  &emsp; &emsp;・パラメータ無し、`-n` 無しの場合、デフォルトの全てのバージョンから絵文字減らした版、ターミナル版以外を生成します。  
+  &emsp; &emsp;・パラメータ無し、`-n` 無しの場合、デフォルトの全てのバージョンから絵文字減らした版、ターミナル対応版以外を生成します。  
   `オプション無し`  
   &emsp; &emsp;カーニング設定は基本ラテン文字限定になります。パラメータ無しの場合 `lo` を有効にしたフォントを生成します。
 
@@ -367,7 +372,34 @@ calt テーブル (前後の文字によってグリフ置換を行う設定) �
   `-o` カーニング設定作成時に、任意の設定 (ソースコードにて指定) に限りなんちゃって最適化処理を実行します。  
   &emsp; &emsp;最適化の効果がない設定をスキップするため、ビルド時間が若干短縮されます。
 
-#### 6. `settings.txt`
+#### 6. `clean_points.py`
+
+通常、直接実行する必要はありません。  
+輪郭線上にある不要な点を削除します。またグリフ加工時に意図せず発生した亀裂やヒゲ状の細い輪郭線を削除します (オプション)。
+
+- オプション  
+  `--tol number` 直線上と判断し、削除する点の許容値を _number_ に指定します (初期値 0.0ユニット)。  
+  `--allow-half` 曲線上と判断し、削除する点の許容値を緩めます。  
+
+  `--spikes` ヒゲ状の細い輪郭線を削除します。下記条件を全て満たした輪郭線を削除対象とします。  
+  `--spike-width number` 輪郭線の平均幅が _number_ 以下 (初期値 1.0ユニット)。  
+  `--spike-max-width number` 輪郭線の最大幅が _number_ 以下 (初期値 3.0ユニット)。  
+  `--spike-join number` ヒゲの根元となる2点の距離が _number_ 以下 (初期値 32.0ユニット)。  
+  `spike-min-reach number` ヒゲの長さが _number_ 以上 (初期値 8.0ユニット)。  
+
+  `--fix-cracks` 亀裂状の細い輪郭線を削除します。  
+  `--crack-snap number` グリフの各輪郭線からの距離が _number_ 以下の点があれば輪郭線に吸着させ、亀裂を削除します (初期値 1.0ユニット)。  
+
+  `--force` GPOS のアンカーや GDEF の合字キャレットが点番号を参照していても処理を続けます。  
+  &emsp; &emsp;強制的に処理した場合、点番号がずれてグリフが崩れる可能性があります。  
+  `-v` `--verbose` 処理内容を詳しく表示します。  
+  `--report filename` ヒゲや亀裂を削除した文字の一覧をファイル名 _filename_ に出力します。  
+
+#### 7. `exclusions.txt`
+
+clean_points.py の処理対象から除外するグリフのコードポイント、またはグリフ名を記述します。
+
+#### 8. `settings.txt`
 
 生成フォントのバージョン番号やラテン文字の拡大・縮小率、カーニングの移動量などが記述されています。  
 テキストを変更することで、スクリプトを直接編集せずに一部の設定を調整することができます。
